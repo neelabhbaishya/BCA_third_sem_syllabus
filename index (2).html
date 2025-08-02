@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BCA 3rd Semester DSCC Syllabus</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #eee;
+            font-family: Georgia, serif;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        h1,
+        h2 {
+            color: #fff;
+        }
+
+        select {
+            background-color: #111;
+            color: #eee;
+            border: 1px solid #444;
+            padding: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        section {
+            display: none;
+            background-color: #111;
+            border: 1px solid #444;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .visible {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th,
+        td {
+            border: 1px solid #444;
+            padding: 0.5rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #222;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #ccc;
+            margin-top: 1rem;
+        }
+
+        ul {
+            margin-left: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>BCA 3rd Semester – DSCC Syllabus</h1>
+
+    <label for="subjectFilter">Select Subject:</label>
+    <select id="subjectFilter" onchange="filterSubjects()">
+        <option value="all">All</option>
+        <option value="oop">Object Oriented Programming</option>
+        <option value="dbms">Database Management Systems</option>
+        <option value="os">Operating Systems</option>
+        <option value="javaLab">Java Laboratory</option>
+        <option value="dbmsLab">DBMS Laboratory</option>
+    </select>
+
+    <section id="oop" class="visible">
+        <h2>Object Oriented Programming (BCA23201T)</h2>
+        <div class="label">Faculty:</div>
+        <p>Mr. Jeetumoni Barman</p>
+
+        <div class="label">Course Objectives:</div>
+        <ul>
+            <li>Introduce the fundamental concepts of Object-Oriented Programming (OOP) and the methodologies of
+                OOP-based software development.</li>
+            <li>Demonstrate OOP concepts and techniques using Java, a class-based and fully object-oriented language.
+            </li>
+            <li>Develop students’ understanding of OOP syntax, structure, and the design logic behind object-oriented
+                programming.</li>
+            <li>Equip students with the basic knowledge and skills necessary to apply object-oriented programming in
+                software development using Java.</li>
+        </ul>
+
+        <div class="label">Course Outcomes:</div>
+        <ul>
+            <li>Explain and differentiate core Object-Oriented Programming concepts and Java-specific programming
+                principles.</li>
+            <li>Implement object-oriented solutions to real-world problems.</li>
+            <li>Integrate exception handling and multithreading to develop robust and efficient applications.</li>
+            <li>Utilize Java packages to organize code effectively and manage project structure.</li>
+            <li>Create graphical user interfaces (GUIs) using Java applets for interactive applications.</li>
+        </ul>
+
+        <div class="label">Modules:</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Module</th>
+                    <th>Topic</th>
+                    <th>Course Content</th>
+                    <th>Hours</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>I</td>
+                    <td>Introduction</td>
+                    <td>Java’s History, Importance of Java for the Internet, Java’s Magic: Byte-code, Its Features, Java
+                        Virtual Machine Concepts, Primitive Data Type and Variables, Java Operators, Expressions,
+                        Statements and Arrays.</td>
+                    <td>8</td>
+                </tr>
+                <tr>
+                    <td>II</td>
+                    <td>Classes and Object</td>
+                    <td>Class Fundamentals, Creating objects, Assigning object reference variables; Introducing Methods,
+                        static methods, Constructors and types of constructor, Overloading constructors; this Keyword;
+                        Using Objects as Parameters, Argument passing, Returning objects, Method overloading.</td>
+                    <td>10</td>
+                </tr>
+                <tr>
+                    <td>III</td>
+                    <td>Inheritance</td>
+                    <td>Inheritance Basics, Access Control, Multilevel inheritance, Method Overriding, Abstract Classes,
+                        Polymorphism, final keyword.</td>
+                    <td>7</td>
+                </tr>
+                <tr>
+                    <td>IV</td>
+                    <td>Packages, Abstract Class and Interface</td>
+                    <td>Defining Package, CLASSPATH, Package naming, Accessibility of Packages, using package members.
+                        Interfaces: Implementing Interfaces, Interface and Abstract Classes. Exceptions Handling:
+                        Exception, Handling of Exception, Using try-catch, Catching multiple exceptions, Using finally
+                        clause, Types of Exceptions, Throwing Exceptions.</td>
+                    <td>10</td>
+                </tr>
+                <tr>
+                    <td>V</td>
+                    <td>Multithreading and Applet</td>
+                    <td>Multithreading Programming: The Java Thread Model, Understanding Threads, Creating a Thread,
+                        Creating Multiple Threads, Thread Priorities. Creating Applets in Java: Applet Basics, Applet
+                        Architecture, Applet Life Cycle, Simple Applet Display Methods, The HTML APPLET Tag, Passing
+                        Parameters to Applets.</td>
+                    <td>10</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="label">Textbooks:</div>
+        <ul>
+            <li>E. Balaguruswami, Programming with Java, Second Edition, Tata McGraw-Hill Publication</li>
+            <li>Herbert Schildt, The Complete Reference Java 2, Fifth Edition, Tata McGraw-Hill Publication</li>
+        </ul>
+    </section>
+
+    <section id="dbms" class="visible">
+        <h2>Database Management Systems (BCA23202T)</h2>
+        <div class="label">Faculty:</div>
+        <p>Dr. Mukta Ranjan Singha (HOD, Computer Applications)</p>
+
+        <div class="label">Course Objectives:</div>
+        <ul>
+            <li>Equip students with foundational skills to create, organize, and manage data effectively within
+                databases using DBMS software.</li>
+            <li>Enable students to understand practical database design principles across various database management
+                systems.</li>
+            <li>Develop students’ skills in structuring, organizing, and storing data effectively within a DBMS
+                environment.</li>
+        </ul>
+
+        <div class="label">Course Outcomes:</div>
+        <ul>
+            <li>Explain the fundamentals of databases and apply Entity-Relationship (ER) modeling and relational
+                modeling to design basic databases.</li>
+            <li>Summarize core concepts of the relational model and SQL, and compose database queries using relational
+                algebra and structured query language.</li>
+            <li>Design and implement real-world databases by applying normalization techniques.</li>
+            <li>Identify and explain issues related to transaction management and recovery in database systems.</li>
+        </ul>
+
+        <div class="label">Modules:</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Module</th>
+                    <th>Topic</th>
+                    <th>Course Content</th>
+                    <th>Hours</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Introduction to Databases</td>
+                    <td>Definition of database, Example, Characteristics of the Database Approach, Actors on Scene,
+                        Workers behind the scene, DBMS, Advantages of Using the DBMS Approach, Brief History of Database
+                        Applications, When Not to Use a DBMS.</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Introduction to Database Design</td>
+                    <td>Data models, Database Design and ER Diagrams, Entities, Attributes and Entity Sets,
+                        Relationships and Relationship Sets, Additional Features of the ER Model, Conceptual Design with
+                        the ER Model, Conceptual Design for Large Enterprises.</td>
+                    <td>10</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Overview of Database Languages and Architectures</td>
+                    <td>Data Models, Schemas and Instances, Three-Schema Architecture and Data Independence, Database
+                        Languages and Interfaces, The Database System Environment, Centralized and Client/Server
+                        Architecture for DBMSs, Classification of Database Management Systems.</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Relational Model</td>
+                    <td>Introduction to the Relational Model, Integrity Constraints over Relations, Enforcing Integrity
+                        Constraints, Querying Relational Data, Logical Database Design: ER to Relational, Introduction
+                        to Views, Destroying/Altering Tables and Views.</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Relational Algebra and SQL</td>
+                    <td>Selection and Projection, Set Operations, Renaming, Joins, Division, More Examples of Algebra
+                        Queries. Queries, Constraints, Triggers: The Form of a Basic SQL Query, UNION, INTERSECT and
+                        EXCEPT, Nested Queries, Aggregate Operators, Null Values, Complex Integrity Constraints in SQL,
+                        Triggers and Active Databases, Designing Active Databases.</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Introduction to Normalization Using Functional Dependencies</td>
+                    <td>Informal Design Guidelines for Relation Schema, Functional Dependencies, Normal Forms Based on
+                        Primary Keys, General Definitions of Second and Third Normal Forms, Boyce-Codd Normal Form,
+                        Multivalued Dependency and Fourth Normal Form, Join Dependencies and Fifth Normal Form.</td>
+                    <td>10</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Transaction Management</td>
+                    <td>Transaction Concept, A Simple Transaction Model, Storage Structure, ACID Properties,
+                        Serializability, Transaction Isolation Levels.</td>
+                    <td>5</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="label">Textbooks:</div>
+        <ul>
+            <li>Database System Concepts, 6/e, Abraham Silberschatz, Henry F. Korth, S. Sudarshan, McGraw-Hill</li>
+            <li>Database Systems, 6/e, Ramez Elmasri, Shamkant B. Navathe, Pearson</li>
+        </ul>
+
+        <div class="label">Reference Books:</div>
+        <ul>
+            <li>Database Systems, 9/e, Carlos Coronel, Steven Morris, Peter Rob, Cengage</li>
+            <li>Introduction to Database Systems, 8/e, C. J. Date, Pearson</li>
+        </ul>
+    </section>
+
+    <section id="os" class="visible">
+        <h2>Operating Systems (BCA23203T)</h2>
+        <div class="label">Faculty:</div>
+        <p>Mr. Arindam Ain</p>
+
+        <div class="label">Course Objectives:</div>
+        <ul>
+            <li>Describe the principles of CPU scheduling and explain the role of device management in operating
+                systems, covering device drivers, I/O operations, and interrupt handling.</li>
+            <li>Understand and demonstrate principles of deadlock detection and prevention, as well as file system
+                structures and operations, including file organization, directory structures, and file access methods.
+            </li>
+            <li>Explain the role of virtual memory and paging in memory management, and calculate page table sizes and
+                perform address translation.</li>
+        </ul>
+
+        <div class="label">Course Outcomes:</div>
+        <ul>
+            <li>Explain the structure and components of operating systems, understand the concepts of processes and
+                threads, and implement basic process and thread management operations.</li>
+            <li>Describe CPU scheduling principles and analyze the performance of various scheduling algorithms.</li>
+            <li>Apply key concepts of process management, memory management, and file system management to real-world
+                scenarios.</li>
+            <li>Explain the function of virtual memory and paging in memory management, and calculate page table sizes
+                and address translations accurately.</li>
+        </ul>
+
+        <div class="label">Modules:</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Module</th>
+                    <th>Topic</th>
+                    <th>Course Content</th>
+                    <th>Hours</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>I</td>
+                    <td>Introduction and Historical Perspective</td>
+                    <td>Operating System concept and its role, Batch processing, multiprogramming, time-sharing,
+                        distributed system, Functions, components and structure of an operating system.</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td>II</td>
+                    <td>Process Management</td>
+                    <td>Structure of a process, PCB, operations on processes, Support for concurrent processes—Trade-off
+                        between sequential and concurrent processing with examples in implementation; Shared data,
+                        Critical sections, Mutual exclusion, busy form of waiting, lock and unlock primitives,
+                        semaphore, block and wakeup.</td>
+                    <td>14</td>
+                </tr>
+                <tr>
+                    <td>III</td>
+                    <td>I/O Systems</td>
+                    <td>I/O Management: device controller, Device drivers, I/O Software goals and structure, Interrupt
+                        and handling mechanisms, Application of I/O Interface, Terminal handling, Block and character
+                        devices, Vectored I/O.</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>IV</td>
+                    <td>Memory Management</td>
+                    <td>Address space management: address binding, logical vs physical address space, Static and dynamic
+                        memory management, protection and sharing, Contiguous and non-contiguous memory allocation,
+                        fragmentation and solution; Swapping, Paging and Segmentation, page table; page replacement and
+                        space allocation policies.</td>
+                    <td>8</td>
+                </tr>
+                <tr>
+                    <td>V</td>
+                    <td>File System and Disk Management</td>
+                    <td>File concept and organization, File management strategies, File system structure and access
+                        methods, tradeoffs, Directory structures, Allocation Methods: contiguous, linked, indexed, FAT
+                        and I-node structures.</td>
+                    <td>8</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="label">Textbooks:</div>
+        <ul>
+            <li>Silberschatz A., Galvin P.B. and Gagne G: "Operating System Concepts", Wiley, 9th Ed.</li>
+            <li>Tanenbaum A.S.: "Operating System - Design and Implementation", PHI (EEE).</li>
+            <li>Milenkovic M., "Operating System - Concepts and Design", McGraw Hill.</li>
+        </ul>
+
+        <div class="label">Reference Books:</div>
+        <ul>
+            <li>Stallings, William, "Operating Systems", Maxwell McMillan International Editions, 1992.</li>
+            <li>Dietel, R.N., "An Introduction to Operating Systems", Addison Wesley.</li>
+        </ul>
+    </section>
+
+    <section id="javaLab" class="visible">
+        <h2>Java Laboratory (BCA23201P)</h2>
+        <div class="label">Faculty:</div>
+        <p>Mr. Jeetumoni Barman</p>
+
+        <div class="label">Course Objectives:</div>
+        <ul>
+            <li>Introduce students to Object-Oriented Programming (OOP) concepts through the Java programming language.
+            </li>
+            <li>Demonstrate the use of Java as a class-based, pure OOP language to illustrate core OOP principles and
+                techniques.</li>
+            <li>Develop students’ understanding of Java syntax, structure, and the problem-solving approach central to
+                object-oriented programming.</li>
+            <li>Equip students with foundational skills to apply OOP techniques in software development using Java.</li>
+        </ul>
+
+        <div class="label">Course Outcomes:</div>
+        <ul>
+            <li>Explain the structure of the Java programming language and apply fundamental object-oriented concepts in
+                Java.</li>
+            <li>Implement exception handling and multithreading to create efficient and reliable applications.</li>
+            <li>Create and utilize user-defined packages within Java programs to enhance code organization and
+                reusability.</li>
+            <li>Develop basic applet programs using Java to create graphical user interface (GUI) components.</li>
+        </ul>
+
+        <div class="label">Java Program List:</div>
+        <ul>
+            <li>WAP in Java to Print “Hello GIMT” message</li>
+            <li>Find average, sum, min and max of N numbers using command line argument</li>
+            <li>Use DataInputStream to calculate area of a circle from user input</li>
+            <li>Use BufferedReader to calculate volume of a cylinder</li>
+            <li>Check if input number is prime</li>
+            <li>Print sum of odd numbers to a given range</li>
+            <li>Generate Fibonacci series up to a given range</li>
+            <li>Find factorial of a number using loop</li>
+            <li>Calculate Simple Interest with Principal, Rate and Time</li>
+            <li>Use array to calculate the sum of array values</li>
+            <li>Class with methods to calculate Surface Area and Volume of a Cuboid</li>
+            <li>Sum of odd numbers in a given range</li>
+            <li>Sum of even numbers in a given range</li>
+            <li>Perform bubble sort on a given array</li>
+            <li>Demonstrate default constructor</li>
+            <li>Demonstrate parameter constructor</li>
+            <li>Demonstrate copy constructor</li>
+            <li>Single Level Inheritance</li>
+            <li>Multi Level Inheritance</li>
+            <li>Hierarchical Inheritance</li>
+            <li>Factorial using recursion</li>
+            <li>Method overriding</li>
+            <li>Method overloading</li>
+            <li>Class Rectangle to find area, perimeter using super and this keyword</li>
+            <li>Demonstrate Inheritance (IS-A) vs Composition (Has-A)</li>
+            <li>Use of abstract class</li>
+            <li>Use of interface in Java</li>
+            <li>Use of throw and throws</li>
+            <li>Exception handling using try and multiple catch blocks</li>
+            <li>User-defined package accessing external and internal classes</li>
+        </ul>
+
+        <div class="label">Textbooks:</div>
+        <ul>
+            <li>E. Balaguruswami, Programming with Java, Second Edition, Tata McGraw-Hill Publication</li>
+            <li>Herbert Schildt, The Complete Reference Java 2, Fifth Edition, Tata McGraw-Hill Publication</li>
+        </ul>
+    </section>
+
+    <section id="dbmsLab" class="visible">
+        <h2>DBMS Laboratory (BCA23202P)</h2>
+        <div class="label">Faculty:</div>
+        <p>Dr. Mukta Ranjan Singha (HOD, Computer Applications)</p>
+
+        <div class="label">Course Objectives:</div>
+        <ul>
+            <li>Create and manipulate databases using SQL Data Definition Language (DDL) and Data Manipulation Language
+                (DML) commands.</li>
+            <li>Declare and enforce integrity constraints to ensure data accuracy and consistency within a database.
+            </li>
+            <li>Formulate complex queries using advanced SQL concepts.</li>
+            <li>Develop programs in PL/SQL, including stored procedures, functions, cursors, and triggers.</li>
+        </ul>
+
+        <div class="label">Course Outcomes:</div>
+        <ul>
+            <li>Utilize SQL to execute queries for database creation and perform data manipulation tasks.</li>
+            <li>Implement integrity constraints to design efficient and reliable databases.</li>
+            <li>Apply advanced SQL concepts to construct complex queries.</li>
+            <li>Build PL/SQL programs, incorporating stored procedures, functions, cursors, and triggers for enhanced
+                database functionality.</li>
+        </ul>
+
+        <div class="label">Experiment List:</div>
+        <ul>
+            <li>Execute all DDL, DML and DCL commands on sample tables.</li>
+            <li>Implementation of different types of operators and built-in functions with suitable examples.</li>
+            <li>Implementation of different types of joins with suitable examples.</li>
+            <li>Create views, partitions, Sequence, Indexes and locks for a particular DB.</li>
+            <li>Implement different types of constraints on relations.</li>
+            <li>Implementation of sub queries and nested queries.</li>
+            <li>Implement Queries on Group By & Having Clauses, ALIAS, Sequence By, Order By.</li>
+            <li><strong>Schema:</strong><br>
+                OWNER (Owner#, Ownername, Address, Phoneno)<br>
+                POND (Pond#, Pondname, Address, Owner#)<br>
+                FISH (Fish#, Fishname, Type, Uprice)<br>
+                CATCH (Pond#, Fish#, Date, Qty)<br>
+                <strong>Queries:</strong>
+                <ul>
+                    <li>Find the Owner#, Ownername and their pondnames.</li>
+                    <li>The Owner#, Ownername who caught “RAHU” fish between 01-02-2021 and 01-04-2021.</li>
+                    <li>The pond name where all the fish types are available.</li>
+                </ul>
+            </li>
+            <li><strong>Another Schema:</strong><br>
+                Medicine(Mcode, Mname, Type, Price, MDate, EDate)<br>
+                Prescription(Pno, DCode, PDate, Mname, Quantity)<br>
+                Sale(Pno, Mcode, Qty, Date)<br>
+                Doctor(Dcode, Dname, Specialization)<br>
+                <strong>Queries:</strong>
+                <ul>
+                    <li>Find the Pno, Mcode, Mname, Dname</li>
+                    <li>Find the medicine names which are expired as on today</li>
+                    <li>Find the total quantity sold for each medicine</li>
+                </ul>
+            </li>
+            <li><strong>Procedure:</strong> <br>
+                EMP (Empno, Ename, Job, Mgr, Hiredate, Sal, Comm., Deptno)<br>
+                Write a procedure which calculates the total salary of the employees:<br>
+                EMPNO | ENAME | SAL | COMM | TOTAL SAL
+            </li>
+            <li>Write a procedure to check if employee age is <= 60 and>= 18.</li>
+        </ul>
+
+        <div class="label">Textbooks:</div>
+        <ul>
+            <li>Oracle: The Complete Reference by Oracle Press</li>
+            <li>Nilesh Shah, "Database Systems Using Oracle”, PHI, 2007</li>
+            <li>Rick F Vander Lans, “Introduction to SQL”, Fourth Edition, Pearson Education, 2007</li>
+        </ul>
+
+        <div class="label">Reference Book:</div>
+        <ul>
+            <li>Quality Software Project Management, Futrell, Donald F. Shafer, Donald I. Shafer, PEA</li>
+        </ul>
+    </section>
+
+
+    <script>
+        function filterSubjects() {
+            const selected = document.getElementById('subjectFilter').value;
+            const ids = ["oop", "dbms", "os", "javaLab", "dbmsLab"];
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.classList.remove("visible");
+                    if (selected === "all" || selected === id) el.classList.add("visible");
+                }
+            });
+        }
+
+        window.onload = () => {
+            document.getElementById('subjectFilter').value = "all";
+            filterSubjects();
+        }
+    </script>
+</body>
+
+</html>
