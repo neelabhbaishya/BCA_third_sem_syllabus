@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>BCA 3rd Semester Hub</title>
-    
+
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet">
 
     <style>
         /* --- 1. Design System & High-Contrast Themes --- */
@@ -22,6 +23,7 @@
             --border-color: #222222;
             --primary-color: #ffffff;
             --primary-text-color: #000000;
+            --accent-color: #ffffff;
         }
 
         [data-theme="light"] {
@@ -33,11 +35,20 @@
             --border-color: #e5e7eb;
             --primary-color: #000000;
             --primary-text-color: #ffffff;
+            --accent-color: #000000;
         }
 
         /* --- 2. Core Styles & Reset --- */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--page-bg-color);
@@ -48,19 +59,81 @@
         }
 
         /* --- 3. Layout & Spacing --- */
-        .container { max-width: 1100px; margin: 0 auto; padding: 2rem; display: flex; flex-direction: column; gap: 2rem; }
-        header { display: flex; justify-content: space-between; align-items: center; }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
         /* --- 4. Typography --- */
-        .logo { font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 1.1rem; }
-        h1 { font-size: 2.2rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.25rem; }
-        h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 0; display: flex; align-items: center; gap: 0.75rem;}
-        h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; }
-        h4 { font-weight: 700; color: var(--text-color); margin-bottom: 0.5rem; margin-top: 1.5rem; }
-        p { line-height: 1.6; margin-bottom: 1rem; color: var(--muted-color); font-size: 0.95rem; }
-        ul, ol { padding-left: 20px; margin-bottom: 1rem; }
-        li { margin-bottom: 0.5rem; color: var(--muted-color); font-size: 0.95rem; }
-        strong { font-weight: 700; color: var(--text-color); }
+        .logo {
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.25rem;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        h4 {
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            color: var(--muted-color);
+            font-size: 0.95rem;
+        }
+
+        ul,
+        ol {
+            padding-left: 20px;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: var(--muted-color);
+            font-size: 0.95rem;
+        }
+
+        strong {
+            font-weight: 700;
+            color: var(--text-color);
+        }
 
         /* --- 5. Component Styling --- */
         .card {
@@ -71,103 +144,310 @@
             transition: background-color 0.3s ease, border-color 0.3s ease;
             animation: fadeIn 0.5s ease-out forwards;
         }
+
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
             margin-bottom: 1.5rem;
-            flex-wrap: nowrap; 
+            flex-wrap: nowrap;
             gap: 1rem;
         }
+
         .clock {
             font-family: monospace;
             font-size: 2rem;
             font-weight: 700;
             color: var(--muted-color);
-            flex-shrink: 0; 
+            flex-shrink: 0;
         }
 
-        .button { 
-            cursor: pointer; padding: 0.6rem 1.5rem; border-radius: 50px; font-weight: 600; 
-            border: 1px solid var(--border-color); transition: all 0.3s ease; text-align: center; font-size: 0.9rem;
-            background-color: transparent; color: var(--text-color);
+        .button {
+            cursor: pointer;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 0.9rem;
+            background-color: transparent;
+            color: var(--text-color);
         }
-        .button:hover, .button.active {
+
+        .button:hover,
+        .button.active {
             background-color: var(--primary-color);
             color: var(--primary-text-color);
             border-color: var(--primary-color);
         }
-        
-        .theme-toggle-button {
-            background: none; border: none; border-radius: 50%; width: 44px; height: 44px;
-            display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease;
-        }
-        .theme-toggle-button:hover { transform: scale(1.1) rotate(15deg); }
-        .theme-icon { color: var(--text-color); }
-        [data-theme="dark"] .sun-icon { display: block; } [data-theme="dark"] .moon-icon { display: none; }
-        [data-theme="light"] .sun-icon { display: none; } [data-theme="light"] .moon-icon { display: block; }
 
-        .input-field, .select-field, .textarea-field { width: 100%; background-color: var(--page-bg-color); border: 1px solid var(--border-color); border-radius: 12px; padding: 0.75rem 1.5rem; color: var(--text-color); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; }
-        .select-field.pill { border-radius: 50px; }
-        .select-group { position: relative; }
-        .select-group .icon { position: absolute; top: 50%; transform: translateY(-50%); color: var(--muted-color); pointer-events: none; right: 1.25rem; }
-        .select-field { appearance: none; }
+        .theme-toggle-button {
+            background: none;
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle-button:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        .theme-icon {
+            color: var(--text-color);
+        }
+
+        [data-theme="dark"] .sun-icon {
+            display: block;
+        }
+
+        [data-theme="dark"] .moon-icon {
+            display: none;
+        }
+
+        [data-theme="light"] .sun-icon {
+            display: none;
+        }
+
+        [data-theme="light"] .moon-icon {
+            display: block;
+        }
+
+        .input-field,
+        .select-field,
+        .textarea-field {
+            width: 100%;
+            background-color: var(--page-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.75rem 1.5rem;
+            color: var(--text-color);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1rem;
+        }
+
+        .select-field.pill {
+            border-radius: 50px;
+        }
+
+        .select-group {
+            position: relative;
+        }
+
+        .select-group .icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-color);
+            pointer-events: none;
+            right: 1.25rem;
+        }
+
+        .select-field {
+            appearance: none;
+        }
 
         .edit-subject-btn {
-            background: none; border: none; cursor: pointer; padding: 0 0.5rem; color: var(--muted-color);
-            display: inline-flex; align-items: center; justify-content: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0 0.5rem;
+            color: var(--muted-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
-        .edit-subject-btn:hover { color: var(--text-color); }
-        .clickable-subject:hover { background-color: var(--border-color); }
 
-        table { width: 100%; border-collapse: collapse; }
-        th, td { text-align: left; padding: 1rem; border-bottom: 1px solid var(--border-color); color: var(--muted-color); font-size: 0.9rem; vertical-align: middle; }
-        th { color: var(--text-color); text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; font-weight: 700; }
+        .edit-subject-btn:hover {
+            color: var(--text-color);
+        }
+
+        .subject-link {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .subject-link:hover {
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 3px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--muted-color);
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+
+        th {
+            color: var(--text-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
         tr.current-period {
             background-color: var(--primary-color) !important;
         }
-        tr.current-period td, tr.current-period td span {
+
+        tr.current-period td,
+        tr.current-period td span {
             color: var(--primary-text-color) !important;
         }
-        
-        .hidden { display: none; }
-        
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        tr.current-period .subject-link {
+            color: var(--primary-text-color) !important;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         /* Modal Styles */
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-        .modal-content { background-color: var(--content-bg-color); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem; width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; }
-        .modal-content h2 { margin-top: 0; }
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        .form-grid .full-width { grid-column: 1 / -1; }
-        .modal-actions { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem; }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: var(--content-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-grid .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
 
         /* --- 6. Responsive Layout --- */
-        .filters { display: grid; grid-template-columns: 1fr 1fr auto; gap: 1rem; align-items: center; margin-bottom: 1.5rem; }
-        .table-container { overflow-x: auto; }
+        .filters {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
 
         @media (max-width: 768px) {
-            .container { padding: 1rem; gap: 1.5rem; }
-            h1 { font-size: 2rem; }
-            .card-header h2 { font-size: 1.2rem; } 
-            .clock { font-size: 1.5rem; }
-            .filters { grid-template-columns: 1fr; }
+            .container {
+                padding: 1rem;
+                gap: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .card-header h2 {
+                font-size: 1.2rem;
+            }
+
+            .clock {
+                font-size: 1.5rem;
+            }
+
+            .filters {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
             <div class="logo">BCA / SEM III</div>
             <button class="theme-toggle-button" id="theme-toggle" aria-label="Toggle Theme">
-                <svg class="sun-icon theme-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-                <svg class="moon-icon theme-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg class="sun-icon theme-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg class="moon-icon theme-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
             </button>
         </header>
 
         <main>
             <div style="display: flex; justify-content: center; gap: 1rem;">
-                <button class="button" id="nav-routine">Routine</button>
+                <button class="button active" id="nav-routine">Routine</button>
                 <button class="button" id="nav-syllabus">Syllabus</button>
             </div>
 
@@ -175,7 +455,7 @@
                 <h1>Class Routine</h1>
                 <p>View your schedule. Click the edit icon (✎) next to elective names to customize them.</p>
                 <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
-                    <button class="button button-small" id="routine-daily">Today's Routine</button>
+                    <button class="button button-small active" id="routine-daily">Today's Routine</button>
                     <button class="button button-small" id="routine-weekly">Full Week</button>
                 </div>
                 <div id="routine-content"></div>
@@ -185,8 +465,10 @@
                 <h1>Syllabus Explorer</h1>
                 <p>Search, filter, and explore the detailed syllabus for each subject.</p>
                 <div class="filters">
-                    <div class="select-group"><select id="subject-filter" class="select-field pill"></select><span class="icon">▼</span></div>
-                    <div class="select-group"><select id="faculty-filter" class="select-field pill"></select><span class="icon">▼</span></div>
+                    <div class="select-group"><select id="subject-filter" class="select-field pill"></select><span
+                            class="icon">▼</span></div>
+                    <div class="select-group"><select id="faculty-filter" class="select-field pill"></select><span
+                            class="icon">▼</span></div>
                     <button class="button" id="add-syllabus-btn">Add New</button>
                 </div>
                 <div id="syllabus-content" style="display: flex; flex-direction: column; gap: 1.5rem;"></div>
@@ -225,14 +507,20 @@
                         <div class="table-container">
                             <table id="new-modules-table">
                                 <thead>
-                                    <tr><th>Module</th><th>Topic</th><th>Content</th><th>Hours</th></tr>
+                                    <tr>
+                                        <th>Module</th>
+                                        <th>Topic</th>
+                                        <th>Content</th>
+                                        <th>Hours</th>
+                                    </tr>
                                 </thead>
                                 <tbody id="new-modules-tbody">
                                     <!-- Rows will be added here by JS -->
                                 </tbody>
                             </table>
                         </div>
-                        <button type="button" id="add-module-row" class="button" style="margin-top: 1rem;">Add Module Row</button>
+                        <button type="button" id="add-module-row" class="button" style="margin-top: 1rem;">Add Module
+                            Row</button>
                     </div>
                 </div>
                 <div class="modal-actions">
@@ -285,18 +573,18 @@
                 "Test and Remedial": { name: "Test and Remedial", code: "N/A", faculty: "N/A" },
             };
             const defaultSyllabus = [
-                 { id: "OOP", objectives: ["Introduce the fundamental concepts of Object-Oriented Programming (OOP) and the methodologies of OOP-based software development.", "Demonstrate OOP concepts and techniques using Java, a class-based and fully object-oriented language.", "Develop students’ understanding of OOP syntax, structure, and the design logic behind object-oriented programming.", "Equip students with the basic knowledge and skills necessary to apply object-oriented programming in software development using Java."], outcomes: ["Explain and differentiate core Object-Oriented Programming concepts and Java-specific programming principles.", "Implement object-oriented solutions to real-world problems.", "Integrate exception handling and multithreading to develop robust and efficient applications.", "Utilize Java packages to organize code effectively and manage project structure.", "Create graphical user interfaces (GUIs) using Java applets for interactive applications."], modules: [{ id: "I", topic: "Introduction", content: "Java’s History, Importance of Java for the Internet, Java’s Magic: Byte-code, Its Features, Java Virtual Machine Concepts, Primitive Data Type and Variables, Java Operators, Expressions, Statements and Arrays.", hours: 8 }, { id: "II", topic: "Classes and Object", content: "Class Fundamentals, Creating objects, Assigning object reference variables; Introducing Methods, static methods, Constructors and types of constructor, Overloading constructors; this Keyword; Using Objects as Parameters, Argument passing, Returning objects, Method overloading.", hours: 10 }, { id: "III", topic: "Inheritance", content: "Inheritance Basics, Access Control, Multilevel inheritance, Method Overriding, Abstract Classes, Polymorphism, final keyword.", hours: 7 }, { id: "IV", topic: "Packages, Abstract Class and Interface", content: "Defining Package, CLASSPATH, Package naming, Accessibility of Packages, using package members. Interfaces: Implementing Interfaces, Interface and Abstract Classes. Exceptions Handling: Exception, Handling of Exception, Using try-catch, Catching multiple exceptions, Using finally clause, Types of Exceptions, Throwing Exceptions.", hours: 10 }, { id: "V", topic: "Multithreading and Applet", content: "Multithreading Programming: The Java Thread Model, Understanding Threads, Creating a Thread, Creating Multiple Threads, Thread Priorities. Creating Applets in Java: Applet Basics, Applet Architecture, Applet Life Cycle, Simple Applet Display Methods, The HTML APPLET Tag, Passing Parameters to Applets.", hours: 10 }], books: ["E. Balaguruswami, Programming with Java, Second Edition, Tata McGraw-Hill Publication", "Herbert Schildt, The Complete Reference Java 2, Fifth Edition, Tata McGraw-Hill Publication"] },
+                { id: "OOP", objectives: ["Introduce the fundamental concepts of Object-Oriented Programming (OOP) and the methodologies of OOP-based software development.", "Demonstrate OOP concepts and techniques using Java, a class-based and fully object-oriented language.", "Develop students’ understanding of OOP syntax, structure, and the design logic behind object-oriented programming.", "Equip students with the basic knowledge and skills necessary to apply object-oriented programming in software development using Java."], outcomes: ["Explain and differentiate core Object-Oriented Programming concepts and Java-specific programming principles.", "Implement object-oriented solutions to real-world problems.", "Integrate exception handling and multithreading to develop robust and efficient applications.", "Utilize Java packages to organize code effectively and manage project structure.", "Create graphical user interfaces (GUIs) using Java applets for interactive applications."], modules: [{ id: "I", topic: "Introduction", content: "Java’s History, Importance of Java for the Internet, Java’s Magic: Byte-code, Its Features, Java Virtual Machine Concepts, Primitive Data Type and Variables, Java Operators, Expressions, Statements and Arrays.", hours: 8 }, { id: "II", topic: "Classes and Object", content: "Class Fundamentals, Creating objects, Assigning object reference variables; Introducing Methods, static methods, Constructors and types of constructor, Overloading constructors; this Keyword; Using Objects as Parameters, Argument passing, Returning objects, Method overloading.", hours: 10 }, { id: "III", topic: "Inheritance", content: "Inheritance Basics, Access Control, Multilevel inheritance, Method Overriding, Abstract Classes, Polymorphism, final keyword.", hours: 7 }, { id: "IV", topic: "Packages, Abstract Class and Interface", content: "Defining Package, CLASSPATH, Package naming, Accessibility of Packages, using package members. Interfaces: Implementing Interfaces, Interface and Abstract Classes. Exceptions Handling: Exception, Handling of Exception, Using try-catch, Catching multiple exceptions, Using finally clause, Types of Exceptions, Throwing Exceptions.", hours: 10 }, { id: "V", topic: "Multithreading and Applet", content: "Multithreading Programming: The Java Thread Model, Understanding Threads, Creating a Thread, Creating Multiple Threads, Thread Priorities. Creating Applets in Java: Applet Basics, Applet Architecture, Applet Life Cycle, Simple Applet Display Methods, The HTML APPLET Tag, Passing Parameters to Applets.", hours: 10 }], books: ["E. Balaguruswami, Programming with Java, Second Edition, Tata McGraw-Hill Publication", "Herbert Schildt, The Complete Reference Java 2, Fifth Edition, Tata McGraw-Hill Publication"] },
                 { id: "DBMS", faculty: "Dr. Mukta Ranjan Singha (HOD, Computer Applications)", objectives: ["Equip students with foundational skills to create, organize, and manage data effectively within databases using DBMS software.", "Enable students to understand practical database design principles across various database management systems.", "Develop students’ skills in structuring, organizing, and storing data effectively within a DBMS environment."], outcomes: ["Explain the fundamentals of databases and apply Entity-Relationship (ER) modeling and relational modeling to design basic databases.", "Summarize core concepts of the relational model and SQL, and compose database queries using relational algebra and structured query language.", "Design and implement real-world databases by applying normalization techniques.", "Identify and explain issues related to transaction management and recovery in database systems."], modules: [{ id: "1", topic: "Introduction to Databases", content: "Definition of database, Example, Characteristics of the Database Approach, Actors on Scene, Workers behind the scene, DBMS, Advantages of Using the DBMS Approach, Brief History of Database Applications, When Not to Use a DBMS.", hours: 5 }, { id: "2", topic: "Introduction to Database Design", content: "Data models, Database Design and ER Diagrams, Entities, Attributes and Entity Sets, Relationships and Relationship Sets, Additional Features of the ER Model, Conceptual Design with the ER Model, Conceptual Design for Large Enterprises.", hours: 10 }, { id: "3", topic: "Overview of Database Languages and Architectures", content: "Data Models, Schemas and Instances, Three-Schema Architecture and Data Independence, Database Languages and Interfaces, The Database System Environment, Centralized and Client/Server Architecture for DBMSs, Classification of Database Management Systems.", hours: 5 }, { id: "4", topic: "Relational Model", content: "Introduction to the Relational Model, Integrity Constraints over Relations, Enforcing Integrity Constraints, Querying Relational Data, Logical Database Design: ER to Relational, Introduction to Views, Destroying/Altering Tables and Views.", hours: 5 }, { id: "5", topic: "Relational Algebra and SQL", content: "Selection and Projection, Set Operations, Renaming, Joins, Division, More Examples of Algebra Queries. Queries, Constraints, Triggers: The Form of a Basic SQL Query, UNION, INTERSECT and EXCEPT, Nested Queries, Aggregate Operators, Null Values, Complex Integrity Constraints in SQL, Triggers and Active Databases, Designing Active Databases.", hours: 5 }, { id: "6", topic: "Introduction to Normalization Using Functional Dependencies", content: "Informal Design Guidelines for Relation Schema, Functional Dependencies, Normal Forms Based on Primary Keys, General Definitions of Second and Third Normal Forms, Boyce-Codd Normal Form, Multivalued Dependency and Fourth Normal Form, Join Dependencies and Fifth Normal Form.", hours: 10 }, { id: "7", topic: "Transaction Management", content: "Transaction Concept, A Simple Transaction Model, Storage Structure, ACID Properties, Serializability, Transaction Isolation Levels.", hours: 5 }], books: ["Database System Concepts, 6/e, Abraham Silberschatz, Henry F. Korth, S. Sudarshan, McGraw-Hill", "Database Systems, 6/e, Ramez Elmasri, Shamkant B. Navathe, Pearson"], referenceBooks: ["Database Systems, 9/e, Carlos Coronel, Steven Morris, Peter Rob, Cengage", "Introduction to Database Systems, 8/e, C. J. Date, Pearson"] },
                 { id: "OS", objectives: ["Describe the principles of CPU scheduling and explain the role of device management in operating systems, covering device drivers, I/O operations, and interrupt handling.", "Understand and demonstrate principles of deadlock detection and prevention, as well as file system structures and operations, including file organization, directory structures, and file access methods.", "Explain the role of virtual memory and paging in memory management, and calculate page table sizes and perform address translation."], outcomes: ["Explain the structure and components of operating systems, understand the concepts of processes and threads, and implement basic process and thread management operations.", "Describe CPU scheduling principles and analyze the performance of various scheduling algorithms.", "Apply key concepts of process management, memory management, and file system management to real-world scenarios.", "Explain the function of virtual memory and paging in memory management, and calculate page table sizes and address translations accurately."], modules: [{ id: "I", topic: "Introduction and Historical Perspective", content: "Operating System concept and its role, Batch processing, multiprogramming, time-sharing, distributed system, Functions, components and structure of an operating system.", hours: 4 }, { id: "II", topic: "Process Management", content: "Structure of a process, PCB, operations on processes, Support for concurrent processes—Trade-off between sequential and concurrent processing with examples in implementation; Shared data, Critical sections, Mutual exclusion, busy form of waiting, lock and unlock primitives, semaphore, block and wakeup.", hours: 14 }, { id: "III", topic: "I/O Systems", content: "I/O Management: device controller, Device drivers, I/O Software goals and structure, Interrupt and handling mechanisms, Application of I/O Interface, Terminal handling, Block and character devices, Vectored I/O.", hours: 6 }, { id: "IV", topic: "Memory Management", content: "Address space management: address binding, logical vs physical address space, Static and dynamic memory management, protection and sharing, Contiguous and non-contiguous memory allocation, fragmentation and solution; Swapping, Paging and Segmentation, page table; page replacement and space allocation policies.", hours: 8 }, { id: "V", topic: "File System and Disk Management", content: "File concept and organization, File management strategies, File system structure and access methods, tradeoffs, Directory structures, Allocation Methods: contiguous, linked, indexed, FAT and I-node structures.", hours: 8 }], books: ["Silberschatz A., Galvin P.B. and Gagne G: \"Operating System Concepts\", Wiley, 9th Ed.", "Tanenbaum A.S.: \"Operating System - Design and Implementation\", PHI (EEE).", "Milenkovic M., \"Operating System - Concepts and Design\", McGraw Hill."], referenceBooks: ["Stallings, William, \"Operating Systems\", Maxwell McMillan International Editions, 1992.", "Dietel, R.N., \"An Introduction to Operating Systems\", Addison Wesley."] },
                 { id: "OOP Lab", objectives: ["Introduce students to Object-Oriented Programming (OOP) concepts through the Java programming language.", "Demonstrate the use of Java as a class-based, pure OOP language to illustrate core OOP principles and techniques.", "Develop students’ understanding of Java syntax, structure, and the problem-solving approach central to object-oriented programming.", "Equip students with foundational skills to apply OOP techniques in software development using Java."], outcomes: ["Explain the structure of the Java programming language and apply fundamental object-oriented concepts in Java.", "Implement exception handling and multithreading to create efficient and reliable applications.", "Create and utilize user-defined packages within Java programs to enhance code organization and reusability.", "Develop basic applet programs using Java to create graphical user interface (GUI) components."], labList: ["WAP in Java to Print “Hello GIMT” message", "Find average, sum, min and max of N numbers using command line argument", "Use DataInputStream to calculate area of a circle from user input", "Use BufferedReader to calculate volume of a cylinder", "Check if input number is prime", "Print sum of odd numbers to a given range", "Generate Fibonacci series up to a given range", "Find factorial of a number using loop", "Calculate Simple Interest with Principal, Rate and Time", "Use array to calculate the sum of array values", "Class with methods to calculate Surface Area and Volume of a Cuboid", "Sum of odd numbers in a given range", "Sum of even numbers in a given range", "Perform bubble sort on a given array", "Demonstrate default constructor", "Demonstrate parameter constructor", "Demonstrate copy constructor", "Single Level Inheritance", "Multi Level Inheritance", "Hierarchical Inheritance", "Factorial using recursion", "Method overriding", "Method overloading", "Class Rectangle to find area, perimeter using super and this keyword", "Demonstrate Inheritance (IS-A) vs Composition (Has-A)", "Use of abstract class", "Use of interface in Java", "Use of throw and throws", "Exception handling using try and multiple catch blocks", "User-defined package accessing external and internal classes"], books: ["E. Balaguruswami, Programming with Java, Second Edition, Tata McGraw-Hill Publication", "Herbert Schildt, The Complete Reference Java 2, Fifth Edition, Tata McGraw-Hill Publication"] },
                 { id: "DBMS Lab", faculty: "Dr. Mukta Ranjan Singha (HOD, Computer Applications)", objectives: ["Create and manipulate databases using SQL Data Definition Language (DDL) and Data Manipulation Language (DML) commands.", "Declare and enforce integrity constraints to ensure data accuracy and consistency within a database.", "Formulate complex queries using advanced SQL concepts.", "Develop programs in PL/SQL, including stored procedures, functions, cursors, and triggers."], outcomes: ["Utilize SQL to execute queries for database creation and perform data manipulation tasks.", "Implement integrity constraints to design efficient and reliable databases.", "Apply advanced SQL concepts to construct complex queries.", "Build PL/SQL programs, incorporating stored procedures, functions, cursors, and triggers for enhanced database functionality."], labList: ["Execute all DDL, DML and DCL commands on sample tables.", "Implementation of different types of operators and built-in functions with suitable examples.", "Implementation of different types of joins with suitable examples.", "Create views, partitions, Sequence, Indexes and locks for a particular DB.", "Implement different types of constraints on relations.", "Implementation of sub queries and nested queries.", "Implement Queries on Group By & Having Clauses, ALIAS, Sequence By, Order By.", "Schema: OWNER (Owner#, Ownername, Address, Phoneno), POND (Pond#, Pondname, Address, Owner#), FISH (Fish#, Fishname, Type, Uprice), CATCH (Pond#, Fish#, Date, Qty). Queries: Find the Owner#, Ownername and their pondnames. The Owner#, Ownername who caught “RAHU” fish between 01-02-2021 and 01-04-2021. The pond name where all the fish types are available.", "Another Schema: Medicine(Mcode, Mname, Type, Price, MDate, EDate), Prescription(Pno, DCode, PDate, Mname, Quantity), Sale(Pno, Mcode, Qty, Date), Doctor(Dcode, Dname, Specialization). Queries: Find the Pno, Mcode, Mname, Dname. Find the medicine names which are expired as on today. Find the total quantity sold for each medicine.", "Procedure: EMP (Empno, Ename, Job, Mgr, Hiredate, Sal, Comm., Deptno). Write a procedure which calculates the total salary of the employees. Write a procedure to check if employee age is <= 60 and >= 18."], books: ["Oracle: The Complete Reference by Oracle Press", "Nilesh Shah, \"Database Systems Using Oracle”, PHI, 2007", "Rick F Vander Lans, “Introduction to SQL”, Fourth Edition, Pearson Education, 2007"], referenceBooks: ["Quality Software Project Management, Futrell, Donald F. Shafer, Donald I. Shafer, PEA."] },
             ];
             const routineData = {
-                Monday: [ { time: "08:45-09:45", subject: "SEC-III" }, { time: "09:45-10:45", subject: "MDC-III" }, { time: "10:45-11:45", subject: "DBMS" }, { time: "11:45-12:45", subject: "OS" }, { time: "12:45-01:45", subject: "BREAK" }, { time: "01:45-02:45", subject: "OOP" }, { time: "02:45-03:45", subject: "OOP Lab" } ],
-                Tuesday: [ { time: "08:45-09:45", subject: "AEC-III" }, { time: "09:45-10:45", subject: "DBMS" }, { time: "10:45-11:45", subject: "OS" }, { time: "11:45-12:45", subject: "DBMS Lab" }, { time: "12:45-01:45", subject: "BREAK" }, { time: "01:45-03:45", subject: "Club activities" } ],
-                Wednesday: [ { time: "08:45-09:45", subject: "SEC-III" }, { time: "09:45-10:45", subject: "MDC-III" }, { time: "10:45-11:45", subject: "Library/DBMS" }, { time: "11:45-12:45", subject: "OOP" }, { time: "12:45-01:45", subject: "BREAK" }, { time: "01:45-03:45", subject: "OOP Lab" } ],
-                Thursday: [ { time: "08:45-09:45", subject: "AEC-III" }, { time: "09:45-10:45", subject: "OS" }, { time: "10:45-11:45", subject: "OOP" }, { time: "11:45-12:45", subject: "OOP Lab" }, { time: "12:45-01:45", subject: "BREAK" }, { time: "01:45-02:45", subject: "DBMS" }, { time: "02:45-03:45", subject: "DBMS Lab" } ],
-                Friday: [ { time: "08:45-09:45", subject: "SEC-III" }, { time: "09:45-10:45", subject: "MDC-III" }, { time: "10:45-11:45", subject: "DBMS" }, { time: "11:45-12:45", subject: "DBMS Lab" }, { time: "12:45-01:45", subject: "BREAK" }, { time: "01:45-02:45", subject: "OOP" }, { time: "02:45-03:45", subject: "OOP Lab" } ],
+                Monday: [{ time: "08:45-09:45", subject: "SEC-III" }, { time: "09:45-10:45", subject: "MDC-III" }, { time: "10:45-11:45", subject: "DBMS" }, { time: "11:45-12:45", subject: "OS" }, { time: "12:45-01:45", subject: "BREAK" }, { time: "01:45-02:45", subject: "OOP" }, { time: "02:45-03:45", subject: "OOP Lab" }],
+                Tuesday: [{ time: "08:45-09:45", subject: "AEC-III" }, { time: "09:45-10:45", subject: "DBMS" }, { time: "10:45-11:45", subject: "OS" }, { time: "11:45-12:45", subject: "DBMS Lab" }, { time: "12:45-01:45", subject: "BREAK" }, { time: "01:45-03:45", subject: "Club activities" }],
+                Wednesday: [{ time: "08:45-09:45", subject: "SEC-III" }, { time: "09:45-10:45", subject: "MDC-III" }, { time: "10:45-11:45", subject: "Library/DBMS" }, { time: "11:45-12:45", subject: "OOP" }, { time: "12:45-01:45", subject: "BREAK" }, { time: "01:45-03:45", subject: "OOP Lab" }],
+                Thursday: [{ time: "08:45-09:45", subject: "AEC-III" }, { time: "09:45-10:45", subject: "OS" }, { time: "10:45-11:45", subject: "OOP" }, { time: "11:45-12:45", subject: "OOP Lab" }, { time: "12:45-01:45", subject: "BREAK" }, { time: "01:45-02:45", subject: "DBMS" }, { time: "02:45-03:45", subject: "DBMS Lab" }],
+                Friday: [{ time: "08:45-09:45", subject: "SEC-III" }, { time: "09:45-10:45", subject: "MDC-III" }, { time: "10:45-11:45", subject: "DBMS" }, { time: "11:45-12:45", subject: "DBMS Lab" }, { time: "12:45-01:45", subject: "BREAK" }, { time: "01:45-02:45", subject: "OOP" }, { time: "02:45-03:45", subject: "OOP Lab" }],
                 Saturday: [{ time: "Full Day", subject: "Test and Remedial" }],
             };
 
@@ -342,12 +630,12 @@
                 const savedSyllabus = JSON.parse(localStorage.getItem('bcaHubSyllabus'));
 
                 appState.subjects = savedSubjects || defaultSubjects;
-                
+
                 const coreSyllabus = defaultSyllabus.map(s => ({ ...appState.subjects[s.id], ...s }));
                 const customSyllabus = savedSyllabus ? savedSyllabus.filter(s => !defaultSubjects[s.id]) : [];
                 appState.syllabusData = [...coreSyllabus, ...customSyllabus];
             };
-            
+
             // --- THEME LOGIC ---
             const setAppTheme = (theme) => {
                 document.documentElement.setAttribute('data-theme', theme);
@@ -374,13 +662,13 @@
             };
             navRoutine.addEventListener('click', () => switchView('routine'));
             navSyllabus.addEventListener('click', () => switchView('syllabus'));
-            
+
             // --- ROUTINE LOGIC ---
             const isCurrentPeriod = (timeString) => {
                 try {
                     const now = new Date();
                     const currentTime = now.getHours() * 100 + now.getMinutes();
-                    
+
                     const [startTimeStr, endTimeStr] = timeString.split('-');
                     const [startHour, startMinute] = startTimeStr.split(':').map(Number);
                     const [endHour, endMinute] = endTimeStr.split(':').map(Number);
@@ -398,7 +686,10 @@
                 const today = new Date();
                 const dayName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][today.getDay()];
                 const dateKey = `${today.getDate()}-${today.getMonth() + 1}`;
-                
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+
                 let html = '';
                 if (holidays2025[dateKey]) {
                     html = `<div class="card" style="text-align: center;">
@@ -411,7 +702,7 @@
                     html = `<div class="card">
                                 <div class="card-header">
                                     <h2><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V12l4 2"/><circle cx="12" cy="12" r="10"/></svg> ${dayName} <span style="font-size: 1rem; color: var(--muted-color); font-weight: 400; margin-left: 0.5rem;">${today.toLocaleDateString('en-GB', { day: 'numeric', month: 'long' })}</span></h2>
-                                    <div id="routine-clock" class="clock"></div>
+                                    <div id="routine-clock" class="clock">${hours}:${minutes}</div>
                                 </div>
                                 <div class="table-container">
                                     <table>
@@ -423,11 +714,14 @@
                         const subjectName = appState.subjects[item.subject]?.name || item.subject;
                         const currentClass = isCurrentPeriod(item.time) ? 'current-period' : '';
                         html += `
-                            <tr class="${currentClass} ${isClickable ? 'clickable-subject' : ''}" ${isClickable ? `data-subject-name="${subjectName}"` : ''}>
+                            <tr class="${currentClass}">
                                 <td>${item.time}</td>
                                 <td>
                                     <div style="display: flex; align-items: center; justify-content: space-between;">
-                                        <span>${subjectName}</span>
+                                        ${isClickable ?
+                                `<span class="subject-link" data-subject-name="${subjectName}">${subjectName}</span>` :
+                                `<span>${subjectName}</span>`
+                            }
                                         ${isEditable ? `<button class="edit-subject-btn" data-subject-id="${item.subject}" title="Edit Name">✎</button>` : ''}
                                     </div>
                                 </td>
@@ -482,7 +776,8 @@
                                 if (item.subject === 'BREAK') {
                                     html += `<td style="background-color: var(--border-color); text-align: center;">${item.subject}</td>`;
                                 } else {
-                                    html += `<td colspan="${item.colspan}" style="${item.colspan > 1 ? 'text-align: center;' : ''}">${appState.subjects[item.subject]?.name || item.subject}</td>`;
+                                    const subjectName = appState.subjects[item.subject]?.name || item.subject;
+                                    html += `<td colspan="${item.colspan}" style="${item.colspan > 1 ? 'text-align: center;' : ''}">${subjectName}</td>`;
                                 }
                             }
                         });
@@ -501,7 +796,7 @@
             const populateFilters = () => {
                 const facultySet = new Set(appState.syllabusData.map(s => s.faculty).filter(f => f && f !== "N/A"));
                 facultyFilter.innerHTML = `<option value="">All Faculty</option>` + [...facultySet].map(f => `<option value="${f}">${f}</option>`).join('');
-                
+
                 const subjectSet = new Set(appState.syllabusData.map(s => s.name));
                 subjectFilter.innerHTML = `<option value="">All Subjects</option>` + [...subjectSet].map(s => `<option value="${s}">${s}</option>`).join('');
             };
@@ -540,7 +835,7 @@
                     </div>
                 `).join('');
             };
-            
+
             // --- CUSTOMIZATION & EDITING LOGIC ---
             const updateSubjectName = (id, newName) => {
                 if (appState.subjects[id]) {
@@ -559,28 +854,27 @@
                     renderWeeklyRoutine();
                 }
             };
-            
+
             routineContent.addEventListener('click', (e) => {
                 const editBtn = e.target.closest('.edit-subject-btn');
                 if (editBtn) {
                     const subjectId = editBtn.dataset.subjectId;
                     const currentName = appState.subjects[subjectId].name;
-                    
+
                     editModalTitle.textContent = `Edit Name for ${subjectId}`;
                     editSubjectIdInput.value = subjectId;
                     editSubjectInput.value = currentName;
                     editSubjectModal.style.display = 'flex';
-                    setTimeout(() => { // Ensure element is visible before focus/select
+                    setTimeout(() => {
                         editSubjectInput.focus();
                         editSubjectInput.select();
                     }, 0);
-                    e.stopPropagation(); // Prevent event from bubbling to parent elements
                     return; // Exit early to prevent other handlers
                 }
 
-                const subjectCard = e.target.closest('.clickable-subject');
-                if (subjectCard && subjectCard.dataset.subjectName) {
-                    const subjectName = subjectCard.dataset.subjectName;
+                const subjectLink = e.target.closest('.subject-link');
+                if (subjectLink && subjectLink.dataset.subjectName) {
+                    const subjectName = subjectLink.dataset.subjectName;
                     switchView('syllabus');
                     subjectFilter.value = subjectName;
                     renderSyllabus();
@@ -600,7 +894,7 @@
                 editSubjectModal.style.display = 'none';
             });
 
-            
+
             // --- MODAL LOGIC ---
             const addModuleRow = () => {
                 const row = document.createElement('tr');
@@ -620,7 +914,7 @@
                 addSyllabusModal.style.display = 'flex';
             };
             const hideModal = () => addSyllabusModal.style.display = 'none';
-            
+
             addSyllabusBtn.addEventListener('click', showModal);
             cancelSyllabusBtn.addEventListener('click', hideModal);
             addModuleBtn.addEventListener('click', addModuleRow);
@@ -634,8 +928,8 @@
                     const topic = row.querySelector('.mod-topic').value;
                     const content = row.querySelector('.mod-content').value;
                     const hours = row.querySelector('.mod-hours').value;
-                    if(id || topic || content || hours) {
-                        newModules.push({id, topic, content, hours: parseInt(hours) || 0});
+                    if (id || topic || content || hours) {
+                        newModules.push({ id, topic, content, hours: parseInt(hours) || 0 });
                     }
                 });
 
@@ -656,7 +950,7 @@
             });
 
             // --- CLOCK LOGIC ---
-            const updateClockAndRoutine = () => {
+            const updateClock = () => {
                 const clockElement = document.getElementById('routine-clock');
                 if (clockElement) {
                     const now = new Date();
@@ -664,12 +958,8 @@
                     const minutes = String(now.getMinutes()).padStart(2, '0');
                     clockElement.textContent = `${hours}:${minutes}`;
                 }
-                // Also re-render daily routine to update highlight
-                if (routineDailyBtn.classList.contains('active')) {
-                    renderDailyRoutine();
-                }
             };
-            
+
             // --- EVENT LISTENERS ---
             subjectFilter.addEventListener('change', renderSyllabus);
             facultyFilter.addEventListener('change', renderSyllabus);
@@ -683,12 +973,13 @@
                 renderDailyRoutine();
                 populateFilters();
                 renderSyllabus();
-                updateClockAndRoutine(); // Call once immediately on load
-                setInterval(updateClockAndRoutine, 60000); // Then update every minute
+                updateClock(); // Call once immediately on load
+                setInterval(updateClock, 60000); // Then update every minute
             };
 
             init();
         });
     </script>
 </body>
+
 </html>
