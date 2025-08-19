@@ -22,8 +22,9 @@
             --muted-color: #a0a0a0;
             --border-color: #222222;
             --primary-color: #ffffff;
-            --primary-text-color: #000000;
+            --primary-text-color: #ffffff;
             --accent-color: #ffffff;
+            --current-period-highlight-color: #5f5f5f;
         }
 
         [data-theme="light"] {
@@ -34,8 +35,9 @@
             --muted-color: #555555;
             --border-color: #e5e7eb;
             --primary-color: #000000;
-            --primary-text-color: #ffffff;
+            --primary-text-color: #000000;
             --accent-color: #000000;
+            --current-period-highlight-color: #c1c1c1;
         }
 
         /* --- 2. Core Styles & Reset --- */
@@ -306,7 +308,7 @@
         }
 
         tr.current-period {
-            background-color: var(--primary-color) !important;
+            background-color: var(--current-period-highlight-color) !important;
         }
 
         tr.current-period td,
