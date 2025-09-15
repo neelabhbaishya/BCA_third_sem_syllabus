@@ -697,10 +697,7 @@
                 const today = new Date();
                 const dayName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][today.getDay()];
                 const dateKey = `${today.getDate()}-${today.getMonth() + 1}`;
-                const now = new Date();
-                const hours = String(now.getHours()).padStart(2, '0');
-                const minutes = String(now.getMinutes()).padStart(2, '0');
-
+                
                 let html = '';
                 if (holidays2025[dateKey]) {
                     html = `<div class="card" style="text-align: center;">
@@ -713,7 +710,7 @@
                     html = `<div class="card">
                                 <div class="card-header">
                                     <h2><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V12l4 2"/><circle cx="12" cy="12" r="10"/></svg> ${dayName} <span style="font-size: 1rem; color: var(--muted-color); font-weight: 400; margin-left: 0.5rem;">${today.toLocaleDateString('en-GB', { day: 'numeric', month: 'long' })}</span></h2>
-                                    <div id="routine-clock" class="clock">${hours}:${minutes}</div>
+                                    <div id="routine-clock" class="clock"></div>
                                 </div>
                                 <div class="table-container">
                                     <table>
@@ -723,9 +720,9 @@
                         const isEditable = ['MDC-III', 'SEC-III', 'AEC-III'].includes(item.subject);
                         const isClickable = item.subject !== 'BREAK' && item.subject !== 'Library/DBMS' && item.subject !== 'Club activities' && item.subject !== 'Test and Remedial';
                         const subjectName = appState.subjects[item.subject]?.name || item.subject;
-                        const currentClass = isCurrentPeriod(item.time) ? 'current-period' : '';
+                        
                         html += `
-                            <tr class="${currentClass}">
+                            <tr data-time="${item.time}">
                                 <td>${item.time}</td>
                                 <td>
                                     <div style="display: flex; align-items: center; justify-content: space-between;">
@@ -744,6 +741,7 @@
                 routineContent.innerHTML = html;
                 routineDailyBtn.classList.add('active');
                 routineWeeklyBtn.classList.remove('active');
+                updateHighlight(); // Apply highlight after rendering
             };
 
             const renderWeeklyRoutine = () => {
@@ -764,9 +762,11 @@
                             const startIndex = timeSlots.findIndex(slot => item.time.startsWith(slot.split('-')[0]));
                             if (startIndex === -1) return;
 
-                            const [start, end] = item.time.split('-').map(t => parseFloat(t.replace(':', '.')));
-                            let duration = Math.abs(Math.round(end - start));
-                            if (item.time === "13:45-15:45") duration = 2; // Manual fix for 2-hour blocks
+                            const [start, end] = item.time.split('-').map(t => {
+                                const [h, m] = t.split(':');
+                                return parseInt(h) + parseInt(m)/60;
+                            });
+                            let duration = Math.round(end - start);
                             const colspan = duration > 1 ? 2 : 1;
 
                             scheduleGrid[startIndex] = { ...item, colspan };
@@ -880,7 +880,7 @@
                         editSubjectInput.focus();
                         editSubjectInput.select();
                     }, 0);
-                    return; // Exit early to prevent other handlers
+                    return; 
                 }
 
                 const subjectLink = e.target.closest('.subject-link');
@@ -960,8 +960,8 @@
                 hideModal();
             });
 
-            // --- CLOCK LOGIC ---
-            const updateClockAndRoutine = () => {
+            // --- CLOCK & HIGHLIGHT LOGIC ---
+            const updateClock = () => {
                 const clockElement = document.getElementById('routine-clock');
                 if (clockElement) {
                     const now = new Date();
@@ -969,12 +969,22 @@
                     const minutes = String(now.getMinutes()).padStart(2, '0');
                     clockElement.textContent = `${hours}:${minutes}`;
                 }
-                // Also re-render daily routine to update highlight
-                if (routineDailyBtn.classList.contains('active')) {
-                    renderDailyRoutine();
-                }
             };
             
+            const updateHighlight = () => {
+                if (routineDailyBtn.classList.contains('active')) {
+                    const rows = routineContent.querySelectorAll('tbody tr');
+                    rows.forEach(row => {
+                        const time = row.dataset.time;
+                        if(time && isCurrentPeriod(time)) {
+                            row.classList.add('current-period');
+                        } else {
+                            row.classList.remove('current-period');
+                        }
+                    });
+                }
+            };
+
             // --- EVENT LISTENERS ---
             subjectFilter.addEventListener('change', renderSyllabus);
             facultyFilter.addEventListener('change', renderSyllabus);
@@ -984,12 +994,16 @@
                 const savedTheme = localStorage.getItem('theme') || 'dark';
                 setAppTheme(savedTheme);
                 loadData();
-                switchView('routine'); // Default to routine view
+                switchView('routine'); 
                 renderDailyRoutine();
                 populateFilters();
                 renderSyllabus();
-                updateClockAndRoutine(); // Call once immediately on load
-                setInterval(updateClockAndRoutine, 1000); // Update every second for accuracy
+                
+                updateClock(); 
+                updateHighlight();
+                
+                setInterval(updateClock, 1000); 
+                setInterval(updateHighlight, 60000); 
             };
 
             init();
