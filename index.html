@@ -1,1015 +1,389 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="dark">
+import React, { useState, useEffect } from 'react';
+import { Moon, Sun, Bell, Lock, Calendar, BookOpen, AlertCircle, ChevronRight } from 'lucide-react';
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BCA 3rd Semester Hub</title>
+/* --- DESIGN LANGUAGE: IOS FLUID MONO ---
+   - Font: Inter (System-like, clean, premium)
+   - Feel: "Apple-esque" - Tight tracking on headers, perfect padding, squircle/pill shapes.
+   - Motion: Spring-like ease-out transitions.
+   - Glass: Heavy blur, subtle borders.
+*/
 
-    <!-- Google Fonts: Plus Jakarta Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap"
-        rel="stylesheet">
+const App = () => {
+  const [theme, setTheme] = useState('dark');
+  const [showToast, setShowToast] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-    <style>
-        /* --- 1. Design System & High-Contrast Themes --- */
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+
+  const handleNotify = () => {
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
+
+  return (
+    <div className={`app-wrapper ${theme}`}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
         :root {
-            /* Dark Mode (Default) */
-            --page-bg-color: #000000;
-            --content-bg-color: #111111;
-            --text-color: #ffffff;
-            --muted-color: #a0a0a0;
-            --border-color: #222222;
-            --primary-color: #ffffff;
-            --primary-text-color: #000000;
-            --accent-color: #ffffff;
-            --current-period-highlight-color: #5f5f5f;
-            --tab-capsules-font-color: #000000;
+          /* iOS-like Easing */
+          --ease-apple: cubic-bezier(0.25, 1, 0.5, 1);
+          --duration: 0.5s;
         }
 
-        [data-theme="light"] {
-            /* Light Mode */
-            --page-bg-color: #f0f2f5;
-            --content-bg-color: #ffffff;
-            --text-color: #000000;
-            --muted-color: #555555;
-            --border-color: #e5e7eb;
-            --primary-color: #000000;
-            --primary-text-color: #ffffff;
-            --accent-color: #000000;
-            --current-period-highlight-color: #c1c1c1;
-            --tab-capsules-font-color: #ffffff;
+        /* --- DARK THEME (Midnight) --- */
+        .app-wrapper.dark {
+          --bg-base: #000000;
+          --text-primary: #FFFFFF;
+          --text-secondary: rgba(235, 235, 245, 0.6); /* iOS Dark Mode Secondary */
+          --text-tertiary: rgba(235, 235, 245, 0.3);
+          
+          /* Materials */
+          --material-thick: rgba(30, 30, 30, 0.75);
+          --material-thin: rgba(255, 255, 255, 0.1);
+          --border-subtle: rgba(255, 255, 255, 0.12);
+          
+          /* Interactive */
+          --btn-bg: #FFFFFF;
+          --btn-text: #000000;
+          --btn-pressed: rgba(255, 255, 255, 0.8);
         }
 
-        /* --- 2. Core Styles & Reset --- */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        /* --- LIGHT THEME (Frost) --- */
+        .app-wrapper.light {
+          --bg-base: #F2F2F7; /* iOS System Gray 6 */
+          --text-primary: #000000;
+          --text-secondary: rgba(60, 60, 67, 0.6); /* iOS Light Mode Secondary */
+          --text-tertiary: rgba(60, 60, 67, 0.3);
 
-        html {
-            scroll-behavior: smooth;
+          /* Materials */
+          --material-thick: rgba(255, 255, 255, 0.85);
+          --material-thin: rgba(255, 255, 255, 0.5);
+          --border-subtle: rgba(0, 0, 0, 0.08);
+
+          /* Interactive */
+          --btn-bg: #000000;
+          --btn-text: #FFFFFF;
+          --btn-pressed: rgba(0, 0, 0, 0.8);
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--page-bg-color);
-            color: var(--text-color);
-            transition: background-color 0.3s ease, color 0.3s ease;
-            -webkit-text-size-adjust: 100%;
-            text-size-adjust: 100%;
+          margin: 0;
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+          background-color: var(--bg-base);
+          -webkit-font-smoothing: antialiased;
         }
 
-        /* --- 3. Layout & Spacing --- */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
+        .app-wrapper {
+          min-height: 100vh;
+          background-color: var(--bg-base);
+          color: var(--text-primary);
+          transition: background-color var(--duration) var(--ease-apple);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
 
+        /* --- LAYOUT CONTAINER --- */
+        .viewport {
+          width: 100%;
+          max-width: 680px; /* Optimal reading width */
+          padding: 20px;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          gap: 32px;
+          min-height: 100vh;
+        }
+
+        /* --- HEADER --- */
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+          padding-top: 60px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          position: relative;
         }
 
-        /* --- 4. Typography --- */
-        .logo {
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-size: 1.1rem;
+        .header-eyebrow {
+          font-size: 13px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.06em;
+          color: var(--text-secondary);
+          margin-bottom: 8px;
         }
 
         h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 0.25rem;
+          font-size: 40px;
+          font-weight: 700;
+          letter-spacing: -0.02em; /* iOS Tight Heading */
+          margin: 0;
+          line-height: 1.1;
         }
 
-        h2 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 0;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
+        .theme-toggle {
+          position: absolute;
+          right: 0;
+          top: 60px;
+          background: var(--material-thin);
+          border: none;
+          color: var(--text-primary);
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: transform 0.2s ease;
+        }
+        .theme-toggle:hover { transform: scale(1.05); }
+
+        /* --- SEGMENTED NAV --- */
+        .segmented-control {
+          background: var(--material-thin);
+          padding: 4px;
+          border-radius: 100px; /* Full Pill */
+          display: inline-flex;
+          position: relative;
+          backdrop-filter: blur(10px);
+          margin: 0 auto;
         }
 
-        h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
+        .segment {
+          padding: 8px 24px;
+          border-radius: 100px;
+          font-size: 14px;
+          font-weight: 500;
+          color: var(--text-secondary);
+          text-decoration: none;
+          transition: all 0.3s var(--ease-apple);
+          display: flex;
+          align-items: center;
+          gap: 6px;
         }
 
-        h4 {
-            font-weight: 700;
-            color: var(--text-color);
-            margin-bottom: 0.5rem;
-            margin-top: 1.5rem;
-        }
-
-        p {
-            line-height: 1.6;
-            margin-bottom: 1rem;
-            color: var(--muted-color);
-            font-size: 0.95rem;
-        }
-
-        ul,
-        ol {
-            padding-left: 20px;
-            margin-bottom: 1rem;
-        }
-
-        li {
-            margin-bottom: 0.5rem;
-            color: var(--muted-color);
-            font-size: 0.95rem;
-        }
-
-        strong {
-            font-weight: 700;
-            color: var(--text-color);
-        }
-
-        /* --- 5. Component Styling --- */
-        .card {
-            background-color: var(--content-bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 1.5rem;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 1.5rem;
-            flex-wrap: nowrap;
-            gap: 1rem;
+        .segment.active {
+          background: var(--bg-base); /* Punch out */
+          color: var(--text-primary);
+          box-shadow: 0 2px 8px rgba(0,0,0,0.12);
         }
         
-        .card-header h2 {
-            min-width: 0;
-            flex-shrink: 1;
+        .segment.disabled {
+          opacity: 0.5;
+          cursor: default;
         }
 
-        .clock {
-            font-family: monospace;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--muted-color);
-            flex-shrink: 0;
+        /* --- CARDS (iOS Materials) --- */
+        .card {
+          background: var(--material-thick);
+          backdrop-filter: blur(25px);
+          -webkit-backdrop-filter: blur(25px);
+          border: 1px solid var(--border-subtle);
+          border-radius: 28px; /* Large iOS radius */
+          padding: 32px;
+          box-shadow: 0 10px 40px -10px rgba(0,0,0,0.2);
+          transition: transform 0.4s var(--ease-apple);
+        }
+        
+        .card:hover {
+          transform: scale(1.01);
         }
 
-        .button {
-            cursor: pointer;
-            padding: 0.6rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 600;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-            text-align: center;
-            font-size: 0.9rem;
-            background-color: transparent;
-            color: var(--text-color);
+        .card-icon {
+          width: 48px;
+          height: 48px;
+          background: var(--text-primary);
+          color: var(--bg-base);
+          border-radius: 14px; /* Squircle */
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 20px;
         }
 
-        .button:hover,
-        .button.active {
-            background-color: var(--primary-color);
-            color: var(--tab-capsules-font-color);
-            border-color: var(--primary-color);
+        .card h2 {
+          font-size: 22px;
+          font-weight: 600;
+          letter-spacing: -0.01em;
+          margin: 0 0 12px 0;
         }
 
-        .theme-toggle-button {
-            background: none;
-            border: none;
-            border-radius: 50%;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .card p {
+          font-size: 16px;
+          line-height: 1.5;
+          color: var(--text-secondary);
+          margin: 0 0 32px 0;
         }
 
-        .theme-toggle-button:hover {
-            transform: scale(1.1) rotate(15deg);
+        /* --- ACTION BUTTON --- */
+        .btn-ios {
+          background: var(--btn-bg);
+          color: var(--btn-text);
+          border: none;
+          height: 50px; /* Standard Touch Target */
+          width: 100%;
+          border-radius: 100px;
+          font-size: 16px;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          cursor: pointer;
+          transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        
+        .btn-ios:active {
+          opacity: 0.8;
+          transform: scale(0.98);
         }
 
-        .theme-icon {
-            color: var(--text-color);
+        /* --- GRID --- */
+        .grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
         }
 
-        [data-theme="dark"] .sun-icon {
-            display: block;
+        .mini-card {
+          background: var(--material-thick);
+          border: 1px solid var(--border-subtle);
+          border-radius: 24px;
+          padding: 24px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          color: var(--text-tertiary);
+          backdrop-filter: blur(20px);
         }
 
-        [data-theme="dark"] .moon-icon {
-            display: none;
+        .mini-card span {
+          font-size: 13px;
+          font-weight: 500;
+          letter-spacing: 0.02em;
         }
 
-        [data-theme="light"] .sun-icon {
-            display: none;
+        /* --- FOOTER --- */
+        footer {
+          margin-top: auto;
+          padding: 40px 0;
+          text-align: center;
+          color: var(--text-tertiary);
+          font-size: 12px;
+          font-weight: 500;
         }
 
-        [data-theme="light"] .moon-icon {
-            display: block;
+        /* --- TOAST --- */
+        .toast {
+          position: fixed;
+          bottom: 40px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: rgba(40, 40, 40, 0.9);
+          backdrop-filter: blur(10px);
+          color: white;
+          padding: 12px 24px;
+          border-radius: 100px;
+          font-size: 14px;
+          font-weight: 500;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          z-index: 999;
+          animation: slideUp 0.4s var(--ease-apple);
+        }
+        .light .toast {
+          background: rgba(255,255,255,0.9);
+          color: black;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .input-field,
-        .select-field,
-        .textarea-field {
-            width: 100%;
-            background-color: var(--page-bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 0.75rem 1.5rem;
-            color: var(--text-color);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 1rem;
+        @keyframes slideUp {
+          from { transform: translate(-50%, 100%); opacity: 0; }
+          to { transform: translate(-50%, 0); opacity: 1; }
         }
 
-        .select-field.pill {
-            border-radius: 50px;
-        }
+        /* --- ANIMATIONS --- */
+        .fade-in { opacity: 0; animation: fade 0.8s var(--ease-apple) forwards; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        
+        @keyframes fade { to { opacity: 1; } }
+      `}</style>
 
-        .select-group {
-            position: relative;
-        }
-
-        .select-group .icon {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--muted-color);
-            pointer-events: none;
-            right: 1.25rem;
-        }
-
-        .select-field {
-            appearance: none;
-        }
-
-        .edit-subject-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0 0.5rem;
-            color: var(--muted-color);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .edit-subject-btn:hover {
-            color: var(--text-color);
-        }
-
-        .subject-link {
-            cursor: pointer;
-            transition: all 0.2s ease;
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .subject-link:hover {
-            text-decoration: underline;
-            text-decoration-thickness: 2px;
-            text-underline-offset: 3px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            text-align: left;
-            padding: 1rem;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--muted-color);
-            font-size: 0.9rem;
-            vertical-align: middle;
-        }
-
-        th {
-            color: var(--text-color);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.8rem;
-            font-weight: 700;
-        }
-
-        tr.current-period {
-            background-color: var(--current-period-highlight-color) !important;
-        }
-
-        tr.current-period td,
-        tr.current-period td span {
-            color: var(--primary-text-color) !important;
-        }
-
-        tr.current-period .subject-link {
-            color: var(--primary-text-color) !important;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background-color: var(--content-bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 2rem;
-            width: 90%;
-            max-width: 800px;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-content h2 {
-            margin-top: 0;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .form-grid .full-width {
-            grid-column: 1 / -1;
-        }
-
-        .modal-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        /* --- 6. Responsive Layout --- */
-        .filters {
-            display: grid;
-            grid-template-columns: 1fr 1fr auto;
-            gap: 1rem;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .table-container {
-            overflow-x: auto;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-                gap: 1.5rem;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            .card-header h2 {
-                font-size: 1.2rem;
-            }
-
-            .clock {
-                font-size: 1.5rem;
-            }
-
-            .filters {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <header>
-            <div class="logo">BCA / SEM III</div>
-            <button class="theme-toggle-button" id="theme-toggle" aria-label="Toggle Theme">
-                <svg class="sun-icon theme-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                    viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="5"></circle>
-                    <line x1="12" y1="1" x2="12" y2="3"></line>
-                    <line x1="12" y1="21" x2="12" y2="23"></line>
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                    <line x1="1" y1="12" x2="3" y2="12"></line>
-                    <line x1="21" y1="12" x2="23" y2="12"></line>
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                </svg>
-                <svg class="moon-icon theme-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                    viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                </svg>
-            </button>
+      <div className="viewport">
+        {/* HEADER */}
+        <header className={mounted ? 'fade-in' : ''}>
+          <button className="theme-toggle" onClick={toggleTheme}>
+            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
+          
+          <span className="header-eyebrow">Academic Hub</span>
+          <h1>BCA 4<sup>th</sup> Sem</h1>
         </header>
 
-        <main>
-            <div style="display: flex; justify-content: center; gap: 1rem;">
-                <button class="button active" id="nav-routine">Routine</button>
-                <button class="button" id="nav-syllabus">Syllabus</button>
-            </div>
-
-            <section id="routine-section">
-                <p> </p>
-                <h1>Class Routine</h1>
-                <p> </p>
-                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
-                    <button class="button active" id="routine-daily">Today's Routine</button>
-                    <button class="button" id="routine-weekly">Full Week</button>
-                </div>
-                <div id="routine-content"></div>
-            </section>
-
-            <section id="syllabus-section" class="hidden">
-                <p> </p>
-                <h1>Syllabus Explorer</h1>
-                <p> </p>
-                <div class="filters">
-                    <div class="select-group"><select id="subject-filter" class="select-field pill"></select><span
-                            class="icon">▼</span></div>
-                    <div class="select-group"><select id="faculty-filter" class="select-field pill"></select><span
-                            class="icon">▼</span></div>
-                    <button class="button" id="add-syllabus-btn">Add New</button>
-                </div>
-                <div id="syllabus-content" style="display: flex; flex-direction: column; gap: 1.5rem;"></div>
-            </section>
-        </main>
-    </div>
-
-    <!-- Add Syllabus Modal -->
-    <div id="add-syllabus-modal" class="modal-overlay" style="display: none;">
-        <div class="modal-content">
-            <h2>Add New Syllabus</h2>
-            <form id="syllabus-form">
-                <div class="form-grid">
-                    <div class="full-width">
-                        <label for="new-subject-name">Subject Name</label>
-                        <input type="text" id="new-subject-name" class="input-field" required>
-                    </div>
-                    <div>
-                        <label for="new-subject-code">Subject Code</label>
-                        <input type="text" id="new-subject-code" class="input-field" required>
-                    </div>
-                    <div>
-                        <label for="new-faculty-name">Faculty Name</label>
-                        <input type="text" id="new-faculty-name" class="input-field">
-                    </div>
-                    <div class="full-width">
-                        <label for="new-objectives">Objectives (one per line)</label>
-                        <textarea id="new-objectives" class="textarea-field" rows="3"></textarea>
-                    </div>
-                    <div class="full-width">
-                        <label for="new-outcomes">Outcomes (one per line)</label>
-                        <textarea id="new-outcomes" class="textarea-field" rows="3"></textarea>
-                    </div>
-                    <div class="full-width">
-                        <h4>Modules</h4>
-                        <div class="table-container">
-                            <table id="new-modules-table">
-                                <thead>
-                                    <tr>
-                                        <th>Module</th>
-                                        <th>Topic</th>
-                                        <th>Content</th>
-                                        <th>Hours</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="new-modules-tbody">
-                                    <!-- Rows will be added here by JS -->
-                                </tbody>
-                            </table>
-                        </div>
-                        <button type="button" id="add-module-row" class="button" style="margin-top: 1rem;">Add Module
-                            Row</button>
-                    </div>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" id="cancel-add-syllabus" class="button">Cancel</button>
-                    <button type="submit" class="button active">Save Syllabus</button>
-                </div>
-            </form>
+        {/* NAVIGATION (Segmented Control Style) */}
+        <div className={`segmented-control ${mounted ? 'fade-in delay-1' : ''}`}>
+          <a href="#" className="segment active">
+            Status
+          </a>
+          <a href="#" className="segment disabled">
+            Routine <Lock size={12} />
+          </a>
+          <a href="#" className="segment disabled">
+            Syllabus <Lock size={12} />
+          </a>
         </div>
-    </div>
 
-    <!-- Edit Subject Name Modal -->
-    <div id="edit-subject-modal" class="modal-overlay" style="display: none;">
-        <div class="modal-content" style="max-width: 400px;">
-            <h2 id="edit-modal-title">Edit Subject Name</h2>
-            <form id="edit-subject-form">
-                <input type="hidden" id="edit-subject-id">
-                <div>
-                    <label for="edit-subject-name-input">Subject Name</label>
-                    <input type="text" id="edit-subject-name-input" class="input-field" required>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" id="cancel-edit-subject" class="button">Cancel</button>
-                    <button type="submit" class="button active">Save</button>
-                </div>
-            </form>
+        {/* MAIN CARD */}
+        <section className={`card ${mounted ? 'fade-in delay-2' : ''}`}>
+          <div className="card-icon">
+            <AlertCircle size={24} strokeWidth={2.5} />
+          </div>
+          <h2>Session Update</h2>
+          <p>
+            The 3rd semester has concluded. We are currently finalizing the syllabus modules and class routine for the upcoming 4th semester session.
+          </p>
+          <button className="btn-ios" onClick={handleNotify}>
+            Notify Me <ChevronRight size={18} />
+          </button>
+        </section>
+
+        {/* LOCKED GRID */}
+        <section className={`grid ${mounted ? 'fade-in delay-2' : ''}`}>
+          <div className="mini-card">
+            <BookOpen size={28} strokeWidth={1.5} />
+            <span>Syllabus Locked</span>
+          </div>
+          <div className="mini-card">
+            <Calendar size={28} strokeWidth={1.5} />
+            <span>Routine Locked</span>
+          </div>
+        </section>
+
+        <footer>
+          <p>© 2025 BCA DEPT</p>
+        </footer>
+      </div>
+
+      {showToast && (
+        <div className="toast">
+          <Bell size={16} fill="currentColor" />
+          <span>You will be notified when live.</span>
         </div>
+      )}
     </div>
+  );
+};
 
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-
-            // --- DATA STORE & DEFAULTS ---
-            const holidays2025 = {
-                "15-1": "Magh Bihu", "26-1": "Republic Day", "14-3": "Holi", "31-3": "Idul Fitr",
-                "14-4": "Bohag Bihu", "18-4": "Good Friday", "1-5": "May Day", "7-6": "Bakrid / Eid al Adha",
-                "15-8": "Independence Day", "2-10": "Gandhi Jayanti", "21-10": "Diwali", "25-12": "Christmas Day"
-            };
-            const defaultSubjects = {
-                "OOP": { name: "Object Oriented Programming", code: "BCA23201T", faculty: "Mr. Jeetumoni Barman" },
-                "DBMS": { name: "Database Management System", code: "BCA23202T", faculty: "Dr. Mukta Ranjan Singha" },
-                "OS": { name: "Operating Systems", code: "BCA23203T", faculty: "Mr. Arindam Ain" },
-                "OOP Lab": { name: "Lab: OOP", code: "BCA23201P", faculty: "Mr. Jeetumoni Barman" },
-                "DBMS Lab": { name: "Laboratory-III (DBMS)", code: "BCA23202P", faculty: "Dr. Mukta Ranjan Singha" },
-                "MDC-III": { name: "MDC-III", code: "MDC-III", faculty: "N/A" },
-                "SEC-III": { name: "SEC-III", code: "SEC-III", faculty: "N/A" },
-                "AEC-III": { name: "AEC-III", code: "AECC-III", faculty: "N/A" },
-                "Library/DBMS": { name: "Library/DBMS", code: "N/A", faculty: "N/A" },
-                "Club activities": { name: "Club activities", code: "N/A", faculty: "N/A" },
-                "Test and Remedial": { name: "Test and Remedial", code: "N/A", faculty: "N/A" },
-            };
-            const defaultSyllabus = [
-                { id: "OOP", objectives: ["Introduce the fundamental concepts of Object-Oriented Programming (OOP) and the methodologies of OOP-based software development.", "Demonstrate OOP concepts and techniques using Java, a class-based and fully object-oriented language.", "Develop students’ understanding of OOP syntax, structure, and the design logic behind object-oriented programming.", "Equip students with the basic knowledge and skills necessary to apply object-oriented programming in software development using Java."], outcomes: ["Explain and differentiate core Object-Oriented Programming concepts and Java-specific programming principles.", "Implement object-oriented solutions to real-world problems.", "Integrate exception handling and multithreading to develop robust and efficient applications.", "Utilize Java packages to organize code effectively and manage project structure.", "Create graphical user interfaces (GUIs) using Java applets for interactive applications."], modules: [{ id: "I", topic: "Introduction", content: "Java’s History, Importance of Java for the Internet, Java’s Magic: Byte-code, Its Features, Java Virtual Machine Concepts, Primitive Data Type and Variables, Java Operators, Expressions, Statements and Arrays.", hours: 8 }, { id: "II", topic: "Classes and Object", content: "Class Fundamentals, Creating objects, Assigning object reference variables; Introducing Methods, static methods, Constructors and types of constructor, Overloading constructors; this Keyword; Using Objects as Parameters, Argument passing, Returning objects, Method overloading.", hours: 10 }, { id: "III", topic: "Inheritance", content: "Inheritance Basics, Access Control, Multilevel inheritance, Method Overriding, Abstract Classes, Polymorphism, final keyword.", hours: 7 }, { id: "IV", topic: "Packages, Abstract Class and Interface", content: "Defining Package, CLASSPATH, Package naming, Accessibility of Packages, using package members. Interfaces: Implementing Interfaces, Interface and Abstract Classes. Exceptions Handling: Exception, Handling of Exception, Using try-catch, Catching multiple exceptions, Using finally clause, Types of Exceptions, Throwing Exceptions.", hours: 10 }, { id: "V", topic: "Multithreading and Applet", content: "Multithreading Programming: The Java Thread Model, Understanding Threads, Creating a Thread, Creating Multiple Threads, Thread Priorities. Creating Applets in Java: Applet Basics, Applet Architecture, Applet Life Cycle, Simple Applet Display Methods, The HTML APPLET Tag, Passing Parameters to Applets.", hours: 10 }], books: ["E. Balaguruswami, Programming with Java, Second Edition, Tata McGraw-Hill Publication", "Herbert Schildt, The Complete Reference Java 2, Fifth Edition, Tata McGraw-Hill Publication"] },
-                { id: "DBMS", faculty: "Dr. Mukta Ranjan Singha (HOD, Computer Applications)", objectives: ["Equip students with foundational skills to create, organize, and manage data effectively within databases using DBMS software.", "Enable students to understand practical database design principles across various database management systems.", "Develop students’ skills in structuring, organizing, and storing data effectively within a DBMS environment."], outcomes: ["Explain the fundamentals of databases and apply Entity-Relationship (ER) modeling and relational modeling to design basic databases.", "Summarize core concepts of the relational model and SQL, and compose database queries using relational algebra and structured query language.", "Design and implement real-world databases by applying normalization techniques.", "Identify and explain issues related to transaction management and recovery in database systems."], modules: [{ id: "1", topic: "Introduction to Databases", content: "Definition of database, Example, Characteristics of the Database Approach, Actors on Scene, Workers behind the scene, DBMS, Advantages of Using the DBMS Approach, Brief History of Database Applications, When Not to Use a DBMS.", hours: 5 }, { id: "2", topic: "Introduction to Database Design", content: "Data models, Database Design and ER Diagrams, Entities, Attributes and Entity Sets, Relationships and Relationship Sets, Additional Features of the ER Model, Conceptual Design with the ER Model, Conceptual Design for Large Enterprises.", hours: 10 }, { id: "3", topic: "Overview of Database Languages and Architectures", content: "Data Models, Schemas and Instances, Three-Schema Architecture and Data Independence, Database Languages and Interfaces, The Database System Environment, Centralized and Client/Server Architecture for DBMSs, Classification of Database Management Systems.", hours: 5 }, { id: "4", topic: "Relational Model", content: "Introduction to the Relational Model, Integrity Constraints over Relations, Enforcing Integrity Constraints, Querying Relational Data, Logical Database Design: ER to Relational, Introduction to Views, Destroying/Altering Tables and Views.", hours: 5 }, { id: "5", topic: "Relational Algebra and SQL", content: "Selection and Projection, Set Operations, Renaming, Joins, Division, More Examples of Algebra Queries. Queries, Constraints, Triggers: The Form of a Basic SQL Query, UNION, INTERSECT and EXCEPT, Nested Queries, Aggregate Operators, Null Values, Complex Integrity Constraints in SQL, Triggers and Active Databases, Designing Active Databases.", hours: 5 }, { id: "6", topic: "Introduction to Normalization Using Functional Dependencies", content: "Informal Design Guidelines for Relation Schema, Functional Dependencies, Normal Forms Based on Primary Keys, General Definitions of Second and Third Normal Forms, Boyce-Codd Normal Form, Multivalued Dependency and Fourth Normal Form, Join Dependencies and Fifth Normal Form.", hours: 10 }, { id: "7", topic: "Transaction Management", content: "Transaction Concept, A Simple Transaction Model, Storage Structure, ACID Properties, Serializability, Transaction Isolation Levels.", hours: 5 }], books: ["Database System Concepts, 6/e, Abraham Silberschatz, Henry F. Korth, S. Sudarshan, McGraw-Hill", "Database Systems, 6/e, Ramez Elmasri, Shamkant B. Navathe, Pearson"], referenceBooks: ["Database Systems, 9/e, Carlos Coronel, Steven Morris, Peter Rob, Cengage", "Introduction to Database Systems, 8/e, C. J. Date, Pearson"] },
-                { id: "OS", objectives: ["Describe the principles of CPU scheduling and explain the role of device management in operating systems, covering device drivers, I/O operations, and interrupt handling.", "Understand and demonstrate principles of deadlock detection and prevention, as well as file system structures and operations, including file organization, directory structures, and file access methods.", "Explain the role of virtual memory and paging in memory management, and calculate page table sizes and perform address translation."], outcomes: ["Explain the structure and components of operating systems, understand the concepts of processes and threads, and implement basic process and thread management operations.", "Describe CPU scheduling principles and analyze the performance of various scheduling algorithms.", "Apply key concepts of process management, memory management, and file system management to real-world scenarios.", "Explain the function of virtual memory and paging in memory management, and calculate page table sizes and address translations accurately."], modules: [{ id: "I", topic: "Introduction and Historical Perspective", content: "Operating System concept and its role, Batch processing, multiprogramming, time-sharing, distributed system, Functions, components and structure of an operating system.", hours: 4 }, { id: "II", topic: "Process Management", content: "Structure of a process, PCB, operations on processes, Support for concurrent processes—Trade-off between sequential and concurrent processing with examples in implementation; Shared data, Critical sections, Mutual exclusion, busy form of waiting, lock and unlock primitives, semaphore, block and wakeup.", hours: 14 }, { id: "III", topic: "I/O Systems", content: "I/O Management: device controller, Device drivers, I/O Software goals and structure, Interrupt and handling mechanisms, Application of I/O Interface, Terminal handling, Block and character devices, Vectored I/O.", hours: 6 }, { id: "IV", topic: "Memory Management", content: "Address space management: address binding, logical vs physical address space, Static and dynamic memory management, protection and sharing, Contiguous and non-contiguous memory allocation, fragmentation and solution; Swapping, Paging and Segmentation, page table; page replacement and space allocation policies.", hours: 8 }, { id: "V", topic: "File System and Disk Management", content: "File concept and organization, File management strategies, File system structure and access methods, tradeoffs, Directory structures, Allocation Methods: contiguous, linked, indexed, FAT and I-node structures.", hours: 8 }], books: ["Silberschatz A., Galvin P.B. and Gagne G: \"Operating System Concepts\", Wiley, 9th Ed.", "Tanenbaum A.S.: \"Operating System - Design and Implementation\", PHI (EEE).", "Milenkovic M., \"Operating System - Concepts and Design\", McGraw Hill."], referenceBooks: ["Stallings, William, \"Operating Systems\", Maxwell McMillan International Editions, 1992.", "Dietel, R.N., \"An Introduction to Operating Systems\", Addison Wesley."] },
-                { id: "OOP Lab", objectives: ["Introduce students to Object-Oriented Programming (OOP) concepts through the Java programming language.", "Demonstrate the use of Java as a class-based, pure OOP language to illustrate core OOP principles and techniques.", "Develop students’ understanding of Java syntax, structure, and the problem-solving approach central to object-oriented programming.", "Equip students with foundational skills to apply OOP techniques in software development using Java."], outcomes: ["Explain the structure of the Java programming language and apply fundamental object-oriented concepts in Java.", "Implement exception handling and multithreading to create efficient and reliable applications.", "Create and utilize user-defined packages within Java programs to enhance code organization and reusability.", "Develop basic applet programs using Java to create graphical user interface (GUI) components."], labList: ["WAP in Java to Print “Hello GIMT” message", "Find average, sum, min and max of N numbers using command line argument", "Use DataInputStream to calculate area of a circle from user input", "Use BufferedReader to calculate volume of a cylinder", "Check if input number is prime", "Print sum of odd numbers to a given range", "Generate Fibonacci series up to a given range", "Find factorial of a number using loop", "Calculate Simple Interest with Principal, Rate and Time", "Use array to calculate the sum of array values", "Class with methods to calculate Surface Area and Volume of a Cuboid", "Sum of odd numbers in a given range", "Sum of even numbers in a given range", "Perform bubble sort on a given array", "Demonstrate default constructor", "Demonstrate parameter constructor", "Demonstrate copy constructor", "Single Level Inheritance", "Multi Level Inheritance", "Hierarchical Inheritance", "Factorial using recursion", "Method overriding", "Method overloading", "Class Rectangle to find area, perimeter using super and this keyword", "Demonstrate Inheritance (IS-A) vs Composition (Has-A)", "Use of abstract class", "Use of interface in Java", "Use of throw and throws", "Exception handling using try and multiple catch blocks", "User-defined package accessing external and internal classes"], books: ["E. Balaguruswami, Programming with Java, Second Edition, Tata McGraw-Hill Publication", "Herbert Schildt, The Complete Reference Java 2, Fifth Edition, Tata McGraw-Hill Publication"] },
-                { id: "DBMS Lab", faculty: "Dr. Mukta Ranjan Singha (HOD, Computer Applications)", objectives: ["Create and manipulate databases using SQL Data Definition Language (DDL) and Data Manipulation Language (DML) commands.", "Declare and enforce integrity constraints to ensure data accuracy and consistency within a database.", "Formulate complex queries using advanced SQL concepts.", "Develop programs in PL/SQL, including stored procedures, functions, cursors, and triggers."], outcomes: ["Utilize SQL to execute queries for database creation and perform data manipulation tasks.", "Implement integrity constraints to design efficient and reliable databases.", "Apply advanced SQL concepts to construct complex queries.", "Build PL/SQL programs, incorporating stored procedures, functions, cursors, and triggers for enhanced database functionality."], labList: ["Execute all DDL, DML and DCL commands on sample tables.", "Implementation of different types of operators and built-in functions with suitable examples.", "Implementation of different types of joins with suitable examples.", "Create views, partitions, Sequence, Indexes and locks for a particular DB.", "Implement different types of constraints on relations.", "Implementation of sub queries and nested queries.", "Implement Queries on Group By & Having Clauses, ALIAS, Sequence By, Order By.", "Schema: OWNER (Owner#, Ownername, Address, Phoneno), POND (Pond#, Pondname, Address, Owner#), FISH (Fish#, Fishname, Type, Uprice), CATCH (Pond#, Fish#, Date, Qty). Queries: Find the Owner#, Ownername and their pondnames. The Owner#, Ownername who caught “RAHU” fish between 01-02-2021 and 01-04-2021. The pond name where all the fish types are available.", "Another Schema: Medicine(Mcode, Mname, Type, Price, MDate, EDate), Prescription(Pno, DCode, PDate, Mname, Quantity), Sale(Pno, Mcode, Qty, Date), Doctor(Dcode, Dname, Specialization). Queries: Find the Pno, Mcode, Mname, Dname. Find the medicine names which are expired as on today. Find the total quantity sold for each medicine.", "Procedure: EMP (Empno, Ename, Job, Mgr, Hiredate, Sal, Comm., Deptno). Write a procedure which calculates the total salary of the employees. Write a procedure to check if employee age is <= 60 and >= 18."], books: ["Oracle: The Complete Reference by Oracle Press", "Nilesh Shah, \"Database Systems Using Oracle”, PHI, 2007", "Rick F Vander Lans, “Introduction to SQL”, Fourth Edition, Pearson Education, 2007"], referenceBooks: ["Quality Software Project Management, Futrell, Donald F. Shafer, Donald I. Shafer, PEA."] },
-            ];
-            const routineData = {
-                Monday: [{ time: "08:45-09:45", subject: "SEC-III" }, { time: "09:45-10:45", subject: "MDC-III" }, { time: "10:45-11:45", subject: "DBMS" }, { time: "11:45-12:45", subject: "OS" }, { time: "12:45-13:45", subject: "BREAK" }, { time: "13:45-14:45", subject: "OOP" }, { time: "14:45-15:45", subject: "OOP Lab" }],
-                Tuesday: [{ time: "08:45-09:45", subject: "AEC-III" }, { time: "09:45-10:45", subject: "DBMS" }, { time: "10:45-11:45", subject: "OS" }, { time: "11:45-12:45", subject: "DBMS Lab" }, { time: "12:45-13:45", subject: "BREAK" }, { time: "13:45-15:45", subject: "Club activities" }],
-                Wednesday: [{ time: "08:45-09:45", subject: "SEC-III" }, { time: "09:45-10:45", subject: "MDC-III" }, { time: "10:45-11:45", subject: "Library/DBMS" }, { time: "11:45-12:45", subject: "OOP" }, { time: "12:45-13:45", subject: "BREAK" }, { time: "13:45-15:45", subject: "OOP Lab" }],
-                Thursday: [{ time: "08:45-09:45", subject: "AEC-III" }, { time: "09:45-10:45", subject: "OS" }, { time: "10:45-11:45", subject: "OOP" }, { time: "11:45-12:45", subject: "OOP Lab" }, { time: "12:45-13:45", subject: "BREAK" }, { time: "13:45-14:45", subject: "DBMS" }, { time: "14:45-15:45", subject: "DBMS Lab" }],
-                Friday: [{ time: "08:45-09:45", subject: "SEC-III" }, { time: "09:45-10:45", subject: "MDC-III" }, { time: "10:45-11:45", subject: "DBMS" }, { time: "11:45-12:45", subject: "DBMS Lab" }, { time: "12:45-13:45", subject: "BREAK" }, { time: "13:45-14:45", subject: "OOP" }, { time: "14:45-15:45", subject: "OOP Lab" }],
-                Saturday: [{ time: "Full Day", subject: "Test and Remedial" }],
-            };
-
-            // --- STATE MANAGEMENT ---
-            let appState = {
-                subjects: {},
-                syllabusData: []
-            };
-
-            // --- DOM ELEMENTS ---
-            const themeToggle = document.getElementById('theme-toggle');
-            const navRoutine = document.getElementById('nav-routine');
-            const navSyllabus = document.getElementById('nav-syllabus');
-            const routineSection = document.getElementById('routine-section');
-            const syllabusSection = document.getElementById('syllabus-section');
-            const routineContent = document.getElementById('routine-content');
-            const routineDailyBtn = document.getElementById('routine-daily');
-            const routineWeeklyBtn = document.getElementById('routine-weekly');
-            const syllabusContent = document.getElementById('syllabus-content');
-            const subjectFilter = document.getElementById('subject-filter');
-            const facultyFilter = document.getElementById('faculty-filter');
-            const addSyllabusBtn = document.getElementById('add-syllabus-btn');
-            const addSyllabusModal = document.getElementById('add-syllabus-modal');
-            const syllabusForm = document.getElementById('syllabus-form');
-            const cancelSyllabusBtn = document.getElementById('cancel-add-syllabus');
-            const addModuleBtn = document.getElementById('add-module-row');
-            const modulesTbody = document.getElementById('new-modules-tbody');
-            const editSubjectModal = document.getElementById('edit-subject-modal');
-            const editSubjectForm = document.getElementById('edit-subject-form');
-            const cancelEditBtn = document.getElementById('cancel-edit-subject');
-            const editSubjectInput = document.getElementById('edit-subject-name-input');
-            const editSubjectIdInput = document.getElementById('edit-subject-id');
-            const editModalTitle = document.getElementById('edit-modal-title');
-
-            // --- DATA PERSISTENCE ---
-            const saveData = () => {
-                localStorage.setItem('bcaHubSubjects', JSON.stringify(appState.subjects));
-                localStorage.setItem('bcaHubSyllabus', JSON.stringify(appState.syllabusData));
-            };
-
-            const loadData = () => {
-                const savedSubjects = JSON.parse(localStorage.getItem('bcaHubSubjects'));
-                const savedSyllabus = JSON.parse(localStorage.getItem('bcaHubSyllabus'));
-
-                appState.subjects = savedSubjects || defaultSubjects;
-
-                const coreSyllabus = defaultSyllabus.map(s => ({ ...appState.subjects[s.id], ...s }));
-                const customSyllabus = savedSyllabus ? savedSyllabus.filter(s => !defaultSubjects[s.id]) : [];
-                appState.syllabusData = [...coreSyllabus, ...customSyllabus];
-            };
-
-            // --- THEME LOGIC ---
-            const setAppTheme = (theme) => {
-                document.documentElement.setAttribute('data-theme', theme);
-                localStorage.setItem('theme', theme);
-            };
-            themeToggle.addEventListener('click', () => {
-                const currentTheme = document.documentElement.getAttribute('data-theme');
-                setAppTheme(currentTheme === 'dark' ? 'light' : 'dark');
-            });
-
-            // --- NAVIGATION LOGIC ---
-            const switchView = (view) => {
-                if (view === 'routine') {
-                    routineSection.classList.remove('hidden');
-                    syllabusSection.classList.add('hidden');
-                    navRoutine.classList.add('active');
-                    navSyllabus.classList.remove('active');
-                } else {
-                    routineSection.classList.add('hidden');
-                    syllabusSection.classList.remove('hidden');
-                    navRoutine.classList.remove('active');
-                    navSyllabus.classList.add('active');
-                }
-            };
-            navRoutine.addEventListener('click', () => switchView('routine'));
-            navSyllabus.addEventListener('click', () => switchView('syllabus'));
-
-            // --- ROUTINE LOGIC ---
-            const isCurrentPeriod = (timeString) => {
-                try {
-                    const now = new Date();
-                    const currentTime = now.getHours() * 100 + now.getMinutes();
-
-                    const [startTimeStr, endTimeStr] = timeString.split('-');
-                    const [startHour, startMinute] = startTimeStr.split(':').map(Number);
-                    const [endHour, endMinute] = endTimeStr.split(':').map(Number);
-
-                    const startTime = startHour * 100 + startMinute;
-                    const endTime = endHour * 100 + endMinute;
-
-                    return currentTime >= startTime && currentTime < endTime;
-                } catch (e) {
-                    return false;
-                }
-            };
-
-            const renderDailyRoutine = () => {
-                const today = new Date();
-                const dayName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][today.getDay()];
-                const dateKey = `${today.getDate()}-${today.getMonth() + 1}`;
-                
-                let html = '';
-                if (holidays2025[dateKey]) {
-                    html = `<div class="card" style="text-align: center;">
-                                <h2 style="font-size: 2.5rem;">🎉</h2>
-                                <h2>It's ${holidays2025[dateKey]}!</h2>
-                                <p>No classes today. Enjoy the holiday!</p>
-                            </div>`;
-                } else {
-                    const schedule = routineData[dayName] || [];
-                    html = `<div class="card">
-                                <div class="card-header">
-                                    <h2><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V12l4 2"/><circle cx="12" cy="12" r="10"/></svg> ${dayName} <span style="font-size: 1rem; color: var(--muted-color); font-weight: 400; margin-left: 0.5rem;">${today.toLocaleDateString('en-GB', { day: 'numeric', month: 'long' })}</span></h2>
-                                    <div id="routine-clock" class="clock"></div>
-                                </div>
-                                <div class="table-container">
-                                    <table>
-                                        <thead><tr><th>TimeSlot</th><th>Subject</th></tr></thead>
-                                        <tbody>`;
-                    schedule.forEach(item => {
-                        const isEditable = ['MDC-III', 'SEC-III', 'AEC-III'].includes(item.subject);
-                        const isClickable = item.subject !== 'BREAK' && item.subject !== 'Library/DBMS' && item.subject !== 'Club activities' && item.subject !== 'Test and Remedial';
-                        const subjectName = appState.subjects[item.subject]?.name || item.subject;
-                        
-                        html += `
-                            <tr data-time="${item.time}">
-                                <td>${item.time}</td>
-                                <td>
-                                    <div style="display: flex; align-items: center; justify-content: space-between;">
-                                        ${isClickable ?
-                                `<span class="subject-link" data-subject-name="${subjectName}">${subjectName}</span>` :
-                                `<span>${subjectName}</span>`
-                            }
-                                        ${isEditable ? `<button class="edit-subject-btn" data-subject-id="${item.subject}" title="Edit Name">✎</button>` : ''}
-                                    </div>
-                                </td>
-                            </tr>
-                        `;
-                    });
-                    html += `</tbody></table></div></div>`;
-                }
-                routineContent.innerHTML = html;
-                routineDailyBtn.classList.add('active');
-                routineWeeklyBtn.classList.remove('active');
-                updateHighlight(); // Apply highlight after rendering
-            };
-
-            const renderWeeklyRoutine = () => {
-                const timeSlots = ["08:45-09:45", "09:45-10:45", "10:45-11:45", "11:45-12:45", "12:45-13:45", "13:45-14:45", "14:45-15:45"];
-                let html = `<div class="card table-container"><h2><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg> Weekly Schedule</h2><table><thead><tr><th>Day</th>`;
-                timeSlots.forEach(slot => html += `<th>${slot}</th>`);
-                html += `</tr></thead><tbody>`;
-
-                Object.keys(routineData).filter(day => day !== 'Sunday').forEach(day => {
-                    html += `<tr><td><strong>${day}</strong></td>`;
-                    if (day === 'Saturday') {
-                        html += `<td colspan="${timeSlots.length}" style="text-align: center;">${routineData[day][0].subject}</td>`;
-                    } else {
-                        const daySchedule = routineData[day];
-                        let scheduleGrid = Array(timeSlots.length).fill(null);
-
-                        daySchedule.forEach(item => {
-                            const startIndex = timeSlots.findIndex(slot => item.time.startsWith(slot.split('-')[0]));
-                            if (startIndex === -1) return;
-
-                            const [start, end] = item.time.split('-').map(t => {
-                                const [h, m] = t.split(':');
-                                return parseInt(h) + parseInt(m)/60;
-                            });
-                            let duration = Math.round(end - start);
-                            const colspan = duration > 1 ? 2 : 1;
-
-                            scheduleGrid[startIndex] = { ...item, colspan };
-                            if (colspan > 1) {
-                                for (let i = 1; i < colspan; i++) {
-                                    if (startIndex + i < scheduleGrid.length) {
-                                        scheduleGrid[startIndex + i] = 'occupied';
-                                    }
-                                }
-                            }
-                        });
-
-                        scheduleGrid.forEach(item => {
-                            if (item === 'occupied') return;
-                            if (item === null) {
-                                html += `<td></td>`;
-                            } else {
-                                if (item.subject === 'BREAK') {
-                                    html += `<td style="background-color: var(--border-color); text-align: center;">${item.subject}</td>`;
-                                } else {
-                                    const subjectName = appState.subjects[item.subject]?.name || item.subject;
-                                    html += `<td colspan="${item.colspan}" style="${item.colspan > 1 ? 'text-align: center;' : ''}">${subjectName}</td>`;
-                                }
-                            }
-                        });
-                    }
-                    html += `</tr>`;
-                });
-                html += `</tbody></table></div>`;
-                routineContent.innerHTML = html;
-                routineDailyBtn.classList.remove('active');
-                routineWeeklyBtn.classList.add('active');
-            };
-            routineDailyBtn.addEventListener('click', renderDailyRoutine);
-            routineWeeklyBtn.addEventListener('click', renderWeeklyRoutine);
-
-            // --- SYLLABUS LOGIC ---
-            const populateFilters = () => {
-                const facultySet = new Set(appState.syllabusData.map(s => s.faculty).filter(f => f && f !== "N/A"));
-                facultyFilter.innerHTML = `<option value="">All Faculty</option>` + [...facultySet].map(f => `<option value="${f}">${f}</option>`).join('');
-
-                const subjectSet = new Set(appState.syllabusData.map(s => s.name));
-                subjectFilter.innerHTML = `<option value="">All Subjects</option>` + [...subjectSet].map(s => `<option value="${s}">${s}</option>`).join('');
-            };
-
-            const renderSyllabus = () => {
-                const selectedSubject = subjectFilter.value;
-                const selectedFaculty = facultyFilter.value;
-
-                const filteredData = appState.syllabusData.filter(item => {
-                    const matchesSubject = selectedSubject === '' || item.name === selectedSubject;
-                    const matchesFaculty = selectedFaculty === '' || item.faculty === selectedFaculty;
-                    return matchesSubject && matchesFaculty;
-                });
-
-                if (filteredData.length === 0) {
-                    syllabusContent.innerHTML = `<div class="card" style="text-align: center;"><p>No results found for your query.</p></div>`;
-                    return;
-                }
-
-                syllabusContent.innerHTML = filteredData.map(item => `
-                    <div class="card">
-                        <h3>${item.name} (${item.code})</h3>
-                        <p style="margin-bottom: 1rem;"><strong>Faculty:</strong> ${item.faculty}</p>
-                        
-                        ${item.objectives ? `<h4>Course Objectives</h4><ul>${item.objectives.map(obj => `<li>${obj}</li>`).join('')}</ul>` : ''}
-                        ${item.outcomes ? `<h4>Course Outcomes</h4><ul>${item.outcomes.map(out => `<li>${out}</li>`).join('')}</ul>` : ''}
-
-                        ${item.modules ? `<h4>Modules</h4><div class="table-container"><table><thead><tr><th>Module</th><th>Topic</th><th>Content</th><th>Hours</th></tr></thead><tbody>
-                            ${item.modules.map(mod => `<tr><td>${mod.id}</td><td>${mod.topic}</td><td>${mod.content}</td><td>${mod.hours}</td></tr>`).join('')}
-                        </tbody></table></div>` : ''}
-                        
-                        ${item.labList ? `<h4>Experiment List</h4><ol>${item.labList.map(lab => `<li>${lab}</li>`).join('')}</ol>` : ''}
-                        
-                        ${item.books ? `<h4>Textbooks</h4><ul>${item.books.map(book => `<li>${book}</li>`).join('')}</ul>` : ''}
-                        ${item.referenceBooks ? `<h4>Reference Books</h4><ul>${item.referenceBooks.map(book => `<li>${book}</li>`).join('')}</ul>` : ''}
-                    </div>
-                `).join('');
-            };
-
-            // --- CUSTOMIZATION & EDITING LOGIC ---
-            const updateSubjectName = (id, newName) => {
-                if (appState.subjects[id]) {
-                    appState.subjects[id].name = newName;
-                }
-                const syllabusEntry = appState.syllabusData.find(s => s.id === id);
-                if (syllabusEntry) {
-                    syllabusEntry.name = newName;
-                }
-                saveData();
-                populateFilters();
-                renderSyllabus();
-                if (routineDailyBtn.classList.contains('active')) {
-                    renderDailyRoutine();
-                } else {
-                    renderWeeklyRoutine();
-                }
-            };
-
-            routineContent.addEventListener('click', (e) => {
-                const editBtn = e.target.closest('.edit-subject-btn');
-                if (editBtn) {
-                    const subjectId = editBtn.dataset.subjectId;
-                    const currentName = appState.subjects[subjectId].name;
-
-                    editModalTitle.textContent = `Edit Name for ${subjectId}`;
-                    editSubjectIdInput.value = subjectId;
-                    editSubjectInput.value = currentName;
-                    editSubjectModal.style.display = 'flex';
-                    setTimeout(() => {
-                        editSubjectInput.focus();
-                        editSubjectInput.select();
-                    }, 0);
-                    return; 
-                }
-
-                const subjectLink = e.target.closest('.subject-link');
-                if (subjectLink && subjectLink.dataset.subjectName) {
-                    const subjectName = subjectLink.dataset.subjectName;
-                    switchView('syllabus');
-                    subjectFilter.value = subjectName;
-                    renderSyllabus();
-                }
-            });
-
-            editSubjectForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const subjectId = editSubjectIdInput.value;
-                const newName = editSubjectInput.value;
-                if (newName && newName.trim() !== '') {
-                    updateSubjectName(subjectId, newName.trim());
-                }
-                editSubjectModal.style.display = 'none';
-            });
-            cancelEditBtn.addEventListener('click', () => {
-                editSubjectModal.style.display = 'none';
-            });
-
-
-            // --- MODAL LOGIC ---
-            const addModuleRow = () => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><input type="text" class="input-field mod-id" placeholder="I"></td>
-                    <td><input type="text" class="input-field mod-topic" placeholder="Topic"></td>
-                    <td><textarea class="textarea-field mod-content" rows="2" placeholder="Content"></textarea></td>
-                    <td><input type="number" class="input-field mod-hours" placeholder="8"></td>
-                `;
-                modulesTbody.appendChild(row);
-            };
-
-            const showModal = () => {
-                syllabusForm.reset();
-                modulesTbody.innerHTML = ''; // Clear previous rows
-                addModuleRow(); // Add one row by default
-                addSyllabusModal.style.display = 'flex';
-            };
-            const hideModal = () => addSyllabusModal.style.display = 'none';
-
-            addSyllabusBtn.addEventListener('click', showModal);
-            cancelSyllabusBtn.addEventListener('click', hideModal);
-            addModuleBtn.addEventListener('click', addModuleRow);
-
-            syllabusForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const newModules = [];
-                const moduleRows = modulesTbody.querySelectorAll('tr');
-                moduleRows.forEach(row => {
-                    const id = row.querySelector('.mod-id').value;
-                    const topic = row.querySelector('.mod-topic').value;
-                    const content = row.querySelector('.mod-content').value;
-                    const hours = row.querySelector('.mod-hours').value;
-                    if (id || topic || content || hours) {
-                        newModules.push({ id, topic, content, hours: parseInt(hours) || 0 });
-                    }
-                });
-
-                const newSyllabus = {
-                    id: document.getElementById('new-subject-code').value.toUpperCase().replace(/\s/g, ''),
-                    name: document.getElementById('new-subject-name').value,
-                    code: document.getElementById('new-subject-code').value,
-                    faculty: document.getElementById('new-faculty-name').value,
-                    objectives: document.getElementById('new-objectives').value.split('\n').filter(line => line.trim() !== ''),
-                    outcomes: document.getElementById('new-outcomes').value.split('\n').filter(line => line.trim() !== ''),
-                    modules: newModules
-                };
-                appState.syllabusData.push(newSyllabus);
-                saveData();
-                renderSyllabus();
-                populateFilters();
-                hideModal();
-            });
-
-            // --- CLOCK & HIGHLIGHT LOGIC ---
-            const updateClock = () => {
-                const clockElement = document.getElementById('routine-clock');
-                if (clockElement) {
-                    const now = new Date();
-                    const hours = String(now.getHours()).padStart(2, '0');
-                    const minutes = String(now.getMinutes()).padStart(2, '0');
-                    clockElement.textContent = `${hours}:${minutes}`;
-                }
-            };
-            
-            const updateHighlight = () => {
-                if (routineDailyBtn.classList.contains('active')) {
-                    const rows = routineContent.querySelectorAll('tbody tr');
-                    rows.forEach(row => {
-                        const time = row.dataset.time;
-                        if(time && isCurrentPeriod(time)) {
-                            row.classList.add('current-period');
-                        } else {
-                            row.classList.remove('current-period');
-                        }
-                    });
-                }
-            };
-
-            // --- EVENT LISTENERS ---
-            subjectFilter.addEventListener('change', renderSyllabus);
-            facultyFilter.addEventListener('change', renderSyllabus);
-
-            // --- INITIALIZATION ---
-            const init = () => {
-                const savedTheme = localStorage.getItem('theme') || 'dark';
-                setAppTheme(savedTheme);
-                loadData();
-                switchView('routine'); 
-                renderDailyRoutine();
-                populateFilters();
-                renderSyllabus();
-                
-                updateClock(); 
-                updateHighlight();
-                
-                setInterval(updateClock, 1000); 
-                setInterval(updateHighlight, 60000); 
-            };
-
-            init();
-        });
-    </script>
-</body>
-
-</html>
-
+export default App;
