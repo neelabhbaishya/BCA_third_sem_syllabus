@@ -126,6 +126,7 @@
             margin: 0 auto;
             opacity: 0;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            z-index: 10;
         }
 
         .segment {
@@ -139,6 +140,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            cursor: pointer;
         }
 
         .segment.active {
@@ -147,9 +149,58 @@
             box-shadow: 0 2px 12px rgba(0,0,0,0.15);
         }
         
-        .segment.disabled {
-            opacity: 0.5;
-            cursor: default;
+        /* Sub-Segment Control for Routine */
+        .sub-segmented-control {
+            background: rgba(255,255,255,0.05); /* Slightly lighter/different for hierarchy */
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 3px;
+            border-radius: 100px;
+            display: inline-flex;
+            margin: 0 auto 20px auto;
+            transform: scale(0.95); /* Slightly smaller than main nav */
+        }
+        
+        .sub-segment {
+            padding: 6px 20px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s var(--ease-apple);
+        }
+        
+        .sub-segment.active {
+            background: var(--text-primary);
+            color: var(--bg-color);
+        }
+
+        /* --- VIEWS --- */
+        .view-section {
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            gap: 24px;
+            width: 100%;
+            animation: viewFadeIn 0.5s var(--ease-apple);
+        }
+
+        .view-section.active {
+            display: flex;
+        }
+
+        .sub-view {
+            display: none;
+            animation: viewFadeIn 0.4s var(--ease-apple);
+            width: 100%;
+        }
+        .sub-view.active {
+            display: block;
+        }
+
+        @keyframes viewFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* --- CARDS (Liquid Glass) --- */
@@ -248,6 +299,276 @@
             letter-spacing: 0.02em;
         }
 
+        /* --- ROUTINE CLOCK --- */
+        .clock-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .digital-clock {
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            font-variant-numeric: tabular-nums;
+            background: linear-gradient(180deg, #FFF 0%, rgba(255,255,255,0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .date-display {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: -5px;
+            font-weight: 600;
+        }
+
+        /* --- TIMELINE --- */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-bottom: 40px;
+        }
+
+        .timeline-row {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .time-col {
+            width: 50px;
+            text-align: right;
+            padding-top: 18px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+
+        .event-col {
+            flex: 1;
+            border-radius: 24px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            transition: transform 0.2s;
+        }
+
+        .event-col:hover {
+            transform: scale(1.02);
+            background: var(--glass-highlight);
+        }
+
+        .event-col.break {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px dashed var(--border-glass);
+        }
+
+        .subject {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .teacher {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* --- WEEKLY VIEW LIST --- */
+        .week-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .day-panel {
+            border-radius: 24px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day-panel:hover {
+            background: var(--glass-highlight);
+        }
+        
+        /* Summary view of day */
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .day-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .day-summary {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Expanded view details (Simple list for now) */
+        .day-details {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-glass);
+            display: none; /* Collapsed by default */
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .day-panel.expanded .day-details {
+            display: block;
+            animation: viewFadeIn 0.3s ease;
+        }
+        
+        .day-panel.expanded {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        /* --- SYLLABUS STYLES --- */
+        .syllabus-list { display: flex; flex-direction: column; gap: 16px; }
+        
+        .syllabus-panel { 
+            border-radius: 24px; 
+            padding: 24px; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        
+        .syllabus-panel:hover { 
+            background: var(--glass-highlight); 
+        }
+        
+        .syllabus-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        
+        .subject-info { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 4px; 
+        }
+        
+        .subject-code { 
+            font-size: 11px; 
+            color: var(--text-tertiary); 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            font-weight: 600; 
+        }
+        
+        .subject-title { 
+            font-size: 18px; 
+            font-weight: 600; 
+            color: var(--text-primary); 
+        }
+        
+        .expand-icon { 
+            transition: transform 0.3s ease; 
+            color: var(--text-secondary); 
+            opacity: 0.7;
+        }
+        
+        .syllabus-panel.expanded .expand-icon { 
+            transform: rotate(180deg); 
+            color: var(--text-primary); 
+            opacity: 1;
+        }
+        
+        .syllabus-content { 
+            display: none; 
+            margin-top: 24px; 
+            padding-top: 24px; 
+            border-top: 1px solid var(--border-glass); 
+        }
+        
+        .syllabus-panel.expanded .syllabus-content { 
+            display: block; 
+            animation: viewFadeIn 0.4s var(--ease-apple); 
+        }
+        
+        .syllabus-panel.expanded { 
+            background: rgba(255,255,255,0.08); 
+            border-color: rgba(255,255,255,0.3); 
+        }
+
+        .module-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .module-item { 
+            position: relative;
+            padding-left: 12px;
+            border-left: 2px solid rgba(255,255,255,0.1);
+        }
+        
+        .unit-badge { 
+            display: inline-block; 
+            background: rgba(255,255,255,0.1); 
+            padding: 4px 10px; 
+            border-radius: 6px; 
+            font-size: 11px; 
+            font-weight: 700; 
+            color: var(--text-primary); 
+            margin-bottom: 6px; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .module-item p { 
+            font-size: 14px; 
+            color: var(--text-secondary); 
+            line-height: 1.5; 
+            margin: 0; 
+        }
+
+        .books-section { 
+            margin-top: 24px; 
+            background: rgba(0,0,0,0.3); 
+            padding: 20px; 
+            border-radius: 16px; 
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .section-label { 
+            font-size: 11px; 
+            text-transform: uppercase; 
+            color: var(--text-tertiary); 
+            font-weight: 700; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px;
+            margin-bottom: 12px; 
+            letter-spacing: 1px;
+        }
+        
+        .books-section p { 
+            font-size: 13px; 
+            color: var(--text-secondary); 
+            margin: 6px 0; 
+            line-height: 1.4;
+        }
+
         /* --- TOAST --- */
         .toast {
             position: fixed;
@@ -304,48 +625,489 @@
         
         <!-- HEADER -->
         <header id="header">
-            <!-- Theme Toggle Removed as per request -->
-            
             <span class="header-eyebrow">Academic Hub</span>
             <h1>BCA 4<sup>th</sup> Sem</h1>
         </header>
 
-        <!-- NAVIGATION -->
+        <!-- MAIN NAVIGATION -->
         <div class="segmented-control" id="nav">
-            <a href="#" class="segment active">Status</a>
-            <a href="#" class="segment disabled">
-                Routine <i data-lucide="lock" width="12"></i>
-            </a>
-            <a href="#" class="segment disabled">
-                Syllabus <i data-lucide="lock" width="12"></i>
-            </a>
+            <a class="segment active" onclick="switchTab('status')">Status</a>
+            <a class="segment" onclick="switchTab('routine')">Routine</a>
+            <a class="segment" onclick="switchTab('syllabus')">Syllabus</a>
         </div>
 
-        <!-- MAIN CARD -->
-        <section class="card glass-panel" id="mainCard">
-            <div class="card-icon">
-                <i data-lucide="alert-circle" width="26" stroke-width="2.5"></i>
-            </div>
-            <h2>Session Update</h2>
-            <p>
-                The 3rd semester has concluded. We are currently finalizing the syllabus modules and class routine for the upcoming 4th semester session.
-            </p>
-            <button class="btn-ios" id="notifyBtn">
-                Notify Me <i data-lucide="chevron-right" width="18"></i>
-            </button>
-        </section>
+        <!-- --- TAB: STATUS --- -->
+        <div id="view-status" class="view-section active">
+            <!-- MAIN CARD: COMBINED STATUS & NOTE -->
+            <section class="card glass-panel" id="mainCard">
+                <div class="card-icon">
+                    <i data-lucide="info" width="26" stroke-width="2.5"></i>
+                </div>
+                <h2>Current Status</h2>
+                <p>
+                    The 3rd semester has concluded. We are preparing for the 4th semester transition.
+                </p>
+                
+                <!-- Explicit Status Disclaimer Box -->
+                <div style="margin-top: 24px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);">
+                    <strong style="color: #fff; display: block; margin-bottom: 8px;">⚠️ Design Placeholder</strong>
+                    <span style="opacity: 0.8; font-size: 15px; line-height: 1.5;">
+                        The <strong>Routine</strong> and <strong>Syllabus</strong> currently displayed are <em>examples only</em> used to design this website. The correct 4th Semester details will be updated here automatically as soon as we have the official information.
+                    </span>
+                </div>
 
-        <!-- LOCKED GRID -->
-        <section class="grid" id="grid">
-            <div class="mini-card glass-panel">
-                <i data-lucide="book-open" width="30" stroke-width="1.5"></i>
-                <span>Syllabus Locked</span>
+                <button class="btn-ios" id="notifyBtn" style="margin-top: 24px;">
+                    Notify Me When Live <i data-lucide="chevron-right" width="18"></i>
+                </button>
+            </section>
+        </div>
+
+        <!-- --- TAB: ROUTINE --- -->
+        <div id="view-routine" class="view-section" style="align-items: center;">
+            
+            <!-- SUB NAVIGATION (Capsule) -->
+            <div class="sub-segmented-control">
+                <div class="sub-segment active" onclick="switchRoutineView('today', this)">Today</div>
+                <div class="sub-segment" onclick="switchRoutineView('weekly', this)">Weekly</div>
             </div>
-            <div class="mini-card glass-panel">
-                <i data-lucide="calendar" width="30" stroke-width="1.5"></i>
-                <span>Routine Locked</span>
+
+            <!-- VIEW: TODAY (DEFAULT) -->
+            <div id="routine-today" class="sub-view active">
+                <div class="clock-container">
+                    <div class="digital-clock" id="clock">00:00:00</div>
+                    <div class="date-display" id="date">MONDAY, OCT 24</div>
+                </div>
+
+                <div class="timeline">
+                    <!-- Class 1 -->
+                    <div class="timeline-row">
+                        <div class="time-col">08:45</div>
+                        <div class="event-col glass-panel">
+                            <span class="subject">Advanced Java</span>
+                            <span class="teacher">Mr. J. Barman</span>
+                        </div>
+                    </div>
+                    <!-- Class 2 -->
+                    <div class="timeline-row">
+                        <div class="time-col">09:45</div>
+                        <div class="event-col glass-panel">
+                            <span class="subject">Web Technology</span>
+                            <span class="teacher">Mrs. A. Sharma</span>
+                        </div>
+                    </div>
+                    <!-- Class 3 -->
+                    <div class="timeline-row">
+                        <div class="time-col">10:45</div>
+                        <div class="event-col glass-panel">
+                            <span class="subject">Software Eng.</span>
+                            <span class="teacher">Dr. R. Das</span>
+                        </div>
+                    </div>
+                    <!-- Class 4 -->
+                    <div class="timeline-row">
+                        <div class="time-col">11:45</div>
+                        <div class="event-col glass-panel">
+                            <span class="subject">Data Comm.</span>
+                            <span class="teacher">Mr. K. Singh</span>
+                        </div>
+                    </div>
+                    <!-- BREAK -->
+                    <div class="timeline-row">
+                        <div class="time-col">12:45</div>
+                        <div class="event-col break">
+                            <span class="subject" style="opacity:0.6">Lunch Break</span>
+                            <span class="teacher">1 Hour</span>
+                        </div>
+                    </div>
+                    <!-- Class 5 -->
+                    <div class="timeline-row">
+                        <div class="time-col">13:45</div>
+                        <div class="event-col glass-panel">
+                            <span class="subject">Lab: Java & Web</span>
+                            <span class="teacher">Computer Lab 1</span>
+                        </div>
+                    </div>
+                    <!-- Class 6 -->
+                    <div class="timeline-row">
+                        <div class="time-col">14:45</div>
+                        <div class="event-col glass-panel">
+                            <span class="subject">Minor Project</span>
+                            <span class="teacher">Project Lab</span>
+                        </div>
+                    </div>
+                    <!-- End -->
+                    <div class="timeline-row">
+                        <div class="time-col">15:45</div>
+                        <div style="padding: 18px 0; color: var(--text-tertiary); font-size: 13px;">Classes End</div>
+                    </div>
+                </div>
             </div>
-        </section>
+
+            <!-- VIEW: WEEKLY (NEW) -->
+            <div id="routine-weekly" class="sub-view">
+                <div class="week-list">
+                    
+                    <!-- MONDAY -->
+                    <div class="glass-panel day-panel" onclick="toggleDay(this)">
+                        <div class="day-header">
+                            <span class="day-name">Monday</span>
+                            <span class="day-summary">6 Classes • 08:45 - 15:45</span>
+                        </div>
+                        <div class="day-details">
+                            08:45 - Adv. Java<br>
+                            09:45 - Web Tech<br>
+                            10:45 - Software Eng.<br>
+                            11:45 - Data Comm.<br>
+                            13:45 - Lab: Java<br>
+                            14:45 - Project
+                        </div>
+                    </div>
+
+                    <!-- TUESDAY -->
+                    <div class="glass-panel day-panel" onclick="toggleDay(this)">
+                        <div class="day-header">
+                            <span class="day-name">Tuesday</span>
+                            <span class="day-summary">6 Classes • 08:45 - 15:45</span>
+                        </div>
+                        <div class="day-details">
+                            08:45 - Data Comm.<br>
+                            09:45 - Software Eng.<br>
+                            10:45 - Web Tech<br>
+                            11:45 - Adv. Java<br>
+                            13:45 - Lab: Web Tech<br>
+                            14:45 - Project
+                        </div>
+                    </div>
+
+                    <!-- WEDNESDAY -->
+                    <div class="glass-panel day-panel" onclick="toggleDay(this)">
+                        <div class="day-header">
+                            <span class="day-name">Wednesday</span>
+                            <span class="day-summary">6 Classes • 08:45 - 15:45</span>
+                        </div>
+                        <div class="day-details">
+                            08:45 - Web Tech<br>
+                            09:45 - Adv. Java<br>
+                            10:45 - Data Comm.<br>
+                            11:45 - Software Eng.<br>
+                            13:45 - Library<br>
+                            14:45 - Sports/Club
+                        </div>
+                    </div>
+
+                    <!-- THURSDAY -->
+                    <div class="glass-panel day-panel" onclick="toggleDay(this)">
+                        <div class="day-header">
+                            <span class="day-name">Thursday</span>
+                            <span class="day-summary">6 Classes • 08:45 - 15:45</span>
+                        </div>
+                        <div class="day-details">
+                            08:45 - Software Eng.<br>
+                            09:45 - Data Comm.<br>
+                            10:45 - Adv. Java<br>
+                            11:45 - Web Tech<br>
+                            13:45 - Lab: SE<br>
+                            14:45 - Project
+                        </div>
+                    </div>
+
+                    <!-- FRIDAY -->
+                    <div class="glass-panel day-panel" onclick="toggleDay(this)">
+                        <div class="day-header">
+                            <span class="day-name">Friday</span>
+                            <span class="day-summary">6 Classes • 08:45 - 15:45</span>
+                        </div>
+                        <div class="day-details">
+                            08:45 - Adv. Java<br>
+                            09:45 - Web Tech<br>
+                            10:45 - Software Eng.<br>
+                            11:45 - Data Comm.<br>
+                            13:45 - Lab: Comprehensive<br>
+                            14:45 - Mentor Session
+                        </div>
+                    </div>
+                    
+                    <!-- SATURDAY -->
+                    <div class="glass-panel day-panel" onclick="toggleDay(this)">
+                        <div class="day-header">
+                            <span class="day-name">Saturday</span>
+                            <span class="day-summary">Half Day • 08:45 - 12:45</span>
+                        </div>
+                        <div class="day-details">
+                            08:45 - Test/Quiz<br>
+                            09:45 - Seminar<br>
+                            10:45 - Group Study<br>
+                            11:45 - Cleanliness Drive
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- --- TAB: SYLLABUS --- -->
+        <div id="view-syllabus" class="view-section">
+            <div class="syllabus-list">
+                
+                <!-- SUBJECT 1 -->
+                <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
+                    <div class="syllabus-header">
+                        <div class="subject-info">
+                            <span class="subject-code">BCA-401</span>
+                            <span class="subject-title">Advanced Java</span>
+                        </div>
+                        <i data-lucide="chevron-down" class="expand-icon"></i>
+                    </div>
+                    <div class="syllabus-content">
+                        <div class="module-list">
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 1: Swing & AWT</span>
+                                <p>Introduction to AWT, Event Handling, Swing Components, Layout Managers, Graphics Programming.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 2: JDBC</span>
+                                <p>Database Connectivity, JDBC Drivers, Connection Interface, Statement & PreparedStatement, ResultSet.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 3: Servlets</span>
+                                <p>Servlet Life Cycle, Request & Response, Session Tracking, Cookies, URL Rewriting.</p>
+                            </div>
+                        </div>
+                        <div class="books-section">
+                            <span class="section-label"><i data-lucide="book" width="12"></i> References</span>
+                            <p>1. "Java: The Complete Reference" by Herbert Schildt</p>
+                            <p>2. "Head First Servlets and JSP" by Bryan Basham</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBJECT 2 -->
+                <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
+                    <div class="syllabus-header">
+                        <div class="subject-info">
+                            <span class="subject-code">BCA-402</span>
+                            <span class="subject-title">Web Technology</span>
+                        </div>
+                        <i data-lucide="chevron-down" class="expand-icon"></i>
+                    </div>
+                    <div class="syllabus-content">
+                        <div class="module-list">
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 1: HTML5 & CSS3</span>
+                                <p>Semantic Elements, Forms, Canvas, SVG, CSS Selectors, Flexbox, Grid Layout, Responsive Design.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 2: JavaScript</span>
+                                <p>DOM Manipulation, Event Listeners, ES6 Features (Arrow functions, Promises), AJAX, Fetch API.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 3: Server Side (PHP)</span>
+                                <p>PHP Syntax, Form Handling, Database Connection (MySQL), Sessions & Cookies.</p>
+                            </div>
+                        </div>
+                        <div class="books-section">
+                            <span class="section-label"><i data-lucide="book" width="12"></i> References</span>
+                            <p>1. "HTML & CSS: Design and Build Websites" by Jon Duckett</p>
+                            <p>2. "Learning PHP, MySQL & JavaScript" by Robin Nixon</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBJECT 3 -->
+                <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
+                    <div class="syllabus-header">
+                        <div class="subject-info">
+                            <span class="subject-code">BCA-403</span>
+                            <span class="subject-title">Software Engineering</span>
+                        </div>
+                        <i data-lucide="chevron-down" class="expand-icon"></i>
+                    </div>
+                    <div class="syllabus-content">
+                        <div class="module-list">
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 1: Process Models</span>
+                                <p>SDLC, Waterfall Model, Spiral Model, Agile Methodology, Scrum, Extreme Programming.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 2: Requirement Analysis</span>
+                                <p>SRS Document, Functional & Non-functional Requirements, Use Case Diagrams.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 3: Testing</span>
+                                <p>Black Box vs White Box Testing, Unit Testing, Integration Testing, System Testing.</p>
+                            </div>
+                        </div>
+                        <div class="books-section">
+                            <span class="section-label"><i data-lucide="book" width="12"></i> References</span>
+                            <p>1. "Software Engineering: A Practitioner's Approach" by Pressman</p>
+                            <p>2. "Software Engineering" by Ian Sommerville</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBJECT 4 -->
+                <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
+                    <div class="syllabus-header">
+                        <div class="subject-info">
+                            <span class="subject-code">BCA-404</span>
+                            <span class="subject-title">Data Communications</span>
+                        </div>
+                        <i data-lucide="chevron-down" class="expand-icon"></i>
+                    </div>
+                    <div class="syllabus-content">
+                        <div class="module-list">
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 1: Fundamentals</span>
+                                <p>OSI Model, TCP/IP Model, Transmission Media (Guided/Unguided), Switching Techniques.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 2: Data Link Layer</span>
+                                <p>Framing, Error Control, Flow Control, Ethernet, CSMA/CD, MAC Addresses.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 3: Network Layer</span>
+                                <p>IPv4/IPv6 Addressing, Subnetting, Routing Algorithms (Distance Vector, Link State).</p>
+                            </div>
+                        </div>
+                        <div class="books-section">
+                            <span class="section-label"><i data-lucide="book" width="12"></i> References</span>
+                            <p>1. "Data Communications and Networking" by Behrouz A. Forouzan</p>
+                            <p>2. "Computer Networks" by Andrew S. Tanenbaum</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBJECT 5 -->
+                <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
+                    <div class="syllabus-header">
+                        <div class="subject-info">
+                            <span class="subject-code">BCA-405</span>
+                            <span class="subject-title">Database Mgmt Systems</span>
+                        </div>
+                        <i data-lucide="chevron-down" class="expand-icon"></i>
+                    </div>
+                    <div class="syllabus-content">
+                        <div class="module-list">
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 1: Relational Model</span>
+                                <p>E-R Diagrams, Relational Algebra, Tuple Calculus, Keys (Primary, Foreign, Candidate).</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 2: Normalization</span>
+                                <p>Functional Dependency, 1NF, 2NF, 3NF, BCNF, De-normalization.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 3: SQL & Transactions</span>
+                                <p>DDL, DML, DCL, Joins, Views, ACID Properties, Concurrency Control.</p>
+                            </div>
+                        </div>
+                        <div class="books-section">
+                            <span class="section-label"><i data-lucide="book" width="12"></i> References</span>
+                            <p>1. "Database System Concepts" by Korth and Silberschatz</p>
+                            <p>2. "Fundamentals of Database Systems" by Elmasri & Navathe</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBJECT 6 -->
+                <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
+                    <div class="syllabus-header">
+                        <div class="subject-info">
+                            <span class="subject-code">BCA-406</span>
+                            <span class="subject-title">Operating Systems</span>
+                        </div>
+                        <i data-lucide="chevron-down" class="expand-icon"></i>
+                    </div>
+                    <div class="syllabus-content">
+                        <div class="module-list">
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 1: Process Mgmt</span>
+                                <p>Process Scheduling, Scheduling Algorithms (FCFS, SJF, Round Robin), Threads.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 2: Synchronization</span>
+                                <p>Semaphores, Mutex, Deadlocks (Prevention, Avoidance, Detection).</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 3: Memory Mgmt</span>
+                                <p>Paging, Segmentation, Virtual Memory, Page Replacement Algorithms.</p>
+                            </div>
+                        </div>
+                        <div class="books-section">
+                            <span class="section-label"><i data-lucide="book" width="12"></i> References</span>
+                            <p>1. "Operating System Concepts" by Galvin and Silberschatz</p>
+                            <p>2. "Modern Operating Systems" by Andrew S. Tanenbaum</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBJECT 7 -->
+                <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
+                    <div class="syllabus-header">
+                        <div class="subject-info">
+                            <span class="subject-code">BCA-407</span>
+                            <span class="subject-title">Computer Graphics</span>
+                        </div>
+                        <i data-lucide="chevron-down" class="expand-icon"></i>
+                    </div>
+                    <div class="syllabus-content">
+                        <div class="module-list">
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 1: Output Primitives</span>
+                                <p>Line Drawing Algorithms (DDA, Bresenham), Circle Drawing, Scan-line Polygon filling.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 2: Transformations</span>
+                                <p>2D Transformations (Translation, Rotation, Scaling), Homogeneous Coordinates, Clipping.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 3: 3D Concepts</span>
+                                <p>3D Object Representation, Projections (Parallel, Perspective), Hidden Surface Removal.</p>
+                            </div>
+                        </div>
+                        <div class="books-section">
+                            <span class="section-label"><i data-lucide="book" width="12"></i> References</span>
+                            <p>1. "Computer Graphics C Version" by Donald Hearn & M. Pauline Baker</p>
+                            <p>2. "Interactive Computer Graphics" by Edward Angel</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBJECT 8 -->
+                <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
+                    <div class="syllabus-header">
+                        <div class="subject-info">
+                            <span class="subject-code">BCA-408</span>
+                            <span class="subject-title">Numerical Methods</span>
+                        </div>
+                        <i data-lucide="chevron-down" class="expand-icon"></i>
+                    </div>
+                    <div class="syllabus-content">
+                        <div class="module-list">
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 1: Roots of Equations</span>
+                                <p>Bisection Method, Regula-Falsi Method, Newton-Raphson Method.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 2: Linear Equations</span>
+                                <p>Gauss Elimination, Gauss-Jordan Method, Gauss-Seidel Iteration.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 3: Integration</span>
+                                <p>Trapezoidal Rule, Simpson's 1/3 and 3/8 Rules, Runge-Kutta Methods.</p>
+                            </div>
+                        </div>
+                        <div class="books-section">
+                            <span class="section-label"><i data-lucide="book" width="12"></i> References</span>
+                            <p>1. "Introductory Methods of Numerical Analysis" by S.S. Sastry</p>
+                            <p>2. "Numerical Methods for Engineers" by Steven C. Chapra</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
     </div>
 
@@ -364,29 +1126,101 @@
             // Trigger Animations
             document.getElementById('header').classList.add('fade-in');
             document.getElementById('nav').classList.add('fade-in', 'delay-1');
+            document.getElementById('view-status').classList.add('fade-in', 'delay-2');
+            
+            // --- CRITICAL FIX ---
             document.getElementById('mainCard').classList.add('fade-in', 'delay-2');
-            document.getElementById('grid').classList.add('fade-in', 'delay-2');
+            
+            // Start Clock
+            updateClock();
+            setInterval(updateClock, 1000);
         });
+
+        // --- MAIN TAB SWITCHING ---
+        function switchTab(tabId) {
+            document.querySelectorAll('.segment').forEach(el => el.classList.remove('active'));
+            
+            const segments = document.querySelectorAll('#nav .segment');
+            if(tabId === 'status') segments[0].classList.add('active');
+            if(tabId === 'routine') segments[1].classList.add('active');
+            if(tabId === 'syllabus') segments[2].classList.add('active');
+
+            document.querySelectorAll('.view-section').forEach(el => {
+                el.classList.remove('active');
+                el.style.display = 'none'; 
+            });
+
+            const target = document.getElementById('view-' + tabId);
+            target.style.display = 'flex'; 
+            setTimeout(() => target.classList.add('active'), 10);
+        }
+
+        // --- ROUTINE SUB-TAB SWITCHING ---
+        function switchRoutineView(viewName, element) {
+            // Update active state of sub-segments
+            document.querySelectorAll('.sub-segment').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+
+            // Toggle Views
+            document.querySelectorAll('.sub-view').forEach(el => {
+                el.classList.remove('active');
+                // Optional: set display none after timeout for smoother transition if desired, 
+                // but simpler css display toggle works best for instant feedback
+            });
+            
+            const target = document.getElementById('routine-' + viewName);
+            target.classList.add('active');
+        }
+
+        // --- WEEKLY CARD EXPANSION ---
+        function toggleDay(element) {
+            element.classList.toggle('expanded');
+        }
+
+        // --- SYLLABUS CARD EXPANSION ---
+        function toggleSyllabus(element) {
+            // Close others if desired, or keep multiple open
+            // element.parentElement.querySelectorAll('.syllabus-panel').forEach(el => {
+            //     if(el !== element) el.classList.remove('expanded');
+            // });
+            element.classList.toggle('expanded');
+        }
+
+        // --- CLOCK LOGIC ---
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour12: false, 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit' 
+            });
+            const dateString = now.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                month: 'short', 
+                day: 'numeric' 
+            }).toUpperCase();
+
+            document.getElementById('clock').textContent = timeString;
+            document.getElementById('date').textContent = dateString;
+        }
 
         // --- TOAST LOGIC ---
         const notifyBtn = document.getElementById('notifyBtn');
         const toast = document.getElementById('toast');
         let toastTimeout;
 
-        notifyBtn.addEventListener('click', () => {
-            // Show Toast
-            toast.classList.remove('hidden');
-            toast.classList.add('show');
-
-            // Clear previous timeout if spamming click
-            if (toastTimeout) clearTimeout(toastTimeout);
-
-            // Hide after 3 seconds
-            toastTimeout = setTimeout(() => {
-                toast.classList.remove('show');
-                toast.classList.add('hidden');
-            }, 3000);
-        });
+        if(notifyBtn) {
+            notifyBtn.addEventListener('click', () => {
+                toast.classList.remove('hidden');
+                toast.classList.add('show');
+                if (toastTimeout) clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('show');
+                    toast.classList.add('hidden');
+                }, 3000);
+            });
+        }
     </script>
 </body>
 </html>
