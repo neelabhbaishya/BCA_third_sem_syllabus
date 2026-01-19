@@ -66,6 +66,14 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
         }
 
+        /* --- ACTIVE HIGHLIGHT (Subtle White Glass) --- */
+        .glass-active {
+            background: rgba(255, 255, 255, 0.12) !important; /* Pure White Subtle Tint */
+            border: 1px solid rgba(255, 255, 255, 0.4) !important;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.1) !important;
+            position: relative;
+        }
+
         /* --- VIEWPORT CONTAINER --- */
         .viewport {
             width: 100%;
@@ -629,41 +637,14 @@
             <h1>BCA 4<sup>th</sup> Sem</h1>
         </header>
 
-        <!-- MAIN NAVIGATION -->
+        <!-- MAIN NAVIGATION (Updated) -->
         <div class="segmented-control" id="nav">
-            <a class="segment active" onclick="switchTab('status')">Status</a>
-            <a class="segment" onclick="switchTab('routine')">Routine</a>
+            <a class="segment active" onclick="switchTab('routine')">Routine</a>
             <a class="segment" onclick="switchTab('syllabus')">Syllabus</a>
         </div>
 
-        <!-- --- TAB: STATUS --- -->
-        <div id="view-status" class="view-section active">
-            <!-- MAIN CARD: COMBINED STATUS & NOTE -->
-            <section class="card glass-panel" id="mainCard">
-                <div class="card-icon">
-                    <i data-lucide="info" width="26" stroke-width="2.5"></i>
-                </div>
-                <h2>Current Status</h2>
-                <p>
-                    The 3rd semester has concluded. We are preparing for the 4th semester transition.
-                </p>
-                
-                <!-- Explicit Status Disclaimer Box -->
-                <div style="margin-top: 24px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);">
-                    <strong style="color: #fff; display: block; margin-bottom: 8px;">⚠️ Design Placeholder</strong>
-                    <span style="opacity: 0.8; font-size: 15px; line-height: 1.5;">
-                        The <strong>Routine</strong> and <strong>Syllabus</strong> currently displayed are <em>examples only</em> used to design this website. The correct 4th Semester details will be updated here automatically as soon as we have the official information.
-                    </span>
-                </div>
-
-                <button class="btn-ios" id="notifyBtn" style="margin-top: 24px;">
-                    Notify Me When Live <i data-lucide="chevron-right" width="18"></i>
-                </button>
-            </section>
-        </div>
-
-        <!-- --- TAB: ROUTINE --- -->
-        <div id="view-routine" class="view-section" style="align-items: center;">
+        <!-- --- TAB: ROUTINE (DEFAULT ACTIVE) --- -->
+        <div id="view-routine" class="view-section active" style="align-items: center;">
             
             <!-- SUB NAVIGATION (Capsule) -->
             <div class="sub-segmented-control">
@@ -671,173 +652,112 @@
                 <div class="sub-segment" onclick="switchRoutineView('weekly', this)">Weekly</div>
             </div>
 
-            <!-- VIEW: TODAY (DEFAULT) -->
+            <!-- VIEW: TODAY (DYNAMIC) -->
             <div id="routine-today" class="sub-view active">
                 <div class="clock-container">
                     <div class="digital-clock" id="clock">00:00:00</div>
                     <div class="date-display" id="date">MONDAY, OCT 24</div>
                 </div>
 
-                <div class="timeline">
-                    <!-- Class 1 -->
-                    <div class="timeline-row">
-                        <div class="time-col">08:45</div>
-                        <div class="event-col glass-panel">
-                            <span class="subject">Advanced Java</span>
-                            <span class="teacher">Mr. J. Barman</span>
-                        </div>
-                    </div>
-                    <!-- Class 2 -->
-                    <div class="timeline-row">
-                        <div class="time-col">09:45</div>
-                        <div class="event-col glass-panel">
-                            <span class="subject">Web Technology</span>
-                            <span class="teacher">Mrs. A. Sharma</span>
-                        </div>
-                    </div>
-                    <!-- Class 3 -->
-                    <div class="timeline-row">
-                        <div class="time-col">10:45</div>
-                        <div class="event-col glass-panel">
-                            <span class="subject">Software Eng.</span>
-                            <span class="teacher">Dr. R. Das</span>
-                        </div>
-                    </div>
-                    <!-- Class 4 -->
-                    <div class="timeline-row">
-                        <div class="time-col">11:45</div>
-                        <div class="event-col glass-panel">
-                            <span class="subject">Data Comm.</span>
-                            <span class="teacher">Mr. K. Singh</span>
-                        </div>
-                    </div>
-                    <!-- BREAK -->
-                    <div class="timeline-row">
-                        <div class="time-col">12:45</div>
-                        <div class="event-col break">
-                            <span class="subject" style="opacity:0.6">Lunch Break</span>
-                            <span class="teacher">1 Hour</span>
-                        </div>
-                    </div>
-                    <!-- Class 5 -->
-                    <div class="timeline-row">
-                        <div class="time-col">13:45</div>
-                        <div class="event-col glass-panel">
-                            <span class="subject">Lab: Java & Web</span>
-                            <span class="teacher">Computer Lab 1</span>
-                        </div>
-                    </div>
-                    <!-- Class 6 -->
-                    <div class="timeline-row">
-                        <div class="time-col">14:45</div>
-                        <div class="event-col glass-panel">
-                            <span class="subject">Minor Project</span>
-                            <span class="teacher">Project Lab</span>
-                        </div>
-                    </div>
-                    <!-- End -->
-                    <div class="timeline-row">
-                        <div class="time-col">15:45</div>
-                        <div style="padding: 18px 0; color: var(--text-tertiary); font-size: 13px;">Classes End</div>
+                <!-- Dynamic Timeline Container -->
+                <div class="timeline" id="today-timeline">
+                    <!-- Javascript will populate this based on the current day -->
+                    <div style="text-align: center; padding: 40px; color: var(--text-secondary);">
+                        Loading today's schedule...
                     </div>
                 </div>
             </div>
 
-            <!-- VIEW: WEEKLY (NEW) -->
+            <!-- VIEW: WEEKLY (OFFICIAL) -->
             <div id="routine-weekly" class="sub-view">
                 <div class="week-list">
                     
                     <!-- MONDAY -->
-                    <div class="glass-panel day-panel" onclick="toggleDay(this)">
+                    <div id="day-1" class="glass-panel day-panel" onclick="toggleDay(this)">
                         <div class="day-header">
                             <span class="day-name">Monday</span>
                             <span class="day-summary">6 Classes • 08:45 - 15:45</span>
                         </div>
                         <div class="day-details">
-                            08:45 - Adv. Java<br>
-                            09:45 - Web Tech<br>
-                            10:45 - Software Eng.<br>
-                            11:45 - Data Comm.<br>
-                            13:45 - Lab: Java<br>
-                            14:45 - Project
+                            08:45 - Comp. Architecture (Mr. Arindom Ain)<br>
+                            09:45 - Mathematics (Dr. Dipunjay Borgohain)<br>
+                            10:45 - Mobile App Dev (Mr. Rajarshi Paul)<br>
+                            12:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
+                            13:45 - Adv Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)<br>
+                            14:45 - Lab: Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)
                         </div>
                     </div>
 
                     <!-- TUESDAY -->
-                    <div class="glass-panel day-panel" onclick="toggleDay(this)">
+                    <div id="day-2" class="glass-panel day-panel" onclick="toggleDay(this)">
                         <div class="day-header">
                             <span class="day-name">Tuesday</span>
-                            <span class="day-summary">6 Classes • 08:45 - 15:45</span>
+                            <span class="day-summary">3 Classes • 08:45 - 11:45</span>
                         </div>
                         <div class="day-details">
-                            08:45 - Data Comm.<br>
-                            09:45 - Software Eng.<br>
-                            10:45 - Web Tech<br>
-                            11:45 - Adv. Java<br>
-                            13:45 - Lab: Web Tech<br>
-                            14:45 - Project
+                            08:45 - Comp. Architecture (Mr. Arindom Ain)<br>
+                            09:45 - Lab: OS (Mr. Arindom Ain)<br>
+                            10:45 - Lab: OS (Mr. Arindom Ain)<br>
+                            12:45 - ECA
                         </div>
                     </div>
 
                     <!-- WEDNESDAY -->
-                    <div class="glass-panel day-panel" onclick="toggleDay(this)">
+                    <div id="day-3" class="glass-panel day-panel" onclick="toggleDay(this)">
                         <div class="day-header">
                             <span class="day-name">Wednesday</span>
                             <span class="day-summary">6 Classes • 08:45 - 15:45</span>
                         </div>
                         <div class="day-details">
-                            08:45 - Web Tech<br>
-                            09:45 - Adv. Java<br>
-                            10:45 - Data Comm.<br>
-                            11:45 - Software Eng.<br>
-                            13:45 - Library<br>
-                            14:45 - Sports/Club
+                            08:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
+                            09:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
+                            10:45 - Mathematics (Dr. Dipunjay Borgohain)<br>
+                            12:45 - Comp. Architecture (Mr. Arindom Ain)<br>
+                            13:45 - Adv Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)<br>
+                            14:45 - Lab: Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)
                         </div>
                     </div>
 
                     <!-- THURSDAY -->
-                    <div class="glass-panel day-panel" onclick="toggleDay(this)">
+                    <div id="day-4" class="glass-panel day-panel" onclick="toggleDay(this)">
                         <div class="day-header">
                             <span class="day-name">Thursday</span>
-                            <span class="day-summary">6 Classes • 08:45 - 15:45</span>
+                            <span class="day-summary">4 Classes • 09:45 - 14:45</span>
                         </div>
                         <div class="day-details">
-                            08:45 - Software Eng.<br>
-                            09:45 - Data Comm.<br>
-                            10:45 - Adv. Java<br>
-                            11:45 - Web Tech<br>
-                            13:45 - Lab: SE<br>
-                            14:45 - Project
+                            08:45 - Free<br>
+                            09:45 - Lab: OS (Mr. Arindom Ain)<br>
+                            10:45 - Lab: OS (Mr. Arindom Ain)<br>
+                            12:45 - Mobile App Dev (Mr. Rajarshi Paul)<br>
+                            13:45 - Mobile App Dev (Mr. Rajarshi Paul)<br>
+                            14:45 - Library
                         </div>
                     </div>
 
                     <!-- FRIDAY -->
-                    <div class="glass-panel day-panel" onclick="toggleDay(this)">
+                    <div id="day-5" class="glass-panel day-panel" onclick="toggleDay(this)">
                         <div class="day-header">
                             <span class="day-name">Friday</span>
                             <span class="day-summary">6 Classes • 08:45 - 15:45</span>
                         </div>
                         <div class="day-details">
-                            08:45 - Adv. Java<br>
-                            09:45 - Web Tech<br>
-                            10:45 - Software Eng.<br>
-                            11:45 - Data Comm.<br>
-                            13:45 - Lab: Comprehensive<br>
-                            14:45 - Mentor Session
+                            08:45 - Mobile App Dev (Mr. Rajarshi Paul)<br>
+                            09:45 - Library<br>
+                            10:45 - Mathematics (Dr. Dipunjay Borgohain)<br>
+                            12:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
+                            13:45 - Adv Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)<br>
+                            14:45 - Lab: Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)
                         </div>
                     </div>
                     
                     <!-- SATURDAY -->
-                    <div class="glass-panel day-panel" onclick="toggleDay(this)">
+                    <div id="day-6" class="glass-panel day-panel" onclick="toggleDay(this)">
                         <div class="day-header">
                             <span class="day-name">Saturday</span>
-                            <span class="day-summary">Half Day • 08:45 - 12:45</span>
+                            <span class="day-summary">ECA / Test / Remedial</span>
                         </div>
                         <div class="day-details">
-                            08:45 - Test/Quiz<br>
-                            09:45 - Seminar<br>
-                            10:45 - Group Study<br>
-                            11:45 - Cleanliness Drive
+                            Full Day Activity
                         </div>
                     </div>
 
@@ -850,258 +770,216 @@
         <div id="view-syllabus" class="view-section">
             <div class="syllabus-list">
                 
-                <!-- SUBJECT 1 -->
+                <!-- SUBJECT 1: AI -->
                 <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
                     <div class="syllabus-header">
                         <div class="subject-info">
-                            <span class="subject-code">BCA-401</span>
-                            <span class="subject-title">Advanced Java</span>
+                            <span class="subject-code">BCA23205T</span>
+                            <span class="subject-title">Artificial Intelligence</span>
                         </div>
                         <i data-lucide="chevron-down" class="expand-icon"></i>
                     </div>
                     <div class="syllabus-content">
                         <div class="module-list">
                             <div class="module-item">
-                                <span class="unit-badge">Unit 1: Swing & AWT</span>
-                                <p>Introduction to AWT, Event Handling, Swing Components, Layout Managers, Graphics Programming.</p>
+                                <span class="unit-badge">Module 1</span>
+                                <p>Introduction to AI, Scope, History, Intelligent Agent & Environment, Structure of Agent, Problem solving Agent.</p>
                             </div>
                             <div class="module-item">
-                                <span class="unit-badge">Unit 2: JDBC</span>
-                                <p>Database Connectivity, JDBC Drivers, Connection Interface, Statement & PreparedStatement, ResultSet.</p>
+                                <span class="unit-badge">Module 2</span>
+                                <p>Problem Solving: Formulating Problem, 8 Puzzle, Missionaries and Cannibal, Searching (Informed/Uninformed).</p>
                             </div>
                             <div class="module-item">
-                                <span class="unit-badge">Unit 3: Servlets</span>
-                                <p>Servlet Life Cycle, Request & Response, Session Tracking, Cookies, URL Rewriting.</p>
+                                <span class="unit-badge">Module 3</span>
+                                <p>Knowledge Representation: Propositional Logic, First Order Logic, Syntax, Semantics, Inference Rules.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Module 4</span>
+                                <p>Expert Systems: Definition, Characteristics, Components, and Applications.</p>
                             </div>
                         </div>
                         <div class="books-section">
-                            <span class="section-label"><i data-lucide="book" width="12"></i> References</span>
-                            <p>1. "Java: The Complete Reference" by Herbert Schildt</p>
-                            <p>2. "Head First Servlets and JSP" by Bryan Basham</p>
+                            <span class="section-label"><i data-lucide="book" width="12"></i> Text Book</span>
+                            <p>“Artificial Intelligence: A Modern Approach” by Russell & Norvig</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- SUBJECT 2 -->
+                <!-- SUBJECT 2: COMPUTER ARCHITECTURE -->
                 <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
                     <div class="syllabus-header">
                         <div class="subject-info">
-                            <span class="subject-code">BCA-402</span>
-                            <span class="subject-title">Web Technology</span>
+                            <span class="subject-code">BCA23206T</span>
+                            <span class="subject-title">Computer Architecture</span>
                         </div>
                         <i data-lucide="chevron-down" class="expand-icon"></i>
                     </div>
                     <div class="syllabus-content">
                         <div class="module-list">
                             <div class="module-item">
-                                <span class="unit-badge">Unit 1: HTML5 & CSS3</span>
-                                <p>Semantic Elements, Forms, Canvas, SVG, CSS Selectors, Flexbox, Grid Layout, Responsive Design.</p>
+                                <span class="unit-badge">Unit 1</span>
+                                <p>Computer Org: Instruction codes, registers, bus, instruction cycle, control.</p>
                             </div>
                             <div class="module-item">
-                                <span class="unit-badge">Unit 2: JavaScript</span>
-                                <p>DOM Manipulation, Event Listeners, ES6 Features (Arrow functions, Promises), AJAX, Fetch API.</p>
+                                <span class="unit-badge">Unit 2</span>
+                                <p>CPU Org: Stack organization, RISC/CISC, Addressing modes, Pipelining, Flynn's classification.</p>
                             </div>
                             <div class="module-item">
-                                <span class="unit-badge">Unit 3: Server Side (PHP)</span>
-                                <p>PHP Syntax, Form Handling, Database Connection (MySQL), Sessions & Cookies.</p>
+                                <span class="unit-badge">Unit 3</span>
+                                <p>I/O Org: Peripheral devices, Interfaces, Asynchronous data transfer, DMA, Priority interrupt.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 4</span>
+                                <p>Memory Org: Hierarchy, Associative memory, Cache memory, Virtual memory.</p>
+                            </div>
+                             <div class="module-item">
+                                <span class="unit-badge">Unit 5</span>
+                                <p>Microprocessor: 8085 Architecture, Pin diagram, Addressing modes, Microcontrollers.</p>
                             </div>
                         </div>
                         <div class="books-section">
-                            <span class="section-label"><i data-lucide="book" width="12"></i> References</span>
-                            <p>1. "HTML & CSS: Design and Build Websites" by Jon Duckett</p>
-                            <p>2. "Learning PHP, MySQL & JavaScript" by Robin Nixon</p>
+                            <span class="section-label"><i data-lucide="book" width="12"></i> Text Book</span>
+                            <p>“Computer System Architecture” by M. Morris Mano</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- SUBJECT 3 -->
+                <!-- SUBJECT 3: ADVANCED WEB TECH -->
                 <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
                     <div class="syllabus-header">
                         <div class="subject-info">
-                            <span class="subject-code">BCA-403</span>
-                            <span class="subject-title">Software Engineering</span>
+                            <span class="subject-code">BCA23207T</span>
+                            <span class="subject-title">Advanced Web Tech</span>
                         </div>
                         <i data-lucide="chevron-down" class="expand-icon"></i>
                     </div>
                     <div class="syllabus-content">
                         <div class="module-list">
                             <div class="module-item">
-                                <span class="unit-badge">Unit 1: Process Models</span>
-                                <p>SDLC, Waterfall Model, Spiral Model, Agile Methodology, Scrum, Extreme Programming.</p>
+                                <span class="unit-badge">Module I</span>
+                                <p>Intro to JS: Client/Server side, Lexical structure, Variables, Operators, Control flow.</p>
                             </div>
                             <div class="module-item">
-                                <span class="unit-badge">Unit 2: Requirement Analysis</span>
-                                <p>SRS Document, Functional & Non-functional Requirements, Use Case Diagrams.</p>
+                                <span class="unit-badge">Module II</span>
+                                <p>Objects & Inheritance: Creating objects, Accessors, Prototypes, Classes, Constructors.</p>
                             </div>
                             <div class="module-item">
-                                <span class="unit-badge">Unit 3: Testing</span>
-                                <p>Black Box vs White Box Testing, Unit Testing, Integration Testing, System Testing.</p>
+                                <span class="unit-badge">Module III</span>
+                                <p>Arrays: Declaring, Accessing, Built-in methods, Iterators, Nesting.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Module IV</span>
+                                <p>DOM: BOM vs DOM, DOM Tree, Node properties, Event Handling.</p>
+                            </div>
+                             <div class="module-item">
+                                <span class="unit-badge">Module V</span>
+                                <p>Built-in Objects: String, Math, Date, RegExp, Maps, Sets, JSON, Error Handling.</p>
                             </div>
                         </div>
                         <div class="books-section">
-                            <span class="section-label"><i data-lucide="book" width="12"></i> References</span>
-                            <p>1. "Software Engineering: A Practitioner's Approach" by Pressman</p>
-                            <p>2. "Software Engineering" by Ian Sommerville</p>
+                            <span class="section-label"><i data-lucide="book" width="12"></i> Text Book</span>
+                            <p>“JAVASCRIPT Syntax and Practices” by Dangi S.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- SUBJECT 4 -->
+                <!-- SUBJECT 4: MACHINE LEARNING -->
                 <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
                     <div class="syllabus-header">
                         <div class="subject-info">
-                            <span class="subject-code">BCA-404</span>
-                            <span class="subject-title">Data Communications</span>
+                            <span class="subject-code">BCA23208T</span>
+                            <span class="subject-title">Machine Learning</span>
                         </div>
                         <i data-lucide="chevron-down" class="expand-icon"></i>
                     </div>
                     <div class="syllabus-content">
                         <div class="module-list">
                             <div class="module-item">
-                                <span class="unit-badge">Unit 1: Fundamentals</span>
-                                <p>OSI Model, TCP/IP Model, Transmission Media (Guided/Unguided), Switching Techniques.</p>
+                                <span class="unit-badge">Module I</span>
+                                <p>Intro: Types of ML (Supervised, Unsupervised, Reinforcement), Data Preprocessing, EDA.</p>
                             </div>
                             <div class="module-item">
-                                <span class="unit-badge">Unit 2: Data Link Layer</span>
-                                <p>Framing, Error Control, Flow Control, Ethernet, CSMA/CD, MAC Addresses.</p>
+                                <span class="unit-badge">Module II</span>
+                                <p>Supervised Learning: Regression, KNN, SVM, Naïve Bayes, Decision Tree.</p>
                             </div>
                             <div class="module-item">
-                                <span class="unit-badge">Unit 3: Network Layer</span>
-                                <p>IPv4/IPv6 Addressing, Subnetting, Routing Algorithms (Distance Vector, Link State).</p>
+                                <span class="unit-badge">Module III</span>
+                                <p>Unsupervised Learning: K-means, Hierarchical Clustering, PCA.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Module IV</span>
+                                <p>Model Performance: Evaluation metrics (Accuracy, Precision, Recall), Cross-validation.</p>
                             </div>
                         </div>
                         <div class="books-section">
-                            <span class="section-label"><i data-lucide="book" width="12"></i> References</span>
-                            <p>1. "Data Communications and Networking" by Behrouz A. Forouzan</p>
-                            <p>2. "Computer Networks" by Andrew S. Tanenbaum</p>
+                            <span class="section-label"><i data-lucide="book" width="12"></i> Text Book</span>
+                            <p>“Machine Learning” by Tom M. Mitchell</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- SUBJECT 5 -->
+                <!-- SUBJECT 5: MATHEMATICS -->
                 <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
                     <div class="syllabus-header">
                         <div class="subject-info">
-                            <span class="subject-code">BCA-405</span>
-                            <span class="subject-title">Database Mgmt Systems</span>
+                            <span class="subject-code">BCA23209T</span>
+                            <span class="subject-title">Mathematics</span>
                         </div>
                         <i data-lucide="chevron-down" class="expand-icon"></i>
                     </div>
                     <div class="syllabus-content">
                         <div class="module-list">
                             <div class="module-item">
-                                <span class="unit-badge">Unit 1: Relational Model</span>
-                                <p>E-R Diagrams, Relational Algebra, Tuple Calculus, Keys (Primary, Foreign, Candidate).</p>
+                                <span class="unit-badge">Module I</span>
+                                <p>Sets, Relations & Functions: Venn diagrams, Equivalence relations, One-to-one/Onto functions.</p>
                             </div>
                             <div class="module-item">
-                                <span class="unit-badge">Unit 2: Normalization</span>
-                                <p>Functional Dependency, 1NF, 2NF, 3NF, BCNF, De-normalization.</p>
+                                <span class="unit-badge">Module II</span>
+                                <p>Determinants & Matrices: Rank, Eigenvalues, Eigenvectors, Cayley-Hamilton theorem.</p>
                             </div>
                             <div class="module-item">
-                                <span class="unit-badge">Unit 3: SQL & Transactions</span>
-                                <p>DDL, DML, DCL, Joins, Views, ACID Properties, Concurrency Control.</p>
+                                <span class="unit-badge">Module III</span>
+                                <p>Combinatorics: Permutations, Combinations, Recurrence relations.</p>
                             </div>
-                        </div>
-                        <div class="books-section">
-                            <span class="section-label"><i data-lucide="book" width="12"></i> References</span>
-                            <p>1. "Database System Concepts" by Korth and Silberschatz</p>
-                            <p>2. "Fundamentals of Database Systems" by Elmasri & Navathe</p>
+                            <div class="module-item">
+                                <span class="unit-badge">Module IV</span>
+                                <p>Sequence & Series: AP, GP, Convergence, Divergence, Infinite series.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- SUBJECT 6 -->
+                <!-- SUBJECT 6: MOBILE APP DEV -->
                 <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
                     <div class="syllabus-header">
                         <div class="subject-info">
-                            <span class="subject-code">BCA-406</span>
-                            <span class="subject-title">Operating Systems</span>
+                            <span class="subject-code">BCA23210T</span>
+                            <span class="subject-title">Mobile App Dev</span>
                         </div>
                         <i data-lucide="chevron-down" class="expand-icon"></i>
                     </div>
                     <div class="syllabus-content">
                         <div class="module-list">
                             <div class="module-item">
-                                <span class="unit-badge">Unit 1: Process Mgmt</span>
-                                <p>Process Scheduling, Scheduling Algorithms (FCFS, SJF, Round Robin), Threads.</p>
+                                <span class="unit-badge">Module I</span>
+                                <p>Intro to Android: SDK, Android Studio, Manifest file, App Anatomy.</p>
                             </div>
                             <div class="module-item">
-                                <span class="unit-badge">Unit 2: Synchronization</span>
-                                <p>Semaphores, Mutex, Deadlocks (Prevention, Avoidance, Detection).</p>
+                                <span class="unit-badge">Module II</span>
+                                <p>App Setup: Activities, Services, Intents, Permissions.</p>
                             </div>
                             <div class="module-item">
-                                <span class="unit-badge">Unit 3: Memory Mgmt</span>
-                                <p>Paging, Segmentation, Virtual Memory, Page Replacement Algorithms.</p>
+                                <span class="unit-badge">Module III</span>
+                                <p>UI Design: Layouts, Screen elements, Animation.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Module V</span>
+                                <p>Storage & APIs: SQLite, Content Providers, Networking APIs.</p>
                             </div>
                         </div>
                         <div class="books-section">
-                            <span class="section-label"><i data-lucide="book" width="12"></i> References</span>
-                            <p>1. "Operating System Concepts" by Galvin and Silberschatz</p>
-                            <p>2. "Modern Operating Systems" by Andrew S. Tanenbaum</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SUBJECT 7 -->
-                <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
-                    <div class="syllabus-header">
-                        <div class="subject-info">
-                            <span class="subject-code">BCA-407</span>
-                            <span class="subject-title">Computer Graphics</span>
-                        </div>
-                        <i data-lucide="chevron-down" class="expand-icon"></i>
-                    </div>
-                    <div class="syllabus-content">
-                        <div class="module-list">
-                            <div class="module-item">
-                                <span class="unit-badge">Unit 1: Output Primitives</span>
-                                <p>Line Drawing Algorithms (DDA, Bresenham), Circle Drawing, Scan-line Polygon filling.</p>
-                            </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Unit 2: Transformations</span>
-                                <p>2D Transformations (Translation, Rotation, Scaling), Homogeneous Coordinates, Clipping.</p>
-                            </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Unit 3: 3D Concepts</span>
-                                <p>3D Object Representation, Projections (Parallel, Perspective), Hidden Surface Removal.</p>
-                            </div>
-                        </div>
-                        <div class="books-section">
-                            <span class="section-label"><i data-lucide="book" width="12"></i> References</span>
-                            <p>1. "Computer Graphics C Version" by Donald Hearn & M. Pauline Baker</p>
-                            <p>2. "Interactive Computer Graphics" by Edward Angel</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SUBJECT 8 -->
-                <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
-                    <div class="syllabus-header">
-                        <div class="subject-info">
-                            <span class="subject-code">BCA-408</span>
-                            <span class="subject-title">Numerical Methods</span>
-                        </div>
-                        <i data-lucide="chevron-down" class="expand-icon"></i>
-                    </div>
-                    <div class="syllabus-content">
-                        <div class="module-list">
-                            <div class="module-item">
-                                <span class="unit-badge">Unit 1: Roots of Equations</span>
-                                <p>Bisection Method, Regula-Falsi Method, Newton-Raphson Method.</p>
-                            </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Unit 2: Linear Equations</span>
-                                <p>Gauss Elimination, Gauss-Jordan Method, Gauss-Seidel Iteration.</p>
-                            </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Unit 3: Integration</span>
-                                <p>Trapezoidal Rule, Simpson's 1/3 and 3/8 Rules, Runge-Kutta Methods.</p>
-                            </div>
-                        </div>
-                        <div class="books-section">
-                            <span class="section-label"><i data-lucide="book" width="12"></i> References</span>
-                            <p>1. "Introductory Methods of Numerical Analysis" by S.S. Sastry</p>
-                            <p>2. "Numerical Methods for Engineers" by Steven C. Chapra</p>
+                            <span class="section-label"><i data-lucide="book" width="12"></i> Text Book</span>
+                            <p>“Android Wireless Application Development” by Lauren Darcey</p>
                         </div>
                     </div>
                 </div>
@@ -1120,20 +998,24 @@
     <script>
         // --- INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
-            // Initialize Icons
             lucide.createIcons();
 
-            // Trigger Animations
-            document.getElementById('header').classList.add('fade-in');
-            document.getElementById('nav').classList.add('fade-in', 'delay-1');
-            document.getElementById('view-status').classList.add('fade-in', 'delay-2');
-            
-            // --- CRITICAL FIX ---
-            document.getElementById('mainCard').classList.add('fade-in', 'delay-2');
+            // Trigger Animations (Removed Status elements)
+            const elements = ['header', 'nav', 'view-routine'];
+            elements.forEach((id, index) => {
+                const el = document.getElementById(id);
+                if(el) el.classList.add('fade-in', `delay-${index % 3}`);
+            });
             
             // Start Clock
             updateClock();
             setInterval(updateClock, 1000);
+
+            // Populate Today's Schedule
+            renderTodaySchedule();
+            
+            // Highlight Weekly Day
+            highlightWeeklyDay();
         });
 
         // --- MAIN TAB SWITCHING ---
@@ -1141,9 +1023,8 @@
             document.querySelectorAll('.segment').forEach(el => el.classList.remove('active'));
             
             const segments = document.querySelectorAll('#nav .segment');
-            if(tabId === 'status') segments[0].classList.add('active');
-            if(tabId === 'routine') segments[1].classList.add('active');
-            if(tabId === 'syllabus') segments[2].classList.add('active');
+            if(tabId === 'routine') segments[0].classList.add('active');
+            if(tabId === 'syllabus') segments[1].classList.add('active');
 
             document.querySelectorAll('.view-section').forEach(el => {
                 el.classList.remove('active');
@@ -1157,52 +1038,133 @@
 
         // --- ROUTINE SUB-TAB SWITCHING ---
         function switchRoutineView(viewName, element) {
-            // Update active state of sub-segments
             document.querySelectorAll('.sub-segment').forEach(el => el.classList.remove('active'));
             element.classList.add('active');
 
-            // Toggle Views
             document.querySelectorAll('.sub-view').forEach(el => {
                 el.classList.remove('active');
-                // Optional: set display none after timeout for smoother transition if desired, 
-                // but simpler css display toggle works best for instant feedback
             });
             
             const target = document.getElementById('routine-' + viewName);
             target.classList.add('active');
         }
 
-        // --- WEEKLY CARD EXPANSION ---
-        function toggleDay(element) {
-            element.classList.toggle('expanded');
+        // --- EXPAND FUNCTIONS ---
+        function toggleDay(element) { element.classList.toggle('expanded'); }
+        function toggleSyllabus(element) { element.classList.toggle('expanded'); }
+
+        // --- DYNAMIC SCHEDULE LOGIC ---
+        function renderTodaySchedule() {
+            const dayIndex = new Date().getDay(); // 0=Sun, 1=Mon, etc.
+            const container = document.getElementById('today-timeline');
+            
+            // Time Check Helpers
+            const now = new Date();
+            const currentMins = now.getHours() * 60 + now.getMinutes();
+            
+            const schedules = {
+                1: [ // Monday
+                    { time: '08:45', sub: 'Comp. Architecture', teach: 'Mr. Arindom Ain' },
+                    { time: '09:45', sub: 'Mathematics', teach: 'Dr. Dipunjay Borgohain' },
+                    { time: '10:45', sub: 'Mobile App Dev', teach: 'Mr. Rajarshi Paul' },
+                    { time: '12:45', sub: 'Artificial Intelligence', teach: 'Mr. Pranjal Das' },
+                    { time: '13:45', sub: 'Adv Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul' },
+                    { time: '14:45', sub: 'Lab: Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul' }
+                ],
+                2: [ // Tuesday
+                    { time: '08:45', sub: 'Comp. Architecture', teach: 'Mr. Arindom Ain' },
+                    { time: '09:45', sub: 'Lab: OS', teach: 'Mr. Arindom Ain' },
+                    { time: '10:45', sub: 'Lab: OS', teach: 'Mr. Arindom Ain' },
+                    { time: '12:45', sub: 'ECA', teach: '-' }
+                ],
+                3: [ // Wednesday
+                    { time: '08:45', sub: 'Artificial Intelligence', teach: 'Mr. Pranjal Das' },
+                    { time: '09:45', sub: 'Artificial Intelligence', teach: 'Mr. Pranjal Das' },
+                    { time: '10:45', sub: 'Mathematics', teach: 'Dr. Dipunjay Borgohain' },
+                    { time: '12:45', sub: 'Comp. Architecture', teach: 'Mr. Arindom Ain' },
+                    { time: '13:45', sub: 'Adv Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul' },
+                    { time: '14:45', sub: 'Lab: Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul' }
+                ],
+                4: [ // Thursday
+                    { time: '09:45', sub: 'Lab: OS', teach: 'Mr. Arindom Ain' },
+                    { time: '10:45', sub: 'Lab: OS', teach: 'Mr. Arindom Ain' },
+                    { time: '12:45', sub: 'Mobile App Dev', teach: 'Mr. Rajarshi Paul' },
+                    { time: '13:45', sub: 'Mobile App Dev', teach: 'Mr. Rajarshi Paul' },
+                    { time: '14:45', sub: 'Library', teach: '-' }
+                ],
+                5: [ // Friday
+                    { time: '08:45', sub: 'Mobile App Dev', teach: 'Mr. Rajarshi Paul' },
+                    { time: '09:45', sub: 'Library', teach: '-' },
+                    { time: '10:45', sub: 'Mathematics', teach: 'Dr. Dipunjay Borgohain' },
+                    { time: '12:45', sub: 'Artificial Intelligence', teach: 'Mr. Pranjal Das' },
+                    { time: '13:45', sub: 'Adv Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul' },
+                    { time: '14:45', sub: 'Lab: Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul' }
+                ]
+            };
+
+            const todaysClasses = schedules[dayIndex];
+
+            if (!todaysClasses) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:40px; color:var(--text-secondary);">
+                        <i data-lucide="coffee" width="40" style="margin-bottom:10px; opacity:0.5;"></i><br>
+                        No classes scheduled for today. Enjoy your break!
+                    </div>`;
+                lucide.createIcons();
+                return;
+            }
+
+            let html = '';
+            todaysClasses.forEach(item => {
+                // Parse start time "HH:MM"
+                const [h, m] = item.time.split(':').map(Number);
+                const startMins = h * 60 + m;
+                const endMins = startMins + 60; // Assuming 1 hour classes
+                
+                let activeClass = '';
+                if(currentMins >= startMins && currentMins < endMins) {
+                    activeClass = 'glass-active';
+                }
+
+                html += `
+                <div class="timeline-row">
+                    <div class="time-col">${item.time}</div>
+                    <div class="event-col glass-panel ${activeClass}">
+                        <span class="subject">${item.sub}</span>
+                        <span class="teacher">${item.teach}</span>
+                    </div>
+                </div>`;
+            });
+            
+            // Add end marker
+            html += `
+                <div class="timeline-row">
+                    <div class="time-col" style="opacity:0.5">End</div>
+                    <div style="padding: 18px 0; color: var(--text-tertiary); font-size: 13px;">Classes Concluded</div>
+                </div>`;
+
+            container.innerHTML = html;
         }
 
-        // --- SYLLABUS CARD EXPANSION ---
-        function toggleSyllabus(element) {
-            // Close others if desired, or keep multiple open
-            // element.parentElement.querySelectorAll('.syllabus-panel').forEach(el => {
-            //     if(el !== element) el.classList.remove('expanded');
-            // });
-            element.classList.toggle('expanded');
+        // --- WEEKLY DAY HIGHLIGHT ---
+        function highlightWeeklyDay() {
+            const dayIndex = new Date().getDay(); // 0=Sun, 1=Mon, etc.
+            if(dayIndex > 0 && dayIndex < 7) {
+                const dayId = 'day-' + dayIndex;
+                const el = document.getElementById(dayId);
+                if(el) {
+                    el.classList.add('glass-active');
+                    // Optional: remove 'Now' badge via css if redundant for weekly view, 
+                    // or keep it to indicate "Today"
+                }
+            }
         }
 
         // --- CLOCK LOGIC ---
         function updateClock() {
             const now = new Date();
-            const timeString = now.toLocaleTimeString('en-US', { 
-                hour12: false, 
-                hour: '2-digit', 
-                minute: '2-digit', 
-                second: '2-digit' 
-            });
-            const dateString = now.toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                month: 'short', 
-                day: 'numeric' 
-            }).toUpperCase();
-
-            document.getElementById('clock').textContent = timeString;
-            document.getElementById('date').textContent = dateString;
+            document.getElementById('clock').textContent = now.toLocaleTimeString('en-US', { hour12: false });
+            document.getElementById('date').textContent = now.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' }).toUpperCase();
         }
 
         // --- TOAST LOGIC ---
