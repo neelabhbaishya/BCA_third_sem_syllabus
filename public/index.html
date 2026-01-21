@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCA 4th Sem Hub</title>
+    
+   <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BCA 4th Sem Hub</title>
     
     <!-- Import Inter Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -72,7 +72,7 @@
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
         }
 
-        /* --- ACTIVE HIGHLIGHT (Subtle White Glass) --- */
+        /* --- ACTIVE HIGHLIGHT (Subtle White Glass - No Badge) --- */
         .glass-active {
             background: rgba(255, 255, 255, 0.12) !important; /* Pure White Subtle Tint */
             border: 1px solid rgba(255, 255, 255, 0.4) !important;
@@ -228,89 +228,6 @@
         .card:hover {
             transform: translateY(-5px) scale(1.01);
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-
-        .card-icon {
-            width: 52px;
-            height: 52px;
-            background: var(--text-primary);
-            color: var(--bg-color); /* Contrast icon */
-            border-radius: 16px; /* Squircle */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .card h2 {
-            font-size: 24px;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin: 0 0 12px 0;
-            color: var(--text-primary);
-        }
-
-        .card p {
-            font-size: 17px;
-            line-height: 1.6;
-            color: var(--text-secondary);
-            margin: 0 0 36px 0;
-        }
-
-        /* --- BUTTON --- */
-        .btn-ios {
-            background: var(--btn-bg);
-            color: var(--btn-text);
-            border: none;
-            height: 54px; /* Larger touch target */
-            width: 100%;
-            border-radius: 100px;
-            font-size: 17px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: all 0.2s var(--ease-apple);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        
-        .btn-ios:active {
-            transform: scale(0.97);
-            opacity: 0.9;
-        }
-
-        /* --- GRID --- */
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            opacity: 0;
-        }
-
-        .mini-card {
-            border-radius: 28px;
-            padding: 28px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 14px;
-            color: var(--text-tertiary);
-            transition: all 0.3s ease;
-        }
-
-        .mini-card:hover {
-            background: var(--glass-highlight);
-            color: var(--text-primary);
-        }
-
-        .mini-card span {
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.02em;
         }
 
         /* --- ROUTINE CLOCK --- */
@@ -686,7 +603,7 @@
                         </div>
                         <div class="day-details">
                             08:45 - Comp. Architecture (Mr. Arindom Ain)<br>
-                            09:45 - Mathematics (Dr. Dipunjay Borgohain)<br>
+                            09:45 - Mathematics (Dr. Ankur Jyoti Kashyap)<br>
                             10:45 - Mobile App Dev (Mr. Rajarshi Paul)<br>
                             12:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
                             13:45 - Adv Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)<br>
@@ -698,13 +615,13 @@
                     <div id="day-2" class="glass-panel day-panel" onclick="toggleDay(this)">
                         <div class="day-header">
                             <span class="day-name">Tuesday</span>
-                            <span class="day-summary">3 Classes • 08:45 - 11:45</span>
+                            <span class="day-summary">4 Classes • 08:45 - 13:45</span>
                         </div>
                         <div class="day-details">
                             08:45 - Comp. Architecture (Mr. Arindom Ain)<br>
                             09:45 - Lab: OS (Mr. Arindom Ain)<br>
                             10:45 - Lab: OS (Mr. Arindom Ain)<br>
-                            12:45 - ECA
+                            12:45 - Mathematics (Dr. Ankur Jyoti Kashyap)
                         </div>
                     </div>
 
@@ -717,7 +634,7 @@
                         <div class="day-details">
                             08:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
                             09:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
-                            10:45 - Mathematics (Dr. Dipunjay Borgohain)<br>
+                            10:45 - Free<br>
                             12:45 - Comp. Architecture (Mr. Arindom Ain)<br>
                             13:45 - Adv Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)<br>
                             14:45 - Lab: Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)
@@ -748,8 +665,8 @@
                         </div>
                         <div class="day-details">
                             08:45 - Mobile App Dev (Mr. Rajarshi Paul)<br>
-                            09:45 - Library<br>
-                            10:45 - Mathematics (Dr. Dipunjay Borgohain)<br>
+                            09:45 - Mathematics (Dr. Ankur Jyoti Kashyap)<br>
+                            10:45 - Library<br>
                             12:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
                             13:45 - Adv Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)<br>
                             14:45 - Lab: Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)
@@ -1071,7 +988,7 @@
             const schedules = {
                 1: [ // Monday
                     { time: '08:45', sub: 'Comp. Architecture', teach: 'Mr. Arindom Ain' },
-                    { time: '09:45', sub: 'Mathematics', teach: 'Dr. Dipunjay Borgohain' },
+                    { time: '09:45', sub: 'Mathematics', teach: 'Dr. Ankur Jyoti Kashyap' },
                     { time: '10:45', sub: 'Mobile App Dev', teach: 'Mr. Rajarshi Paul' },
                     { time: '12:45', sub: 'Artificial Intelligence', teach: 'Mr. Pranjal Das' },
                     { time: '13:45', sub: 'Adv Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul' },
@@ -1081,12 +998,12 @@
                     { time: '08:45', sub: 'Comp. Architecture', teach: 'Mr. Arindom Ain' },
                     { time: '09:45', sub: 'Lab: OS', teach: 'Mr. Arindom Ain' },
                     { time: '10:45', sub: 'Lab: OS', teach: 'Mr. Arindom Ain' },
-                    { time: '12:45', sub: 'ECA', teach: '-' }
+                    { time: '12:45', sub: 'Mathematics', teach: 'Dr. Ankur Jyoti Kashyap' }
                 ],
                 3: [ // Wednesday
                     { time: '08:45', sub: 'Artificial Intelligence', teach: 'Mr. Pranjal Das' },
                     { time: '09:45', sub: 'Artificial Intelligence', teach: 'Mr. Pranjal Das' },
-                    { time: '10:45', sub: 'Mathematics', teach: 'Dr. Dipunjay Borgohain' },
+                    { time: '10:45', sub: 'Free', teach: '-' },
                     { time: '12:45', sub: 'Comp. Architecture', teach: 'Mr. Arindom Ain' },
                     { time: '13:45', sub: 'Adv Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul' },
                     { time: '14:45', sub: 'Lab: Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul' }
@@ -1100,8 +1017,8 @@
                 ],
                 5: [ // Friday
                     { time: '08:45', sub: 'Mobile App Dev', teach: 'Mr. Rajarshi Paul' },
-                    { time: '09:45', sub: 'Library', teach: '-' },
-                    { time: '10:45', sub: 'Mathematics', teach: 'Dr. Dipunjay Borgohain' },
+                    { time: '09:45', sub: 'Mathematics', teach: 'Dr. Ankur Jyoti Kashyap' },
+                    { time: '10:45', sub: 'Library', teach: '-' },
                     { time: '12:45', sub: 'Artificial Intelligence', teach: 'Mr. Pranjal Das' },
                     { time: '13:45', sub: 'Adv Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul' },
                     { time: '14:45', sub: 'Lab: Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul' }
@@ -1160,8 +1077,6 @@
                 const el = document.getElementById(dayId);
                 if(el) {
                     el.classList.add('glass-active');
-                    // Optional: remove 'Now' badge via css if redundant for weekly view, 
-                    // or keep it to indicate "Today"
                 }
             }
         }
