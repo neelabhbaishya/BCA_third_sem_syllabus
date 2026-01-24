@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BCA 4th Sem Hub</title>
     
-   <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <!-- Favicon Configuration -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -45,6 +46,10 @@
             --btn-text: #000000;
             --toast-bg: rgba(40, 40, 40, 0.8);
             --toast-border: rgba(255, 255, 255, 0.1);
+            
+            /* Calendar Specific */
+            --cal-holiday: #FF453A; /* iOS System Red */
+            --cal-class: #30D158; /* iOS System Green */
         }
 
         body {
@@ -124,6 +129,178 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        /* --- CALENDAR BUTTON --- */
+        .calendar-btn {
+            position: absolute;
+            right: 0;
+            top: 60px;
+            background: var(--material-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s var(--ease-apple);
+            color: var(--text-primary);
+        }
+        .calendar-btn:hover {
+            transform: scale(1.1);
+            background: var(--glass-highlight);
+        }
+
+        /* --- MODAL --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s var(--ease-apple);
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-content {
+            width: 90%;
+            max-width: 400px;
+            max-height: 85vh; /* Increased height */
+            overflow-y: auto;
+            background: #1c1c1e; /* Solid dark background for legibility */
+            border: 1px solid var(--border-glass);
+            border-radius: 28px;
+            padding: 24px; /* Slightly tighter padding */
+            transform: scale(0.9);
+            transition: transform 0.3s var(--ease-apple);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .modal-overlay.open .modal-content {
+            transform: scale(1);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .modal-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0;
+        }
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* --- INTERACTIVE CALENDAR UI --- */
+        .calendar-ui {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .cal-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .cal-btn {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 8px;
+        }
+        .current-month {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            text-align: center;
+        }
+        
+        .cal-day-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        
+        .cal-day {
+            font-size: 14px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            position: relative;
+            cursor: default;
+            transition: transform 0.2s;
+        }
+        
+        .cal-day.empty { pointer-events: none; }
+        
+        /* Markers */
+        .cal-day.holiday {
+            background: rgba(255, 69, 58, 0.2);
+            color: var(--cal-holiday);
+            border: 1px solid var(--cal-holiday);
+            cursor: pointer; /* Clickable */
+        }
+        .cal-day.holiday:hover {
+            transform: scale(1.1);
+            background: rgba(255, 69, 58, 0.3);
+        }
+        
+        .cal-day.class-day::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            width: 4px;
+            height: 4px;
+            background: var(--cal-class);
+            border-radius: 50%;
+        }
+
+        .cal-day.today {
+            background: var(--text-primary);
+            color: var(--bg-color);
+            font-weight: 700;
+        }
+
+        .holiday-legend {
+            margin-top: 20px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; }
+        .dot.red { background: var(--cal-holiday); }
+        .dot.green { background: var(--cal-class); }
 
         /* --- SEGMENTED CONTROL --- */
         .segmented-control {
@@ -522,7 +699,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            z-index: 999;
+            z-index: 2000; /* Increased z-index to be above modal */
             opacity: 0;
             transition: all 0.5s var(--ease-apple);
         }
@@ -558,6 +735,11 @@
         <header id="header">
             <span class="header-eyebrow">Academic Hub</span>
             <h1>BCA 4<sup>th</sup> Sem</h1>
+            
+            <!-- CALENDAR BUTTON -->
+            <button class="calendar-btn" onclick="openCalendar()" title="Academic Calendar">
+                <i data-lucide="calendar" width="20"></i>
+            </button>
         </header>
 
         <!-- MAIN NAVIGATION (Updated) -->
@@ -634,6 +816,7 @@
                         <div class="day-details">
                             08:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
                             09:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
+                            10:45 - Free<br>
                             12:45 - Comp. Architecture (Mr. Arindom Ain)<br>
                             13:45 - Adv Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)<br>
                             14:45 - Lab: Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)
@@ -647,6 +830,7 @@
                             <span class="day-summary">4 Classes • 09:45 - 14:45</span>
                         </div>
                         <div class="day-details">
+                            08:45 - Free<br>
                             09:45 - Lab: OS (Mr. Arindom Ain)<br>
                             10:45 - Lab: OS (Mr. Arindom Ain)<br>
                             12:45 - Mobile App Dev (Mr. Rajarshi Paul)<br>
@@ -910,18 +1094,65 @@
 
     </div>
 
+    <!-- CALENDAR MODAL -->
+    <div id="calendarModal" class="modal-overlay">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h2>Academic Calendar</h2>
+                <button class="close-modal" onclick="closeCalendar()">
+                    <i data-lucide="x" width="24"></i>
+                </button>
+            </div>
+            
+            <!-- Interactive Calendar UI -->
+            <div class="calendar-ui">
+                <div class="cal-controls">
+                    <button class="cal-btn" onclick="changeMonth(-1)"><i data-lucide="chevron-left" width="20"></i></button>
+                    <span class="current-month" id="calMonthDisplay">January 2026</span>
+                    <button class="cal-btn" onclick="changeMonth(1)"><i data-lucide="chevron-right" width="20"></i></button>
+                </div>
+                <div class="cal-grid" id="calGrid">
+                    <!-- JS Injects Days Here -->
+                </div>
+                
+                <div class="holiday-legend">
+                    <div class="legend-item"><span class="dot red"></span> Holiday</div>
+                    <div class="legend-item"><span class="dot green"></span> Class Day</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <!-- TOAST ELEMENT -->
     <div id="toast" class="toast hidden">
         <i data-lucide="bell" width="16"></i>
-        <span>You will be notified when live.</span>
+        <span>Notification</span>
     </div>
 
     <script>
-        // --- INITIALIZATION ---
+        // --- HOLIDAY DATA (YYYY-MM-DD) ---
+        const holidays = {
+            "2026-01-14": "Magh Bihu",
+            "2026-01-15": "Magh Bihu",
+            "2026-01-16": "Magh Bihu",
+            "2026-01-26": "Republic Day",
+            "2026-03-04": "Dol Jatra / Holi",
+            "2026-03-21": "Id-Ul-Fitr",
+            "2026-04-03": "Good Friday",
+            "2026-04-14": "Bohag Bihu",
+            "2026-04-15": "Bohag Bihu",
+            "2026-04-16": "Bohag Bihu",
+            "2026-05-01": "May Day",
+            "2026-05-28": "Id-Ud-Zuha"
+        };
+
+        let currentCalDate = new Date();
+
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
 
-            // Trigger Animations (Removed Status elements)
+            // Trigger Animations
             const elements = ['header', 'nav', 'view-routine'];
             elements.forEach((id, index) => {
                 const el = document.getElementById(id);
@@ -937,6 +1168,9 @@
             
             // Highlight Weekly Day
             highlightWeeklyDay();
+            
+            // Init Calendar
+            renderCalendar();
         });
 
         // --- MAIN TAB SWITCHING ---
@@ -974,13 +1208,156 @@
         function toggleDay(element) { element.classList.toggle('expanded'); }
         function toggleSyllabus(element) { element.classList.toggle('expanded'); }
 
+        // --- CALENDAR MODAL FUNCTIONS ---
+        function openCalendar() {
+            document.getElementById('calendarModal').classList.add('open');
+        }
+        function closeCalendar() {
+            document.getElementById('calendarModal').classList.remove('open');
+        }
+        // Close on background click
+        document.getElementById('calendarModal').addEventListener('click', (e) => {
+            if(e.target === document.getElementById('calendarModal')) {
+                closeCalendar();
+            }
+        });
+
+        // --- CALENDAR LOGIC ---
+        function changeMonth(delta) {
+            currentCalDate.setMonth(currentCalDate.getMonth() + delta);
+            renderCalendar();
+        }
+
+        function renderCalendar() {
+            const year = currentCalDate.getFullYear();
+            const month = currentCalDate.getMonth();
+            const monthName = currentCalDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+            
+            document.getElementById('calMonthDisplay').textContent = monthName;
+            
+            const firstDay = new Date(year, month, 1).getDay(); // 0=Sun
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const grid = document.getElementById('calGrid');
+            grid.innerHTML = '';
+            
+            // Labels
+            ['S','M','T','W','T','F','S'].forEach(d => {
+                grid.innerHTML += `<div class="cal-day-label">${d}</div>`;
+            });
+
+            // Empty slots
+            for(let i=0; i<firstDay; i++) {
+                grid.innerHTML += `<div class="cal-day empty"></div>`;
+            }
+
+            // Days
+            const today = new Date();
+            for(let i=1; i<=daysInMonth; i++) {
+                const dateKey = `${year}-${String(month+1).padStart(2,'0')}-${String(i).padStart(2,'0')}`;
+                const dayOfWeek = new Date(year, month, i).getDay();
+                
+                let className = 'cal-day';
+                let holidayName = holidays[dateKey];
+                
+                if(holidayName) {
+                    className += ' holiday';
+                } else if(dayOfWeek !== 0 && dayOfWeek !== 6) {
+                    className += ' class-day'; // Mon-Fri
+                }
+                
+                if(today.getDate() === i && today.getMonth() === month && today.getFullYear() === year) {
+                    className += ' today';
+                }
+
+                // Create element with click event for holidays
+                const dayEl = document.createElement('div');
+                dayEl.className = className;
+                dayEl.textContent = i;
+                
+                if (holidayName) {
+                    dayEl.onclick = () => showHolidayToast(holidayName);
+                }
+
+                grid.appendChild(dayEl);
+            }
+        }
+
+        function showHolidayToast(name) {
+            showToast(name, 'party-popper');
+        }
+
+        // Generic show toast function
+        function showToast(message, iconName = 'bell') {
+            const toast = document.getElementById('toast');
+            const toastText = toast.querySelector('span');
+            toastText.textContent = message;
+
+            // Handle Icon
+            // Remove existing SVG or I
+            const existingIcon = toast.querySelector('svg') || toast.querySelector('i');
+            if (existingIcon) {
+                existingIcon.remove();
+            }
+
+            // Create new icon element
+            const newIcon = document.createElement('i');
+            newIcon.setAttribute('data-lucide', iconName);
+            newIcon.setAttribute('width', '16');
+            
+            // Insert before the text span
+            toast.insertBefore(newIcon, toastText);
+
+            // Refresh icons
+            lucide.createIcons();
+
+            // Show animation
+            toast.classList.remove('hidden');
+            toast.classList.add('show');
+            
+            if (typeof toastTimeout !== 'undefined') clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
         // --- DYNAMIC SCHEDULE LOGIC ---
         function renderTodaySchedule() {
-            const dayIndex = new Date().getDay(); // 0=Sun, 1=Mon, etc.
             const container = document.getElementById('today-timeline');
             
             // Time Check Helpers
             const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const dateKey = `${year}-${month}-${day}`; // Format YYYY-MM-DD
+            
+            // 1. CHECK FOR HOLIDAYS
+            if (holidays[dateKey]) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:60px 20px; color:var(--text-secondary);">
+                        <i data-lucide="party-popper" width="48" style="margin-bottom:16px; opacity:0.8; color:#FF453A;"></i>
+                        <h3 style="color:var(--text-primary); margin-bottom:8px; font-size:20px;">${holidays[dateKey]}</h3>
+                        <p>No classes scheduled for today.<br>Enjoy your break!</p>
+                    </div>`;
+                lucide.createIcons();
+                return;
+            }
+
+            // 2. CHECK FOR SUNDAY (Day 0)
+            const dayIndex = now.getDay(); 
+            if (dayIndex === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:60px 20px; color:var(--text-secondary);">
+                        <i data-lucide="coffee" width="48" style="margin-bottom:16px; opacity:0.6;"></i>
+                        <h3 style="color:var(--text-primary); margin-bottom:8px; font-size:20px;">Sunday</h3>
+                        <p>No classes scheduled for today.<br>Relax and recharge.</p>
+                    </div>`;
+                lucide.createIcons();
+                return;
+            }
+
+            // 3. RENDER CLASS SCHEDULE
             const currentMins = now.getHours() * 60 + now.getMinutes();
             
             const schedules = {
@@ -1001,6 +1378,7 @@
                 3: [ // Wednesday
                     { time: '08:45', sub: 'Artificial Intelligence', teach: 'Mr. Pranjal Das' },
                     { time: '09:45', sub: 'Artificial Intelligence', teach: 'Mr. Pranjal Das' },
+                    { time: '10:45', sub: 'Free', teach: '-' },
                     { time: '12:45', sub: 'Comp. Architecture', teach: 'Mr. Arindom Ain' },
                     { time: '13:45', sub: 'Adv Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul' },
                     { time: '14:45', sub: 'Lab: Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul' }
@@ -1019,17 +1397,26 @@
                     { time: '12:45', sub: 'Artificial Intelligence', teach: 'Mr. Pranjal Das' },
                     { time: '13:45', sub: 'Adv Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul' },
                     { time: '14:45', sub: 'Lab: Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul' }
-                ]
+                ],
+                6: [] // Saturday handled below if routine exists, otherwise empty
             };
 
             const todaysClasses = schedules[dayIndex];
 
-            if (!todaysClasses) {
-                container.innerHTML = `
-                    <div style="text-align:center; padding:40px; color:var(--text-secondary);">
-                        <i data-lucide="coffee" width="40" style="margin-bottom:10px; opacity:0.5;"></i><br>
-                        No classes scheduled for today. Enjoy your break!
-                    </div>`;
+            // If Saturday (6) and no explicit classes, or empty schedule
+            if (!todaysClasses || todaysClasses.length === 0) {
+                 if(dayIndex === 6) {
+                     container.innerHTML = `
+                        <div style="text-align:center; padding:40px; color:var(--text-secondary);">
+                            <i data-lucide="activity" width="40" style="margin-bottom:10px; opacity:0.5;"></i><br>
+                            ECA / Test / Remedial Day
+                        </div>`;
+                 } else {
+                     container.innerHTML = `
+                        <div style="text-align:center; padding:40px; color:var(--text-secondary);">
+                            No classes scheduled.
+                        </div>`;
+                 }
                 lucide.createIcons();
                 return;
             }
@@ -1085,23 +1472,6 @@
             document.getElementById('date').textContent = now.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' }).toUpperCase();
         }
 
-        // --- TOAST LOGIC ---
-        const notifyBtn = document.getElementById('notifyBtn');
-        const toast = document.getElementById('toast');
-        let toastTimeout;
-
-        if(notifyBtn) {
-            notifyBtn.addEventListener('click', () => {
-                toast.classList.remove('hidden');
-                toast.classList.add('show');
-                if (toastTimeout) clearTimeout(toastTimeout);
-                toastTimeout = setTimeout(() => {
-                    toast.classList.remove('show');
-                    toast.classList.add('hidden');
-                }, 3000);
-            });
-        }
     </script>
 </body>
 </html>
-
