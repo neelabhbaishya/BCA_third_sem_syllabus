@@ -88,38 +88,39 @@
         /* --- VIEWPORT CONTAINER --- */
         .viewport {
             width: 100%;
-            max-width: 680px;
-            padding: 20px;
+            max-width: 800px; /* Increased width for more space */
+            padding: 40px 20px; /* More vertical padding */
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            gap: 32px;
+            gap: 40px; /* More gap between sections */
             min-height: 100vh;
         }
 
         /* --- HEADER --- */
         header {
-            padding-top: 60px;
+            padding-top: 40px; /* Adjusted padding */
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             position: relative;
             opacity: 0;
+            margin-bottom: 20px; /* Added margin below header */
         }
 
         .header-eyebrow {
-            font-size: 13px;
+            font-size: 14px; /* Slightly larger */
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.1em; /* More letter spacing */
             color: var(--text-secondary);
-            margin-bottom: 8px;
+            margin-bottom: 12px; /* More margin */
             text-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         h1 {
-            font-size: 42px;
+            font-size: 48px; /* Larger title */
             font-weight: 700;
             letter-spacing: -0.03em;
             margin: 0;
@@ -134,12 +135,12 @@
         .calendar-btn {
             position: absolute;
             right: 0;
-            top: 60px;
+            top: 40px; /* Aligned with padding-top */
             background: var(--material-glass);
             backdrop-filter: blur(20px);
             border: 1px solid var(--border-glass);
-            width: 44px;
-            height: 44px;
+            width: 48px; /* Slightly larger */
+            height: 48px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -174,13 +175,13 @@
         }
         .modal-content {
             width: 90%;
-            max-width: 400px;
-            max-height: 85vh; /* Increased height */
+            max-width: 450px; /* Slightly wider modal */
+            max-height: 85vh;
             overflow-y: auto;
             background: #1c1c1e; /* Solid dark background for legibility */
             border: 1px solid var(--border-glass);
-            border-radius: 28px;
-            padding: 24px; /* Slightly tighter padding */
+            border-radius: 32px; /* More rounded */
+            padding: 32px; /* More padding */
             transform: scale(0.9);
             transition: transform 0.3s var(--ease-apple);
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
@@ -192,10 +193,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
         .modal-header h2 {
-            font-size: 20px;
+            font-size: 24px; /* Larger title */
             font-weight: 600;
             margin: 0;
         }
@@ -204,21 +205,21 @@
             border: none;
             color: var(--text-secondary);
             cursor: pointer;
-            padding: 5px;
+            padding: 8px; /* Larger touch area */
         }
 
         /* --- INTERACTIVE CALENDAR UI --- */
         .calendar-ui {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px; /* More gap */
         }
         
         .cal-controls {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 12px;
+            padding-bottom: 16px; /* More padding */
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         .cal-btn {
@@ -226,30 +227,30 @@
             border: none;
             color: var(--text-primary);
             cursor: pointer;
-            padding: 8px;
+            padding: 10px; /* Larger touch area */
         }
         .current-month {
             font-weight: 600;
-            font-size: 16px;
+            font-size: 18px; /* Larger text */
         }
 
         .cal-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
+            gap: 12px; /* More gap between days */
             text-align: center;
         }
         
         .cal-day-label {
-            font-size: 12px;
+            font-size: 13px; /* Larger label */
             font-weight: 600;
             color: var(--text-secondary);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
         
         .cal-day {
-            font-size: 14px;
-            height: 36px;
+            font-size: 15px; /* Larger day number */
+            height: 40px; /* Larger day circle */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -276,9 +277,9 @@
         .cal-day.class-day::after {
             content: '';
             position: absolute;
-            bottom: 4px;
-            width: 4px;
-            height: 4px;
+            bottom: 6px; /* Adjusted position */
+            width: 5px; /* Slightly larger dot */
+            height: 5px;
             background: var(--cal-class);
             border-radius: 50%;
         }
@@ -290,15 +291,15 @@
         }
 
         .holiday-legend {
-            margin-top: 20px;
-            font-size: 12px;
+            margin-top: 24px;
+            font-size: 13px;
             color: var(--text-secondary);
             display: flex;
-            gap: 15px;
+            gap: 20px;
             justify-content: center;
         }
-        .legend-item { display: flex; align-items: center; gap: 6px; }
-        .dot { width: 8px; height: 8px; border-radius: 50%; }
+        .legend-item { display: flex; align-items: center; gap: 8px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
         .dot.red { background: var(--cal-holiday); }
         .dot.green { background: var(--cal-class); }
 
@@ -310,7 +311,7 @@
             -webkit-backdrop-filter: blur(30px);
             border: 1px solid var(--border-glass);
             
-            padding: 4px;
+            padding: 6px; /* More padding inside pill */
             border-radius: 100px;
             display: inline-flex;
             position: relative;
@@ -321,16 +322,16 @@
         }
 
         .segment {
-            padding: 8px 24px;
+            padding: 10px 32px; /* More generous padding */
             border-radius: 100px;
-            font-size: 14px;
+            font-size: 15px; /* Larger text */
             font-weight: 500;
             color: var(--text-secondary);
             text-decoration: none;
             transition: all 0.3s var(--ease-apple);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             cursor: pointer;
         }
 
@@ -345,17 +346,17 @@
             background: rgba(255,255,255,0.05); /* Slightly lighter/different for hierarchy */
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255,255,255,0.1);
-            padding: 3px;
+            padding: 4px; /* More padding */
             border-radius: 100px;
             display: inline-flex;
-            margin: 0 auto 20px auto;
-            transform: scale(0.95); /* Slightly smaller than main nav */
+            margin: 0 auto 32px auto; /* More margin below */
+            transform: scale(1); /* Reset scale */
         }
         
         .sub-segment {
-            padding: 6px 20px;
+            padding: 8px 24px; /* More padding */
             border-radius: 100px;
-            font-size: 13px;
+            font-size: 14px; /* Slightly larger */
             font-weight: 600;
             color: var(--text-secondary);
             cursor: pointer;
@@ -371,7 +372,7 @@
         .view-section {
             display: none; /* Hidden by default */
             flex-direction: column;
-            gap: 24px;
+            gap: 32px; /* More gap between items */
             width: 100%;
             animation: viewFadeIn 0.5s var(--ease-apple);
         }
@@ -397,7 +398,7 @@
         /* --- CARDS (Liquid Glass) --- */
         .card {
             border-radius: 32px; /* Smoother curve */
-            padding: 36px;
+            padding: 40px; /* More padding inside cards */
             transition: transform 0.4s var(--ease-apple);
             opacity: 0;
         }
@@ -410,26 +411,27 @@
         /* --- ROUTINE CLOCK --- */
         .clock-container {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 32px; /* More margin */
         }
         
         .digital-clock {
-            font-size: 56px;
+            font-size: 72px; /* Much larger clock */
             font-weight: 700;
-            letter-spacing: -2px;
+            letter-spacing: -3px;
             font-variant-numeric: tabular-nums;
             background: linear-gradient(180deg, #FFF 0%, rgba(255,255,255,0.7) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            line-height: 1;
         }
 
         .date-display {
-            font-size: 14px;
+            font-size: 16px; /* Larger date */
             color: var(--text-secondary);
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-top: -5px;
+            letter-spacing: 0.15em;
+            margin-top: 8px; /* More margin */
             font-weight: 600;
         }
 
@@ -437,21 +439,21 @@
         .timeline {
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            padding-bottom: 40px;
+            gap: 24px; /* More vertical space between classes */
+            padding-bottom: 60px;
         }
 
         .timeline-row {
             display: flex;
-            gap: 20px;
+            gap: 32px; /* More horizontal gap */
             align-items: flex-start;
         }
 
         .time-col {
-            width: 50px;
+            width: 60px; /* Slightly wider */
             text-align: right;
-            padding-top: 18px;
-            font-size: 13px;
+            padding-top: 22px; /* Adjusted padding */
+            font-size: 14px; /* Larger time text */
             font-weight: 600;
             color: var(--text-secondary);
             flex-shrink: 0;
@@ -459,11 +461,11 @@
 
         .event-col {
             flex: 1;
-            border-radius: 24px;
-            padding: 20px;
+            border-radius: 28px; /* More rounded */
+            padding: 24px; /* More padding inside event */
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 8px; /* More gap between subject and teacher */
             transition: transform 0.2s;
         }
 
@@ -478,13 +480,13 @@
         }
 
         .subject {
-            font-size: 17px;
+            font-size: 18px; /* Larger subject text */
             font-weight: 600;
             color: var(--text-primary);
         }
 
         .teacher {
-            font-size: 14px;
+            font-size: 15px; /* Larger teacher text */
             color: var(--text-secondary);
         }
 
@@ -492,12 +494,12 @@
         .week-list {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px; /* More gap between days */
         }
 
         .day-panel {
-            border-radius: 24px;
-            padding: 24px;
+            border-radius: 28px; /* More rounded */
+            padding: 28px; /* More padding */
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
@@ -516,25 +518,25 @@
         }
         
         .day-name {
-            font-size: 18px;
+            font-size: 20px; /* Larger day name */
             font-weight: 600;
             color: var(--text-primary);
         }
         
         .day-summary {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-secondary);
         }
 
         /* Expanded view details (Simple list for now) */
         .day-details {
-            margin-top: 16px;
-            padding-top: 16px;
+            margin-top: 20px; /* More margin */
+            padding-top: 20px;
             border-top: 1px solid var(--border-glass);
             display: none; /* Collapsed by default */
-            font-size: 14px;
+            font-size: 15px; /* Larger details text */
             color: var(--text-secondary);
-            line-height: 1.6;
+            line-height: 1.8; /* More line height for readability */
         }
         
         .day-panel.expanded .day-details {
@@ -548,11 +550,11 @@
         }
 
         /* --- SYLLABUS STYLES --- */
-        .syllabus-list { display: flex; flex-direction: column; gap: 16px; }
+        .syllabus-list { display: flex; flex-direction: column; gap: 20px; }
         
         .syllabus-panel { 
-            border-radius: 24px; 
-            padding: 24px; 
+            border-radius: 28px; 
+            padding: 28px; 
             cursor: pointer; 
             transition: all 0.3s ease; 
             position: relative; 
@@ -572,19 +574,19 @@
         .subject-info { 
             display: flex; 
             flex-direction: column; 
-            gap: 4px; 
+            gap: 6px; 
         }
         
         .subject-code { 
-            font-size: 11px; 
+            font-size: 12px; 
             color: var(--text-tertiary); 
             text-transform: uppercase; 
-            letter-spacing: 1px; 
+            letter-spacing: 1.5px; 
             font-weight: 600; 
         }
         
         .subject-title { 
-            font-size: 18px; 
+            font-size: 20px; 
             font-weight: 600; 
             color: var(--text-primary); 
         }
@@ -603,8 +605,8 @@
         
         .syllabus-content { 
             display: none; 
-            margin-top: 24px; 
-            padding-top: 24px; 
+            margin-top: 28px; 
+            padding-top: 28px; 
             border-top: 1px solid var(--border-glass); 
         }
         
@@ -621,60 +623,60 @@
         .module-list {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 24px;
         }
 
         .module-item { 
             position: relative;
-            padding-left: 12px;
+            padding-left: 16px;
             border-left: 2px solid rgba(255,255,255,0.1);
         }
         
         .unit-badge { 
             display: inline-block; 
             background: rgba(255,255,255,0.1); 
-            padding: 4px 10px; 
-            border-radius: 6px; 
-            font-size: 11px; 
+            padding: 6px 12px; 
+            border-radius: 8px; 
+            font-size: 12px; 
             font-weight: 700; 
             color: var(--text-primary); 
-            margin-bottom: 6px; 
+            margin-bottom: 8px; 
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         
         .module-item p { 
-            font-size: 14px; 
+            font-size: 15px; 
             color: var(--text-secondary); 
-            line-height: 1.5; 
+            line-height: 1.6; 
             margin: 0; 
         }
 
         .books-section { 
-            margin-top: 24px; 
+            margin-top: 32px; 
             background: rgba(0,0,0,0.3); 
-            padding: 20px; 
-            border-radius: 16px; 
+            padding: 24px; 
+            border-radius: 20px; 
             border: 1px solid rgba(255,255,255,0.05);
         }
         
         .section-label { 
-            font-size: 11px; 
+            font-size: 12px; 
             text-transform: uppercase; 
             color: var(--text-tertiary); 
             font-weight: 700; 
             display: flex; 
             align-items: center; 
-            gap: 6px;
-            margin-bottom: 12px; 
+            gap: 8px;
+            margin-bottom: 16px; 
             letter-spacing: 1px;
         }
         
         .books-section p { 
-            font-size: 13px; 
+            font-size: 14px; 
             color: var(--text-secondary); 
-            margin: 6px 0; 
-            line-height: 1.4;
+            margin: 8px 0; 
+            line-height: 1.5;
         }
 
         /* --- TOAST --- */
@@ -691,9 +693,9 @@
             border: 1px solid var(--toast-border);
             
             color: white; /* Always white text for legibility */
-            padding: 14px 28px;
+            padding: 16px 32px; /* Larger toast */
             border-radius: 100px;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 500;
             box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3);
             display: flex;
@@ -811,7 +813,7 @@
                     <div id="day-3" class="glass-panel day-panel" onclick="toggleDay(this)">
                         <div class="day-header">
                             <span class="day-name">Wednesday</span>
-                            <span class="day-summary">5 Classes • 08:45 - 15:45</span>
+                            <span class="day-summary">6 Classes • 08:45 - 15:45</span>
                         </div>
                         <div class="day-details">
                             08:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
@@ -843,7 +845,7 @@
                     <div id="day-5" class="glass-panel day-panel" onclick="toggleDay(this)">
                         <div class="day-header">
                             <span class="day-name">Friday</span>
-                            <span class="day-summary">5 Classes • 08:45 - 15:45</span>
+                            <span class="day-summary">6 Classes • 08:45 - 15:45</span>
                         </div>
                         <div class="day-details">
                             08:45 - Mobile App Dev (Mr. Rajarshi Paul)<br>
@@ -1321,6 +1323,7 @@
             }, 3000);
         }
 
+
         // --- DYNAMIC SCHEDULE LOGIC ---
         function renderTodaySchedule() {
             const container = document.getElementById('today-timeline');
@@ -1378,6 +1381,7 @@
                 3: [ // Wednesday
                     { time: '08:45', sub: 'Artificial Intelligence', teach: 'Mr. Pranjal Das' },
                     { time: '09:45', sub: 'Artificial Intelligence', teach: 'Mr. Pranjal Das' },
+                    { time: '10:45', sub: 'Free', teach: '-' },
                     { time: '12:45', sub: 'Comp. Architecture', teach: 'Mr. Arindom Ain' },
                     { time: '13:45', sub: 'Adv Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul' },
                     { time: '14:45', sub: 'Lab: Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul' }
@@ -1470,7 +1474,6 @@
             document.getElementById('clock').textContent = now.toLocaleTimeString('en-US', { hour12: false });
             document.getElementById('date').textContent = now.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' }).toUpperCase();
         }
-
     </script>
 </body>
 </html>
