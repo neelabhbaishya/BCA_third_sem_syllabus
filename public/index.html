@@ -226,7 +226,7 @@
         }
 
         /* --- GLIDER --- */
-        .nav-glider {
+.nav-glider {
     position: absolute;
     inset: 6px;
     background: var(--btn-bg);
@@ -234,7 +234,6 @@
     transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
                 width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     z-index: 1;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
 }
 
         .segment {
@@ -266,7 +265,7 @@
         }
 
         /* Sub Glider */
-    .sub-nav-glider {
+.sub-nav-glider {
     position: absolute;
     inset: 4px;
     background: var(--text-primary);
@@ -642,18 +641,18 @@
         }
 
         // --- GLIDER ANIMATION ---
-       function updateGlider(element, gliderId) {
+    function updateGlider(element, gliderId) {
     const glider = document.getElementById(gliderId);
     const container = element.parentElement;
 
     if (!glider || !element || !container) return;
 
-    const containerRect = container.getBoundingClientRect();
-    const elementRect = element.getBoundingClientRect();
+    const styles = getComputedStyle(container);
+    const paddingLeft = parseFloat(styles.paddingLeft);
 
-    const left = elementRect.left - containerRect.left;
+    const left = element.offsetLeft - paddingLeft;
 
-    glider.style.width = elementRect.width + 'px';
+    glider.style.width = element.offsetWidth + 'px';
     glider.style.transform = `translateX(${left}px)`;
 }
 
