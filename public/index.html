@@ -85,38 +85,38 @@
         .viewport {
             width: 100%;
             max-width: 800px;
-            padding: 40px 20px;
+            padding: 60px 24px; /* Increased padding */
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 48px; /* Increased gap */
             min-height: 100vh;
         }
 
         /* --- HEADER --- */
         header {
-            padding-top: 40px;
+            padding-top: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             position: relative;
             opacity: 0;
-            margin-bottom: 20px;
+            margin-bottom: 32px; /* Increased margin */
         }
 
         .header-eyebrow {
-            font-size: 14px;
+            font-size: 15px; /* Larger font */
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em; /* Spaced out */
             color: var(--text-secondary);
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             text-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         h1 {
-            font-size: 48px;
+            font-size: 56px; /* Larger font */
             font-weight: 700;
             letter-spacing: -0.03em;
             margin: 0;
@@ -130,12 +130,12 @@
         .calendar-btn {
             position: absolute;
             right: 0;
-            top: 40px;
+            top: 20px;
             background: var(--material-glass);
             backdrop-filter: blur(20px);
             border: 1px solid var(--border-glass);
-            width: 48px;
-            height: 48px;
+            width: 52px; /* Larger button */
+            height: 52px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -147,6 +147,26 @@
         .calendar-btn:hover {
             transform: scale(1.1);
             background: var(--glass-highlight);
+        }
+
+        /* Mobile specific adjustments for calendar button */
+        @media (max-width: 768px) {
+            .calendar-btn {
+                top: 10px; /* Shifted up slightly for mobile */
+                right: 10px; /* Ensure some spacing from edge */
+                width: 44px; /* slightly smaller on mobile to not overwhelm */
+                height: 44px;
+            }
+
+             /* Adjust viewport padding for mobile to balance with header */
+            .viewport {
+                padding: 40px 16px;
+                gap: 32px;
+            }
+            
+            h1 {
+                font-size: 36px; /* slightly smaller title on mobile */
+            }
         }
 
         /* --- MODAL --- */
@@ -173,38 +193,48 @@
             overflow-y: auto;
             background: #1c1c1e;
             border: 1px solid var(--border-glass);
-            border-radius: 32px;
-            padding: 32px;
+            border-radius: 36px; /* Increased radius */
+            padding: 40px; /* Increased padding */
             transform: scale(0.9);
             transition: transform 0.3s var(--ease-apple);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6); /* Deeper shadow */
         }
         .modal-overlay.open .modal-content { transform: scale(1); }
         
+        /* Mobile specific adjustments for modal */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 85%; /* slightly narrower than 90% for better margins */
+                max-height: 70vh; /* More compact height on mobile */
+                padding: 24px; /* Reduced padding */
+                border-radius: 28px;
+            }
+        }
+
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
         }
-        .modal-header h2 { font-size: 24px; font-weight: 600; margin: 0; }
+        .modal-header h2 { font-size: 26px; font-weight: 600; margin: 0; }
         .close-modal { background: none; border: none; color: var(--text-secondary); cursor: pointer; padding: 8px; }
 
         /* --- CALENDAR UI --- */
-        .calendar-ui { display: flex; flex-direction: column; gap: 20px; }
-        .cal-controls { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .cal-btn { background: none; border: none; color: var(--text-primary); cursor: pointer; padding: 10px; }
-        .current-month { font-weight: 600; font-size: 18px; }
-        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; text-align: center; }
-        .cal-day-label { font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 12px; }
-        .cal-day { font-size: 15px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; position: relative; cursor: default; transition: transform 0.2s; }
+        .calendar-ui { display: flex; flex-direction: column; gap: 24px; }
+        .cal-controls { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .cal-btn { background: none; border: none; color: var(--text-primary); cursor: pointer; padding: 12px; }
+        .current-month { font-weight: 600; font-size: 20px; }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 14px; text-align: center; }
+        .cal-day-label { font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 14px; }
+        .cal-day { font-size: 16px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 50%; position: relative; cursor: default; transition: transform 0.2s; }
         .cal-day.empty { pointer-events: none; }
         .cal-day.holiday { background: rgba(255, 69, 58, 0.2); color: var(--cal-holiday); border: 1px solid var(--cal-holiday); cursor: pointer; }
         .cal-day.holiday:hover { transform: scale(1.1); background: rgba(255, 69, 58, 0.3); }
         .cal-day.class-day::after { content: ''; position: absolute; bottom: 6px; width: 5px; height: 5px; background: var(--cal-class); border-radius: 50%; }
         .cal-day.today { background: var(--text-primary); color: var(--bg-color); font-weight: 700; }
-        .holiday-legend { margin-top: 24px; font-size: 13px; color: var(--text-secondary); display: flex; gap: 20px; justify-content: center; }
-        .legend-item { display: flex; align-items: center; gap: 8px; }
+        .holiday-legend { margin-top: 30px; font-size: 14px; color: var(--text-secondary); display: flex; gap: 24px; justify-content: center; }
+        .legend-item { display: flex; align-items: center; gap: 10px; }
         .dot { width: 10px; height: 10px; border-radius: 50%; }
         .dot.red { background: var(--cal-holiday); }
         .dot.green { background: var(--cal-class); }
@@ -215,7 +245,7 @@
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             border: 1px solid var(--border-glass);
-            padding: 6px;
+            padding: 8px; /* Slightly more padding */
             border-radius: 100px;
             display: inline-flex;
             position: relative;
@@ -226,25 +256,26 @@
         }
 
         /* --- GLIDER --- */
-.nav-glider {
-    position: absolute;
-    inset: 6px;
-    background: var(--btn-bg);
-    border-radius: 100px;
-    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
-                width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-    z-index: 1;
-}
+        .nav-glider {
+            position: absolute;
+            inset: 8px; /* Matches padding */
+            background: var(--btn-bg);
+            border-radius: 100px;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+                        width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 1;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+        }
 
         .segment {
-            padding: 10px 32px;
+            padding: 12px 36px; /* Wider click area */
             border-radius: 100px;
-            font-size: 15px;
+            font-size: 16px; /* Larger font */
             font-weight: 500;
             color: var(--text-secondary);
             text-decoration: none;
             transition: color 0.2s var(--ease-apple);
-            display: flex; align-items: center; gap: 8px;
+            display: flex; align-items: center; gap: 10px;
             cursor: pointer;
             position: relative;
             z-index: 2;
@@ -256,30 +287,29 @@
             background: rgba(255,255,255,0.05);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255,255,255,0.1);
-            padding: 4px;
+            padding: 5px; /* More padding */
             border-radius: 100px;
             display: inline-flex;
-            margin: 0 auto 32px auto;
+            margin: 0 auto 40px auto; /* Increased margin below */
             transform: scale(1);
             position: relative;
         }
 
         /* Sub Glider */
-.sub-nav-glider {
-    position: absolute;
-    inset: 4px;
-    background: var(--text-primary);
-    border-radius: 100px;
-    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
-                width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-    z-index: 1;
-}
-
+        .sub-nav-glider {
+            position: absolute;
+            inset: 5px; /* Matches padding */
+            background: var(--text-primary);
+            border-radius: 100px;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+                        width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 1;
+        }
         
         .sub-segment {
-            padding: 8px 24px;
+            padding: 10px 28px; /* Wider */
             border-radius: 100px;
-            font-size: 14px;
+            font-size: 15px; /* Larger */
             font-weight: 600;
             color: var(--text-secondary);
             cursor: pointer;
@@ -290,71 +320,72 @@
         .sub-segment.active { color: var(--bg-color); }
 
         /* --- VIEWS --- */
-        .view-section { display: none; flex-direction: column; gap: 32px; width: 100%; animation: viewFadeIn 0.5s var(--ease-apple); }
+        .view-section { display: none; flex-direction: column; gap: 40px; width: 100%; animation: viewFadeIn 0.5s var(--ease-apple); }
         .view-section.active { display: flex; }
         .sub-view { display: none; animation: viewFadeIn 0.4s var(--ease-apple); width: 100%; }
         .sub-view.active { display: block; }
         @keyframes viewFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- CARDS & TIMELINE --- */
-        .card { border-radius: 32px; padding: 40px; transition: transform 0.4s var(--ease-apple); opacity: 0; }
+        .card { border-radius: 36px; padding: 48px; transition: transform 0.4s var(--ease-apple); opacity: 0; }
         .card:hover { transform: translateY(-5px) scale(1.01); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-        .clock-container { text-align: center; margin-bottom: 32px; }
+        .clock-container { text-align: center; margin-bottom: 40px; }
         
         .digital-clock {
-            font-size: 72px; font-weight: 700; letter-spacing: -3px; font-variant-numeric: tabular-nums;
+            font-size: 80px; /* Even bigger clock */
+            font-weight: 700; letter-spacing: -4px; font-variant-numeric: tabular-nums;
             background: linear-gradient(180deg, #FFF 0%, rgba(255,255,255,0.7) 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             text-shadow: 0 20px 40px rgba(0,0,0,0.5); line-height: 1;
         }
-        .date-display { font-size: 16px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.15em; margin-top: 8px; font-weight: 600; }
+        .date-display { font-size: 18px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.2em; margin-top: 12px; font-weight: 600; }
 
-        .timeline { display: flex; flex-direction: column; gap: 24px; padding-bottom: 60px; }
-        .timeline-row { display: flex; gap: 32px; align-items: flex-start; }
-        .time-col { width: 60px; text-align: right; padding-top: 22px; font-size: 14px; font-weight: 600; color: var(--text-secondary); flex-shrink: 0; }
-        .event-col { flex: 1; border-radius: 28px; padding: 24px; display: flex; flex-direction: column; gap: 8px; transition: transform 0.2s; }
+        .timeline { display: flex; flex-direction: column; gap: 32px; padding-bottom: 80px; }
+        .timeline-row { display: flex; gap: 40px; align-items: flex-start; }
+        .time-col { width: 70px; text-align: right; padding-top: 26px; font-size: 16px; font-weight: 600; color: var(--text-secondary); flex-shrink: 0; }
+        .event-col { flex: 1; border-radius: 32px; padding: 30px; display: flex; flex-direction: column; gap: 10px; transition: transform 0.2s; }
         .event-col:hover { transform: scale(1.02); background: var(--glass-highlight); }
         .event-col.break { background: rgba(255, 255, 255, 0.03); border: 1px dashed var(--border-glass); }
-        .subject { font-size: 18px; font-weight: 600; color: var(--text-primary); }
-        .teacher { font-size: 15px; color: var(--text-secondary); }
+        .subject { font-size: 20px; font-weight: 600; color: var(--text-primary); }
+        .teacher { font-size: 16px; color: var(--text-secondary); }
 
-        .week-list { display: flex; flex-direction: column; gap: 20px; }
-        .day-panel { border-radius: 28px; padding: 28px; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .week-list { display: flex; flex-direction: column; gap: 24px; }
+        .day-panel { border-radius: 32px; padding: 32px; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
         .day-panel:hover { background: var(--glass-highlight); }
         .day-header { display: flex; justify-content: space-between; align-items: center; }
-        .day-name { font-size: 20px; font-weight: 600; color: var(--text-primary); }
-        .day-summary { font-size: 14px; color: var(--text-secondary); }
-        .day-details { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-glass); display: none; font-size: 15px; color: var(--text-secondary); line-height: 1.8; }
+        .day-name { font-size: 22px; font-weight: 600; color: var(--text-primary); }
+        .day-summary { font-size: 15px; color: var(--text-secondary); }
+        .day-details { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-glass); display: none; font-size: 16px; color: var(--text-secondary); line-height: 1.8; }
         .day-panel.expanded .day-details { display: block; animation: viewFadeIn 0.3s ease; }
         .day-panel.expanded { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.3); }
 
         /* --- SYLLABUS --- */
-        .syllabus-list { display: flex; flex-direction: column; gap: 20px; }
-        .syllabus-panel { border-radius: 28px; padding: 28px; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .syllabus-list { display: flex; flex-direction: column; gap: 24px; }
+        .syllabus-panel { border-radius: 32px; padding: 32px; cursor: pointer; transition: all 0.3s ease; position: relative; overflow: hidden; }
         .syllabus-panel:hover { background: var(--glass-highlight); }
         .syllabus-header { display: flex; justify-content: space-between; align-items: center; }
-        .subject-info { display: flex; flex-direction: column; gap: 6px; }
-        .subject-code { font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
-        .subject-title { font-size: 20px; font-weight: 600; color: var(--text-primary); }
+        .subject-info { display: flex; flex-direction: column; gap: 8px; }
+        .subject-code { font-size: 13px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+        .subject-title { font-size: 22px; font-weight: 600; color: var(--text-primary); }
         .expand-icon { transition: transform 0.3s ease; color: var(--text-secondary); opacity: 0.7; }
         .syllabus-panel.expanded .expand-icon { transform: rotate(180deg); color: var(--text-primary); opacity: 1; }
-        .syllabus-content { display: none; margin-top: 28px; padding-top: 28px; border-top: 1px solid var(--border-glass); }
+        .syllabus-content { display: none; margin-top: 32px; padding-top: 32px; border-top: 1px solid var(--border-glass); }
         .syllabus-panel.expanded .syllabus-content { display: block; animation: viewFadeIn 0.4s var(--ease-apple); }
         .syllabus-panel.expanded { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.3); }
-        .module-list { display: flex; flex-direction: column; gap: 24px; }
-        .module-item { position: relative; padding-left: 16px; border-left: 2px solid rgba(255,255,255,0.1); }
-        .unit-badge { display: inline-block; background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .module-item p { font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
-        .books-section { margin-top: 32px; background: rgba(0,0,0,0.3); padding: 24px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); }
-        .section-label { font-size: 12px; text-transform: uppercase; color: var(--text-tertiary); font-weight: 700; display: flex; align-items: center; gap: 8px; margin-bottom: 16px; letter-spacing: 1px; }
-        .books-section p { font-size: 14px; color: var(--text-secondary); margin: 8px 0; line-height: 1.5; }
+        .module-list { display: flex; flex-direction: column; gap: 28px; }
+        .module-item { position: relative; padding-left: 20px; border-left: 2px solid rgba(255,255,255,0.1); }
+        .unit-badge { display: inline-block; background: rgba(255,255,255,0.1); padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .module-item p { font-size: 16px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+        .books-section { margin-top: 40px; background: rgba(0,0,0,0.3); padding: 28px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.05); }
+        .section-label { font-size: 13px; text-transform: uppercase; color: var(--text-tertiary); font-weight: 700; display: flex; align-items: center; gap: 8px; margin-bottom: 20px; letter-spacing: 1px; }
+        .books-section p { font-size: 15px; color: var(--text-secondary); margin: 8px 0; line-height: 1.5; }
 
         /* --- TOAST --- */
         .toast {
-            position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+            position: fixed; bottom: 48px; left: 50%; transform: translateX(-50%);
             background: var(--toast-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--toast-border);
-            color: white; padding: 16px 32px; border-radius: 100px; font-size: 16px; font-weight: 500;
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 12px; z-index: 2000;
+            color: white; padding: 18px 36px; border-radius: 100px; font-size: 16px; font-weight: 500;
+            box-shadow: 0 30px 60px -10px rgba(0,0,0,0.4); display: flex; align-items: center; gap: 14px; z-index: 2000;
             opacity: 0; transition: all 0.5s var(--ease-apple);
         }
         .toast.show { transform: translate(-50%, 0); opacity: 1; }
@@ -641,21 +672,20 @@
         }
 
         // --- GLIDER ANIMATION ---
-    function updateGlider(element, gliderId) {
-    const glider = document.getElementById(gliderId);
-    const container = element.parentElement;
+        function updateGlider(element, gliderId) {
+            const glider = document.getElementById(gliderId);
+            const container = element.parentElement;
 
-    if (!glider || !element || !container) return;
+            if (!glider || !element || !container) return;
 
-    const styles = getComputedStyle(container);
-    const paddingLeft = parseFloat(styles.paddingLeft);
+            const styles = getComputedStyle(container);
+            const paddingLeft = parseFloat(styles.paddingLeft);
 
-    const left = element.offsetLeft - paddingLeft;
+            const left = element.offsetLeft - paddingLeft;
 
-    glider.style.width = element.offsetWidth + 'px';
-    glider.style.transform = `translateX(${left}px)`;
-}
-
+            glider.style.width = element.offsetWidth + 'px';
+            glider.style.transform = `translateX(${left}px)`;
+        }
 
         function toggleDay(element) { element.classList.toggle('expanded'); }
         function toggleSyllabus(element) { element.classList.toggle('expanded'); }
