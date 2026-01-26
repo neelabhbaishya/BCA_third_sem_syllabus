@@ -85,11 +85,11 @@
         .viewport {
             width: 100%;
             max-width: 800px;
-            padding: 60px 24px; /* Increased padding */
+            padding: 60px 24px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            gap: 48px; /* Increased gap */
+            gap: 48px;
             min-height: 100vh;
         }
 
@@ -102,21 +102,21 @@
             text-align: center;
             position: relative;
             opacity: 0;
-            margin-bottom: 32px; /* Increased margin */
+            margin-bottom: 32px;
         }
 
         .header-eyebrow {
-            font-size: 15px; /* Larger font */
+            font-size: 15px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.15em; /* Spaced out */
+            letter-spacing: 0.15em;
             color: var(--text-secondary);
             margin-bottom: 16px;
             text-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         h1 {
-            font-size: 56px; /* Larger font */
+            font-size: 56px;
             font-weight: 700;
             letter-spacing: -0.03em;
             margin: 0;
@@ -134,7 +134,7 @@
             background: var(--material-glass);
             backdrop-filter: blur(20px);
             border: 1px solid var(--border-glass);
-            width: 52px; /* Larger button */
+            width: 52px;
             height: 52px;
             border-radius: 50%;
             display: flex;
@@ -149,25 +149,97 @@
             background: var(--glass-highlight);
         }
 
-        /* Mobile specific adjustments for calendar button */
+        /* MOBILE ADJUSTMENTS (COMPACT) */
         @media (max-width: 768px) {
+            .viewport {
+                padding: 40px 16px; /* Less padding on mobile */
+                gap: 32px; /* Closer sections */
+            }
+            header {
+                padding-top: 10px;
+                margin-bottom: 24px;
+            }
+            h1 {
+                font-size: 40px; /* Smaller title */
+            }
+            .header-eyebrow {
+                font-size: 12px;
+                margin-bottom: 8px;
+            }
             .calendar-btn {
-                top: 10px; /* Shifted up slightly for mobile */
-                right: 10px; /* Ensure some spacing from edge */
-                width: 44px; /* slightly smaller on mobile to not overwhelm */
+                top: 10px;
+                width: 44px;
                 height: 44px;
             }
-
-             /* Adjust viewport padding for mobile to balance with header */
-            .viewport {
-                padding: 40px 16px;
-                gap: 32px;
+            .digital-clock {
+                font-size: 56px !important; /* Smaller clock */
             }
-            
-            h1 {
-                font-size: 36px; /* slightly smaller title on mobile */
+            .date-display {
+                font-size: 14px !important;
+                margin-top: 8px !important;
+            }
+            .card {
+                padding: 24px !important; /* Compact card padding */
+                border-radius: 28px !important;
+            }
+            .timeline-row {
+                gap: 20px !important; /* Tighter timeline */
+            }
+            .time-col {
+                width: 50px !important;
+                font-size: 13px !important;
+            }
+            .event-col {
+                padding: 20px !important;
+            }
+            .subject {
+                font-size: 16px !important;
+            }
+            .teacher {
+                font-size: 13px !important;
+            }
+            .day-panel {
+                padding: 20px !important;
+            }
+            .day-name {
+                font-size: 18px !important;
+            }
+            .day-summary {
+                font-size: 13px !important;
+            }
+            .day-details {
+                font-size: 14px !important;
+                margin-top: 16px !important;
+                padding-top: 16px !important;
+            }
+            .syllabus-panel {
+                padding: 20px !important;
+            }
+            .subject-title {
+                font-size: 18px !important;
+            }
+            .segment {
+                padding: 8px 24px !important;
+                font-size: 14px !important;
+            }
+            .sub-segment {
+                padding: 6px 20px !important;
+                font-size: 13px !important;
+            }
+            /* Modal adjustments */
+            .modal-content {
+                width: 85%;
+                padding: 24px;
+            }
+            .modal-header h2 {
+                font-size: 22px;
+            }
+            .cal-day {
+                height: 36px;
+                font-size: 14px;
             }
         }
+
 
         /* --- MODAL --- */
         .modal-overlay {
@@ -193,24 +265,14 @@
             overflow-y: auto;
             background: #1c1c1e;
             border: 1px solid var(--border-glass);
-            border-radius: 36px; /* Increased radius */
-            padding: 40px; /* Increased padding */
+            border-radius: 36px;
+            padding: 40px;
             transform: scale(0.9);
             transition: transform 0.3s var(--ease-apple);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6); /* Deeper shadow */
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
         }
         .modal-overlay.open .modal-content { transform: scale(1); }
         
-        /* Mobile specific adjustments for modal */
-        @media (max-width: 768px) {
-            .modal-content {
-                width: 85%; /* slightly narrower than 90% for better margins */
-                max-height: 70vh; /* More compact height on mobile */
-                padding: 24px; /* Reduced padding */
-                border-radius: 28px;
-            }
-        }
-
         .modal-header {
             display: flex;
             justify-content: space-between;
@@ -245,7 +307,7 @@
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             border: 1px solid var(--border-glass);
-            padding: 8px; /* Slightly more padding */
+            padding: 8px;
             border-radius: 100px;
             display: inline-flex;
             position: relative;
@@ -268,9 +330,9 @@
         }
 
         .segment {
-            padding: 12px 36px; /* Wider click area */
+            padding: 12px 36px;
             border-radius: 100px;
-            font-size: 16px; /* Larger font */
+            font-size: 16px;
             font-weight: 500;
             color: var(--text-secondary);
             text-decoration: none;
@@ -287,10 +349,10 @@
             background: rgba(255,255,255,0.05);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255,255,255,0.1);
-            padding: 5px; /* More padding */
+            padding: 5px;
             border-radius: 100px;
             display: inline-flex;
-            margin: 0 auto 40px auto; /* Increased margin below */
+            margin: 0 auto 40px auto;
             transform: scale(1);
             position: relative;
         }
@@ -307,9 +369,9 @@
         }
         
         .sub-segment {
-            padding: 10px 28px; /* Wider */
+            padding: 10px 28px;
             border-radius: 100px;
-            font-size: 15px; /* Larger */
+            font-size: 15px;
             font-weight: 600;
             color: var(--text-secondary);
             cursor: pointer;
@@ -332,7 +394,7 @@
         .clock-container { text-align: center; margin-bottom: 40px; }
         
         .digital-clock {
-            font-size: 80px; /* Even bigger clock */
+            font-size: 80px;
             font-weight: 700; letter-spacing: -4px; font-variant-numeric: tabular-nums;
             background: linear-gradient(180deg, #FFF 0%, rgba(255,255,255,0.7) 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
