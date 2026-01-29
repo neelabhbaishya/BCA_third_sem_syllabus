@@ -135,12 +135,6 @@
             }
         }
 
-        /* Start animation from random positions for already-falling effect */
-        .binary-digit {
-            animation-play-state: running;
-        }
-
-        /* Binary column effect */
         .binary-column {
             position: absolute;
             display: flex;
@@ -316,6 +310,19 @@
             animation: fadeInUp 0.5s var(--ease-apple) 0.3s forwards;
         }
 
+        .tab-slider {
+            position: absolute;
+            height: calc(100% - 8px);
+            top: 4px;
+            left: 0; /* Changed to 0 for simpler translateX logic */
+            background: var(--btn-bg);
+            border-radius: 100px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.4s var(--ease-spring), width 0.4s var(--ease-spring);
+            z-index: 1;
+            pointer-events: none;
+        }
+
         .segment {
             padding: 10px 28px;
             border-radius: 100px;
@@ -323,47 +330,22 @@
             font-weight: 500;
             color: var(--text-secondary);
             text-decoration: none;
-            transition: all 0.4s var(--ease-spring);
+            transition: color 0.3s var(--ease-apple);
             display: flex;
             align-items: center;
             gap: 8px;
             cursor: pointer;
             position: relative;
-            overflow: hidden;
-        }
-
-        .segment::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .segment:hover::before {
-            opacity: 1;
+            z-index: 2;
         }
 
         .segment:hover {
             color: var(--text-primary);
-            transform: translateY(-1px);
         }
 
         .segment.active {
-            background: var(--btn-bg);
             color: var(--btn-text);
-            box-shadow: 
-                0 4px 15px rgba(0,0,0,0.2),
-                0 0 0 1px rgba(255,255,255,0.1) inset;
             font-weight: 600;
-        }
-
-        .segment.active:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 
-                0 6px 20px rgba(0,0,0,0.25),
-                0 0 0 1px rgba(255,255,255,0.15) inset;
         }
         
         /* Sub-Segment Control */
@@ -378,6 +360,20 @@
             transform: scale(0.95);
             opacity: 0;
             animation: fadeInUp 0.5s var(--ease-apple) 0.4s forwards;
+            position: relative;
+        }
+
+        .sub-tab-slider {
+            position: absolute;
+            height: calc(100% - 6px);
+            top: 3px;
+            left: 0;
+            background: var(--text-primary);
+            border-radius: 100px;
+            box-shadow: 0 2px 10px rgba(255,255,255,0.2);
+            transition: transform 0.4s var(--ease-spring), width 0.4s var(--ease-spring);
+            z-index: 1;
+            pointer-events: none;
         }
         
         .sub-segment {
@@ -387,7 +383,9 @@
             font-weight: 600;
             color: var(--text-secondary);
             cursor: pointer;
-            transition: all 0.4s var(--ease-spring);
+            transition: color 0.3s;
+            position: relative;
+            z-index: 2;
         }
         
         .sub-segment:hover {
@@ -395,9 +393,7 @@
         }
         
         .sub-segment.active {
-            background: var(--text-primary);
             color: var(--bg-color);
-            box-shadow: 0 2px 10px rgba(255,255,255,0.2);
         }
 
         /* --- VIEWS --- */
@@ -629,8 +625,6 @@
             align-items: center;
             gap: 6px;
         }
-
-        /* Removed bullet before teacher name */
 
         /* Progress bar for current class */
         .class-progress {
@@ -985,6 +979,7 @@
             box-shadow: 0 24px 60px rgba(0,0,0,0.4);
             transform: scale(0.9) translateY(20px);
             transition: all 0.4s var(--ease-spring);
+            position: relative;
         }
 
         .calendar-modal.active .calendar-container {
@@ -995,7 +990,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .calendar-month-year {
@@ -1004,9 +999,15 @@
             color: var(--text-primary);
         }
 
+        .calendar-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
         .calendar-nav {
             display: flex;
-            gap: 8px;
+            gap: 4px;
         }
 
         .calendar-nav-btn {
@@ -1029,25 +1030,23 @@
         }
 
         .calendar-close {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.08);
             border: 1px solid var(--border-glass);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            color: var(--text-secondary);
+            color: var(--text-primary);
             transition: all 0.2s;
         }
 
         .calendar-close:hover {
-            background: rgba(255,255,255,0.1);
-            color: var(--text-primary);
+            background: rgba(255, 100, 100, 0.2);
+            border-color: rgba(255, 100, 100, 0.4);
+            color: #ff6b6b;
         }
 
         .calendar-grid {
@@ -1276,17 +1275,19 @@
     <!-- Calendar Modal -->
     <div class="calendar-modal" id="calendar-modal" onclick="closeCalendarOnBackdrop(event)">
         <div class="calendar-container">
-            <button class="calendar-close" onclick="closeCalendar()">
-                <i data-lucide="x" width="16"></i>
-            </button>
             <div class="calendar-header">
                 <span class="calendar-month-year" id="calendar-month-year">January 2026</span>
-                <div class="calendar-nav">
-                    <button class="calendar-nav-btn" onclick="changeMonth(-1)">
-                        <i data-lucide="chevron-left" width="18"></i>
-                    </button>
-                    <button class="calendar-nav-btn" onclick="changeMonth(1)">
-                        <i data-lucide="chevron-right" width="18"></i>
+                <div class="calendar-header-actions">
+                    <div class="calendar-nav">
+                        <button class="calendar-nav-btn" onclick="changeMonth(-1)">
+                            <i data-lucide="chevron-left" width="18"></i>
+                        </button>
+                        <button class="calendar-nav-btn" onclick="changeMonth(1)">
+                            <i data-lucide="chevron-right" width="18"></i>
+                        </button>
+                    </div>
+                    <button class="calendar-close" onclick="closeCalendar()">
+                        <i data-lucide="x" width="18"></i>
                     </button>
                 </div>
             </div>
@@ -1326,6 +1327,7 @@
 
         <!-- MAIN NAVIGATION -->
         <div class="segmented-control" id="nav">
+            <div class="tab-slider" id="main-nav-slider"></div>
             <a class="segment active" onclick="switchTab('routine')">
                 <i data-lucide="calendar" width="16"></i>
                 Routine
@@ -1340,7 +1342,8 @@
         <div id="view-routine" class="view-section active" style="align-items: center;">
             
             <!-- SUB NAVIGATION -->
-            <div class="sub-segmented-control">
+            <div class="sub-segmented-control" id="routine-nav">
+                <div class="sub-tab-slider" id="sub-nav-slider"></div>
                 <div class="sub-segment active" onclick="switchRoutineView('today', this)">Today</div>
                 <div class="sub-segment" onclick="switchRoutineView('weekly', this)">Weekly</div>
             </div>
@@ -1733,26 +1736,40 @@
         // --- INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
-
-            // Create binary rain background
             createBinaryRain();
-
-            // Start Clock
             updateClock();
             setInterval(updateClock, 1000);
-
-            // Populate Today's Schedule
             renderTodaySchedule();
-            
-            // Highlight Weekly Day
             highlightWeeklyDay();
-
-            // Setup scroll animations
             setupScrollAnimations();
-
-            // Setup intersection observer for cards
             observeCards();
+            
+            // Initial slider sync
+            setTimeout(syncAllSliders, 100);
         });
+
+        // Window resize listener to keep gliders in place
+        window.addEventListener('resize', syncAllSliders);
+
+        function syncAllSliders() {
+            const mainActive = document.querySelector('#nav .segment.active');
+            if(mainActive) updateSliderPosition('main-nav-slider', mainActive);
+
+            const subActive = document.querySelector('#routine-nav .sub-segment.active');
+            if(subActive) updateSliderPosition('sub-nav-slider', subActive);
+        }
+
+        function updateSliderPosition(sliderId, activeElement) {
+            const slider = document.getElementById(sliderId);
+            if (!slider || !activeElement) return;
+
+            // Get the padding of the parent segmented control
+            const padding = (sliderId === 'main-nav-slider') ? 4 : 3;
+            
+            slider.style.width = activeElement.offsetWidth + 'px';
+            // OffsetLeft is relative to the positioned parent (.segmented-control)
+            slider.style.transform = `translateX(${activeElement.offsetLeft}px)`;
+        }
 
         // --- BINARY RAIN ---
         function createBinaryRain() {
@@ -1766,88 +1783,70 @@
                 column.style.animationDelay = Math.random() * 15 + 's';
                 column.style.animationDuration = (10 + Math.random() * 10) + 's';
                 
-                // Create a column of binary digits
                 const digitCount = Math.floor(Math.random() * 8) + 5;
                 for (let j = 0; j < digitCount; j++) {
                     const digit = document.createElement('span');
                     digit.className = 'binary-digit';
-                    
-                    // Randomly assign color variations
                     const rand = Math.random();
                     if (rand > 0.85) digit.classList.add('glow');
                     else if (rand > 0.6) digit.classList.add('alt');
-                    
                     digit.textContent = Math.random() > 0.5 ? '1' : '0';
                     digit.style.animationDuration = (12 + Math.random() * 15) + 's';
-                    // Start from random position in the animation (negative delay)
                     digit.style.animationDelay = '-' + (Math.random() * 20) + 's';
                     digit.style.fontSize = (12 + Math.random() * 6) + 'px';
-                    
                     column.appendChild(digit);
                 }
-                
                 container.appendChild(column);
             }
 
-            // Also add some individual floating digits
             const individualCount = 20;
             for (let i = 0; i < individualCount; i++) {
                 const digit = document.createElement('span');
                 digit.className = 'binary-digit';
-                
                 const rand = Math.random();
                 if (rand > 0.8) digit.classList.add('glow');
                 else if (rand > 0.5) digit.classList.add('alt');
-                
                 digit.textContent = Math.random() > 0.5 ? '1' : '0';
                 digit.style.left = Math.random() * 100 + '%';
                 digit.style.animationDuration = (15 + Math.random() * 20) + 's';
-                // Start from random position in the animation (negative delay)
                 digit.style.animationDelay = '-' + (Math.random() * 25) + 's';
                 digit.style.fontSize = (10 + Math.random() * 8) + 'px';
-                
                 container.appendChild(digit);
             }
         }
 
         // --- SCROLL ANIMATIONS ---
         function setupScrollAnimations() {
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
+            const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
+                    if (entry.isIntersecting) { entry.target.classList.add('visible'); }
                 });
             }, observerOptions);
 
-            document.querySelectorAll('.card, .day-panel, .syllabus-panel').forEach(el => {
-                observer.observe(el);
-            });
+            document.querySelectorAll('.card, .day-panel, .syllabus-panel').forEach(el => observer.observe(el));
         }
 
         function observeCards() {
-            // Add visible class to cards after a short delay for initial load
             setTimeout(() => {
                 document.querySelectorAll('.card').forEach((card, index) => {
-                    setTimeout(() => {
-                        card.classList.add('visible');
-                    }, index * 50);
+                    setTimeout(() => card.classList.add('visible'), index * 50);
                 });
             }, 300);
         }
 
         // --- MAIN TAB SWITCHING ---
         function switchTab(tabId) {
-            document.querySelectorAll('.segment').forEach(el => el.classList.remove('active'));
+            const nav = document.getElementById('nav');
+            const segments = nav.querySelectorAll('.segment');
+            segments.forEach(el => el.classList.remove('active'));
             
-            const segments = document.querySelectorAll('#nav .segment');
-            if(tabId === 'routine') segments[0].classList.add('active');
-            if(tabId === 'syllabus') segments[1].classList.add('active');
+            let activeSegment;
+            if(tabId === 'routine') activeSegment = segments[0];
+            if(tabId === 'syllabus') activeSegment = segments[1];
+            
+            activeSegment.classList.add('active');
+            updateSliderPosition('main-nav-slider', activeSegment);
 
             document.querySelectorAll('.view-section').forEach(el => {
                 el.classList.remove('active');
@@ -1857,8 +1856,6 @@
             const target = document.getElementById('view-' + tabId);
             target.style.display = 'flex'; 
             setTimeout(() => target.classList.add('active'), 10);
-
-            // Re-trigger scroll animations for new view
             setTimeout(setupScrollAnimations, 100);
         }
 
@@ -1866,33 +1863,22 @@
         function switchRoutineView(viewName, element) {
             document.querySelectorAll('.sub-segment').forEach(el => el.classList.remove('active'));
             element.classList.add('active');
+            updateSliderPosition('sub-nav-slider', element);
 
-            document.querySelectorAll('.sub-view').forEach(el => {
-                el.classList.remove('active');
-            });
-            
-            const target = document.getElementById('routine-' + viewName);
-            target.classList.add('active');
+            document.querySelectorAll('.sub-view').forEach(el => el.classList.remove('active'));
+            document.getElementById('routine-' + viewName).classList.add('active');
         }
 
-        // --- EXPAND FUNCTIONS ---
-        function toggleDay(element) { 
-            element.classList.toggle('expanded'); 
-        }
-        
-        function toggleSyllabus(element) { 
-            element.classList.toggle('expanded'); 
-        }
+        function toggleDay(element) { element.classList.toggle('expanded'); }
+        function toggleSyllabus(element) { element.classList.toggle('expanded'); }
 
         // --- DYNAMIC SCHEDULE LOGIC ---
         function renderTodaySchedule() {
             const dayIndex = new Date().getDay();
             const container = document.getElementById('today-timeline');
-            
             const now = new Date();
             const currentMins = now.getHours() * 60 + now.getMinutes();
             
-            // Check if today is a holiday
             const holidayName = checkHoliday();
             if (holidayName) {
                 container.innerHTML = `
@@ -1909,7 +1895,7 @@
             }
             
             const schedules = {
-                1: [ // Monday
+                1: [
                     { time: '08:45', sub: 'Comp. Architecture', teach: 'Mr. Arindom Ain', icon: 'cpu' },
                     { time: '09:45', sub: 'Mathematics', teach: 'Dr. Ankur Jyoti Kashyap', icon: 'calculator' },
                     { time: '10:45', sub: 'Mobile App Dev', teach: 'Mr. Rajarshi Paul', icon: 'smartphone' },
@@ -1917,13 +1903,13 @@
                     { time: '13:45', sub: 'Adv Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul', icon: 'code' },
                     { time: '14:45', sub: 'Lab: Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul', icon: 'laptop' }
                 ],
-                2: [ // Tuesday
+                2: [
                     { time: '08:45', sub: 'Comp. Architecture', teach: 'Mr. Arindom Ain', icon: 'cpu' },
                     { time: '09:45', sub: 'Lab: OS', teach: 'Mr. Arindom Ain', icon: 'terminal' },
                     { time: '10:45', sub: 'Lab: OS', teach: 'Mr. Arindom Ain', icon: 'terminal' },
                     { time: '12:45', sub: 'Mathematics', teach: 'Dr. Ankur Jyoti Kashyap', icon: 'calculator' }
                 ],
-                3: [ // Wednesday
+                3: [
                     { time: '08:45', sub: 'Artificial Intelligence', teach: 'Mr. Pranjal Das', icon: 'brain' },
                     { time: '09:45', sub: 'Artificial Intelligence', teach: 'Mr. Pranjal Das', icon: 'brain' },
                     { time: '10:45', sub: 'Free', teach: '-', icon: 'coffee' },
@@ -1931,14 +1917,14 @@
                     { time: '13:45', sub: 'Adv Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul', icon: 'code' },
                     { time: '14:45', sub: 'Lab: Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul', icon: 'laptop' }
                 ],
-                4: [ // Thursday
+                4: [
                     { time: '09:45', sub: 'Lab: OS', teach: 'Mr. Arindom Ain', icon: 'terminal' },
                     { time: '10:45', sub: 'Lab: OS', teach: 'Mr. Arindom Ain', icon: 'terminal' },
                     { time: '12:45', sub: 'Mobile App Dev', teach: 'Mr. Rajarshi Paul', icon: 'smartphone' },
                     { time: '13:45', sub: 'Mobile App Dev', teach: 'Mr. Rajarshi Paul', icon: 'smartphone' },
                     { time: '14:45', sub: 'Library', teach: '-', icon: 'book' }
                 ],
-                5: [ // Friday
+                5: [
                     { time: '08:45', sub: 'Mobile App Dev', teach: 'Mr. Rajarshi Paul', icon: 'smartphone' },
                     { time: '09:45', sub: 'Mathematics', teach: 'Dr. Ankur Jyoti Kashyap', icon: 'calculator' },
                     { time: '10:45', sub: 'Library', teach: '-', icon: 'book' },
@@ -1952,40 +1938,25 @@
             const nextClassEl = document.getElementById('next-class-name');
 
             if (!todaysClasses) {
-                container.innerHTML = `
-                    <div style="text-align:center; padding:50px 40px; color:var(--text-secondary);">
-                        <i data-lucide="coffee" width="48" style="margin-bottom:16px; opacity:0.5;"></i><br>
-                        <span style="font-size:16px; font-weight:500;">No classes scheduled for today</span><br>
-                        <span style="font-size:13px; opacity:0.7; margin-top:8px; display:block;">Enjoy your break!</span>
-                    </div>`;
+                container.innerHTML = `<div style="text-align:center; padding:50px 40px; color:var(--text-secondary);"><i data-lucide="coffee" width="48" style="margin-bottom:16px; opacity:0.5;"></i><br><span style="font-size:16px; font-weight:500;">No classes scheduled for today</span></div>`;
                 if(nextClassEl) nextClassEl.textContent = 'No classes today';
                 lucide.createIcons();
                 return;
             }
 
-            // Find next/upcoming class
             let nextClass = null;
             let currentClassIndex = -1;
-
             for (let i = 0; i < todaysClasses.length; i++) {
                 const [h, m] = todaysClasses[i].time.split(':').map(Number);
                 const startMins = h * 60 + m;
-                if (currentMins < startMins + 60 && !nextClass) {
-                    nextClass = todaysClasses[i];
-                }
-                if (currentMins >= startMins && currentMins < startMins + 60) {
-                    currentClassIndex = i;
-                }
+                if (currentMins < startMins + 60 && !nextClass) { nextClass = todaysClasses[i]; }
+                if (currentMins >= startMins && currentMins < startMins + 60) { currentClassIndex = i; }
             }
 
             if (nextClassEl) {
-                if (currentClassIndex >= 0) {
-                    nextClassEl.textContent = todaysClasses[currentClassIndex].sub + ' (Now)';
-                } else if (nextClass) {
-                    nextClassEl.textContent = nextClass.sub + ' at ' + nextClass.time;
-                } else {
-                    nextClassEl.textContent = 'Classes ended for today';
-                }
+                if (currentClassIndex >= 0) { nextClassEl.textContent = todaysClasses[currentClassIndex].sub + ' (Now)'; }
+                else if (nextClass) { nextClassEl.textContent = nextClass.sub + ' at ' + nextClass.time; }
+                else { nextClassEl.textContent = 'Classes ended for today'; }
             }
 
             let html = '';
@@ -1993,242 +1964,86 @@
                 const [h, m] = item.time.split(':').map(Number);
                 const startMins = h * 60 + m;
                 const endMins = startMins + 60;
-                
                 let activeClass = '';
                 let progressBar = '';
-                let currentClassBadge = '';
-
                 if (currentMins >= startMins && currentMins < endMins) {
                     activeClass = 'glass-active current-class';
-                    const progress = ((currentMins - startMins) / 60) * 100;
-                    progressBar = `<div class="class-progress" style="width: ${progress}%"></div>`;
+                    progressBar = `<div class="class-progress" style="width: ${((currentMins - startMins) / 60) * 100}%"></div>`;
                 }
-
                 const isFree = item.sub === 'Free' || item.sub === 'Library';
-                const breakClass = isFree ? 'break' : '';
-
-                html += `
-                <div class="timeline-row">
-                    <div class="time-col">
-                        ${item.time}
-                        <span class="duration">60m</span>
-                    </div>
-                    <div class="event-col glass-panel ${activeClass} ${breakClass}">
-                        <span class="subject">
-                            <i data-lucide="${item.icon}" width="18" class="subject-icon"></i>
-                            ${item.sub}
-                        </span>
-                        <span class="teacher">${item.teach}</span>
-                        ${progressBar}
-                    </div>
-                </div>`;
+                html += `<div class="timeline-row"><div class="time-col">${item.time}<span class="duration">60m</span></div><div class="event-col glass-panel ${activeClass} ${isFree ? 'break' : ''}"><span class="subject"><i data-lucide="${item.icon}" width="18" class="subject-icon"></i>${item.sub}</span><span class="teacher">${item.teach}</span>${progressBar}</div></div>`;
             });
-            
-            html += `
-                <div class="timeline-row" style="opacity:0.6;">
-                    <div class="time-col">End</div>
-                    <div style="padding: 18px 0; color: var(--text-tertiary); font-size: 13px; display:flex; align-items:center; gap:8px;">
-                        <i data-lucide="check-circle" width="14"></i>
-                        Classes Concluded
-                    </div>
-                </div>`;
-
             container.innerHTML = html;
             lucide.createIcons();
         }
 
-        // --- WEEKLY DAY HIGHLIGHT ---
         function highlightWeeklyDay() {
             const dayIndex = new Date().getDay();
             if(dayIndex > 0 && dayIndex < 7) {
-                const dayId = 'day-' + dayIndex;
-                const el = document.getElementById(dayId);
-                if(el) {
-                    el.classList.add('glass-active');
-                    // Scroll to today's card in weekly view
-                    setTimeout(() => {
-                        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }, 800);
-                }
+                const el = document.getElementById('day-' + dayIndex);
+                if(el) { el.classList.add('glass-active'); }
             }
         }
 
-        // --- CLOCK LOGIC ---
         function updateClock() {
             const now = new Date();
             document.getElementById('clock').textContent = now.toLocaleTimeString('en-US', { hour12: false });
             document.getElementById('date').textContent = now.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' }).toUpperCase();
-            
-            // Update progress bars every minute
-            if (now.getSeconds() === 0) {
-                renderTodaySchedule();
-            }
+            if (now.getSeconds() === 0) { renderTodaySchedule(); }
         }
 
-        // --- TOAST LOGIC ---
-        const toast = document.getElementById('toast');
-        let toastTimeout;
-
-        function showToast(message) {
-            toast.querySelector('span').textContent = message;
-            toast.classList.remove('hidden');
-            toast.classList.add('show');
-            if (toastTimeout) clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => {
-                toast.classList.remove('show');
-                toast.classList.add('hidden');
-            }, 3000);
-        }
-
-        // --- HOLIDAY DATA ---
         const holidays = {
-            // January 2026
-            "2026-01-14": "Magh Bihu",
-            "2026-01-15": "Magh Bihu",
-            "2026-01-16": "Magh Bihu",
-            "2026-01-26": "Republic Day",
-            
-            // March 2026
-            "2026-03-04": "Dol Jatra / Holi",
-            "2026-03-21": "Id-Ul-Fitr",
-            
-            // April 2026
-            "2026-04-03": "Good Friday",
-            "2026-04-14": "Bohag Bihu",
-            "2026-04-15": "Bohag Bihu",
-            "2026-04-16": "Bohag Bihu",
-            
-            // May 2026
-            "2026-05-01": "May Day",
-            "2026-05-28": "Id-Ud-Zuha",
-
-            // June 2026
-            "2026-06-21": "International Yoga Day"
+            "2026-01-14": "Magh Bihu", "2026-01-15": "Magh Bihu", "2026-01-16": "Magh Bihu", "2026-01-26": "Republic Day",
+            "2026-03-04": "Dol Jatra / Holi", "2026-03-21": "Id-Ul-Fitr", "2026-04-03": "Good Friday", "2026-04-14": "Bohag Bihu",
+            "2026-04-15": "Bohag Bihu", "2026-04-16": "Bohag Bihu", "2026-05-01": "May Day", "2026-05-28": "Id-Ud-Zuha", "2026-06-21": "International Yoga Day"
         };
 
-        // --- CALENDAR FUNCTIONS ---
         let currentCalendarDate = new Date();
-
-        function openCalendar() {
-            const modal = document.getElementById('calendar-modal');
-            modal.classList.add('active');
-            renderCalendar();
-            lucide.createIcons();
-        }
-
-        function closeCalendar() {
-            const modal = document.getElementById('calendar-modal');
-            modal.classList.remove('active');
-        }
-
-        function closeCalendarOnBackdrop(event) {
-            if (event.target === event.currentTarget) {
-                closeCalendar();
-            }
-        }
-
-        function changeMonth(delta) {
-            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + delta);
-            renderCalendar();
-        }
+        function openCalendar() { document.getElementById('calendar-modal').classList.add('active'); renderCalendar(); lucide.createIcons(); }
+        function closeCalendar() { document.getElementById('calendar-modal').classList.remove('active'); }
+        function closeCalendarOnBackdrop(event) { if (event.target === event.currentTarget) closeCalendar(); }
+        function changeMonth(delta) { currentCalendarDate.setMonth(currentCalendarDate.getMonth() + delta); renderCalendar(); }
 
         function renderCalendar() {
             const year = currentCalendarDate.getFullYear();
             const month = currentCalendarDate.getMonth();
-            
-            // Update month/year display
-            const monthNames = ["January", "February", "March", "April", "May", "June", 
-                               "July", "August", "September", "October", "November", "December"];
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             document.getElementById('calendar-month-year').textContent = `${monthNames[month]} ${year}`;
-            
             const grid = document.getElementById('calendar-grid');
             grid.innerHTML = '';
-            
-            // Day labels
-            const dayLabels = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-            dayLabels.forEach(day => {
-                const label = document.createElement('div');
-                label.className = 'calendar-day-label';
-                label.textContent = day;
-                grid.appendChild(label);
-            });
-            
-            // Get first day of month and number of days
+            ['S', 'M', 'T', 'W', 'T', 'F', 'S'].forEach(day => { const l = document.createElement('div'); l.className='calendar-day-label'; l.textContent=day; grid.appendChild(l); });
             const firstDay = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
             const daysInPrevMonth = new Date(year, month, 0).getDate();
-            
             const today = new Date();
-            const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
-            
-            // Previous month days
-            for (let i = firstDay - 1; i >= 0; i--) {
-                const dayBtn = createDayButton(daysInPrevMonth - i, true, false, false, year, month - 1);
-                grid.appendChild(dayBtn);
-            }
-            
-            // Current month days
+            for (let i = firstDay - 1; i >= 0; i--) grid.appendChild(createDayButton(daysInPrevMonth - i, true, false, false, year, month - 1));
             for (let day = 1; day <= daysInMonth; day++) {
-                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                const isToday = isCurrentMonth && today.getDate() === day;
-                const isWeekend = new Date(year, month, day).getDay() % 6 === 0;
-                const isHoliday = holidays[dateStr] !== undefined;
-                
-                const dayBtn = createDayButton(day, false, isToday, isWeekend, year, month, isHoliday);
-                grid.appendChild(dayBtn);
+                const ds = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                grid.appendChild(createDayButton(day, false, today.getFullYear()===year && today.getMonth()===month && today.getDate()===day, new Date(year, month, day).getDay()%6===0, year, month, holidays[ds]!==undefined));
             }
-            
-            // Next month days
-            const remainingCells = 42 - (firstDay + daysInMonth);
-            for (let day = 1; day <= remainingCells; day++) {
-                const dayBtn = createDayButton(day, true, false, false, year, month + 1);
-                grid.appendChild(dayBtn);
-            }
+            const rem = 42 - (firstDay + daysInMonth);
+            for (let day = 1; day <= rem; day++) grid.appendChild(createDayButton(day, true, false, false, year, month + 1));
         }
 
-        function createDayButton(day, isOtherMonth, isToday, isWeekend, year, month, isHoliday = false) {
-            const btn = document.createElement('button');
-            btn.className = 'calendar-day';
-            if (isOtherMonth) btn.classList.add('other-month');
-            if (isToday) btn.classList.add('today');
-            if (isWeekend && !isOtherMonth) btn.classList.add('weekend');
-            if (isHoliday) btn.classList.add('holiday');
-            btn.textContent = day;
-            
-            if (isHoliday) {
-                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                btn.onclick = () => showHolidayPopup(dateStr, holidays[dateStr]);
-            }
-            
-            return btn;
+        function createDayButton(day, om, td, we, yr, mo, hol=false) {
+            const b = document.createElement('button'); b.className = 'calendar-day';
+            if(om) b.classList.add('other-month'); if(td) b.classList.add('today'); if(we && !om) b.classList.add('weekend'); if(hol) b.classList.add('holiday');
+            b.textContent = day;
+            if(hol){ const ds = `${yr}-${String(mo+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`; b.onclick = () => showHolidayPopup(ds, holidays[ds]); }
+            return b;
         }
 
         let holidayPopupTimeout;
-        function showHolidayPopup(dateStr, holidayName) {
-            const popup = document.getElementById('holiday-popup');
-            const dateEl = document.getElementById('holiday-date');
-            const nameEl = document.getElementById('holiday-name');
-            
-            const date = new Date(dateStr);
-            const formattedDate = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
-            
-            dateEl.textContent = formattedDate;
-            nameEl.textContent = holidayName;
-            
-            popup.classList.add('show');
-            
+        function showHolidayPopup(ds, hn) {
+            const p = document.getElementById('holiday-popup');
+            document.getElementById('holiday-date').textContent = new Date(ds).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+            document.getElementById('holiday-name').textContent = hn;
+            p.classList.add('show');
             if (holidayPopupTimeout) clearTimeout(holidayPopupTimeout);
-            holidayPopupTimeout = setTimeout(() => {
-                popup.classList.remove('show');
-            }, 3000);
+            holidayPopupTimeout = setTimeout(() => p.classList.remove('show'), 3000);
         }
 
-        // Check if today is a holiday and show message
-        function checkHoliday() {
-            const today = new Date();
-            const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-            return holidays[dateStr];
-        }
+        function checkHoliday() { const t = new Date(); return holidays[`${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`]; }
     </script>
 </body>
 </html>
