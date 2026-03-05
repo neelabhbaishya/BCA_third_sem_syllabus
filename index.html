@@ -1067,16 +1067,18 @@
                 const breakClass = isFreeSlot ? 'break' : '';
                 
                 // Choose appropriate icon
+                const iconStyle = 'opacity:0.6; margin-right:8px;';
                 let icon = '';
                 if (item.sub === 'Free') {
-                    icon = '<i data-lucide="coffee" width="18" style="opacity:0.6; margin-right:8px;"></i>';
+                    icon = `<i data-lucide="coffee" width="18" style="${iconStyle}"></i>`;
                 } else if (item.sub === 'Library') {
-                    icon = '<i data-lucide="book-open" width="18" style="opacity:0.6; margin-right:8px;"></i>';
+                    icon = `<i data-lucide="book-open" width="18" style="${iconStyle}"></i>`;
                 }
 
                 // For Free/Library, show a friendly label instead of teacher name
                 const teacherDisplay = isFreeSlot ? '' : `<span class="teacher">${item.teach}</span>`;
-                const labelDisplay = isFreeSlot ? `<span class="teacher" style="font-style:italic;">Self-study / Break</span>` : '';
+                const freeLabel = item.sub === 'Free' ? 'Self-study / Break' : 'Self-study';
+                const labelDisplay = isFreeSlot ? `<span class="teacher" style="font-style:italic;">${freeLabel}</span>` : '';
 
                 html += `
                 <div class="timeline-row">

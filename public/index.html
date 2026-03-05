@@ -1979,7 +1979,8 @@
                 
                 // Display friendly label for Free/Library slots
                 const subjectLabel = item.sub === 'Free' ? 'Free Period' : (item.sub === 'Library' ? 'Library' : item.sub);
-                const teacherDisplay = isFree ? '<span class="teacher" style="font-style:italic;">Self-study / Break</span>' : `<span class="teacher">${item.teach}</span>`;
+                const freeLabel = item.sub === 'Free' ? 'Self-study / Break' : 'Self-study';
+                const teacherDisplay = isFree ? `<span class="teacher" style="font-style:italic;">${freeLabel}</span>` : `<span class="teacher">${item.teach}</span>`;
                 
                 html += `<div class="timeline-row"><div class="time-col">${item.time}<span class="duration">60m</span></div><div class="event-col glass-panel ${activeClass} ${isFree ? 'break' : ''}"><span class="subject"><i data-lucide="${item.icon}" width="18" class="subject-icon"></i>${subjectLabel}</span>${teacherDisplay}${progressBar}</div></div>`;
             });
