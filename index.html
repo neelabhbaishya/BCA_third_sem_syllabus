@@ -300,6 +300,19 @@
             border: 1px dashed var(--border-glass);
         }
 
+        .event-col.break:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Style for free/library slots in weekly view */
+        .free-slot {
+            color: var(--text-tertiary);
+            font-style: italic;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
         .subject {
             font-size: 17px;
             font-weight: 600;
@@ -634,7 +647,7 @@
                         <div class="day-details">
                             08:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
                             09:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
-                            10:45 - Free<br>
+                            <span class="free-slot">10:45 - ☕ Free Period (Self-study / Break)</span><br>
                             12:45 - Comp. Architecture (Mr. Arindom Ain)<br>
                             13:45 - Adv Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)<br>
                             14:45 - Lab: Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)
@@ -648,12 +661,12 @@
                             <span class="day-summary">4 Classes • 09:45 - 14:45</span>
                         </div>
                         <div class="day-details">
-                            08:45 - Free<br>
+                            <span class="free-slot">08:45 - ☕ Free Period (Self-study / Break)</span><br>
                             09:45 - Lab: OS (Mr. Arindom Ain)<br>
                             10:45 - Lab: OS (Mr. Arindom Ain)<br>
                             12:45 - Mobile App Dev (Mr. Rajarshi Paul)<br>
                             13:45 - Mobile App Dev (Mr. Rajarshi Paul)<br>
-                            14:45 - Library
+                            <span class="free-slot">14:45 - 📚 Library (Self-study)</span>
                         </div>
                     </div>
 
@@ -666,7 +679,7 @@
                         <div class="day-details">
                             08:45 - Mobile App Dev (Mr. Rajarshi Paul)<br>
                             09:45 - Mathematics (Dr. Ankur Jyoti Kashyap)<br>
-                            10:45 - Library<br>
+                            <span class="free-slot">10:45 - 📚 Library (Self-study)</span><br>
                             12:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
                             13:45 - Adv Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)<br>
                             14:45 - Lab: Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)
@@ -1049,12 +1062,29 @@
                     activeClass = 'glass-active';
                 }
 
+                // Check if this is a non-class slot (Free or Library)
+                const isFreeSlot = item.sub === 'Free' || item.sub === 'Library';
+                const breakClass = isFreeSlot ? 'break' : '';
+                
+                // Choose appropriate icon
+                let icon = '';
+                if (item.sub === 'Free') {
+                    icon = '<i data-lucide="coffee" width="18" style="opacity:0.6; margin-right:8px;"></i>';
+                } else if (item.sub === 'Library') {
+                    icon = '<i data-lucide="book-open" width="18" style="opacity:0.6; margin-right:8px;"></i>';
+                }
+
+                // For Free/Library, show a friendly label instead of teacher name
+                const teacherDisplay = isFreeSlot ? '' : `<span class="teacher">${item.teach}</span>`;
+                const labelDisplay = isFreeSlot ? `<span class="teacher" style="font-style:italic;">Self-study / Break</span>` : '';
+
                 html += `
                 <div class="timeline-row">
                     <div class="time-col">${item.time}</div>
-                    <div class="event-col glass-panel ${activeClass}">
-                        <span class="subject">${item.sub}</span>
-                        <span class="teacher">${item.teach}</span>
+                    <div class="event-col glass-panel ${activeClass} ${breakClass}">
+                        <span class="subject">${icon}${item.sub}</span>
+                        ${teacherDisplay}
+                        ${labelDisplay}
                     </div>
                 </div>`;
             });
@@ -1067,6 +1097,7 @@
                 </div>`;
 
             container.innerHTML = html;
+            lucide.createIcons(); // Render the icons
         }
 
         // --- WEEKLY DAY HIGHLIGHT ---
