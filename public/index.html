@@ -605,6 +605,15 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
+        /* Style for free/library slots in weekly view */
+        .free-slot {
+            color: var(--text-tertiary);
+            font-style: italic;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
         .subject {
             font-size: 16px;
             font-weight: 600;
@@ -1429,7 +1438,7 @@
                         <div class="day-details">
                             08:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
                             09:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
-                            10:45 - Free<br>
+                            <span class="free-slot">10:45 - ☕ Free Period (Self-study / Break)</span><br>
                             12:45 - Comp. Architecture (Mr. Arindom Ain)<br>
                             13:45 - Adv Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)<br>
                             14:45 - Lab: Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)
@@ -1448,12 +1457,12 @@
                             </div>
                         </div>
                         <div class="day-details">
-                            08:45 - Free<br>
+                            <span class="free-slot">08:45 - ☕ Free Period (Self-study / Break)</span><br>
                             09:45 - Lab: OS (Mr. Arindom Ain)<br>
                             10:45 - Lab: OS (Mr. Arindom Ain)<br>
                             12:45 - Mobile App Dev (Mr. Rajarshi Paul)<br>
                             13:45 - Mobile App Dev (Mr. Rajarshi Paul)<br>
-                            14:45 - Library
+                            <span class="free-slot">14:45 - 📚 Library (Self-study)</span>
                         </div>
                     </div>
 
@@ -1471,7 +1480,7 @@
                         <div class="day-details">
                             08:45 - Mobile App Dev (Mr. Rajarshi Paul)<br>
                             09:45 - Mathematics (Dr. Ankur Jyoti Kashyap)<br>
-                            10:45 - Library<br>
+                            <span class="free-slot">10:45 - 📚 Library (Self-study)</span><br>
                             12:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
                             13:45 - Adv Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)<br>
                             14:45 - Lab: Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)
@@ -1967,7 +1976,13 @@
                     progressBar = `<div class="class-progress" style="width: ${((currentMins - startMins) / 60) * 100}%"></div>`;
                 }
                 const isFree = item.sub === 'Free' || item.sub === 'Library';
-                html += `<div class="timeline-row"><div class="time-col">${item.time}<span class="duration">60m</span></div><div class="event-col glass-panel ${activeClass} ${isFree ? 'break' : ''}"><span class="subject"><i data-lucide="${item.icon}" width="18" class="subject-icon"></i>${item.sub}</span><span class="teacher">${item.teach}</span>${progressBar}</div></div>`;
+                
+                // Display friendly label for Free/Library slots
+                const subjectLabel = item.sub === 'Free' ? 'Free Period' : (item.sub === 'Library' ? 'Library' : item.sub);
+                const freeLabel = item.sub === 'Free' ? 'Self-study / Break' : 'Self-study';
+                const teacherDisplay = isFree ? `<span class="teacher" style="font-style:italic;">${freeLabel}</span>` : `<span class="teacher">${item.teach}</span>`;
+                
+                html += `<div class="timeline-row"><div class="time-col">${item.time}<span class="duration">60m</span></div><div class="event-col glass-panel ${activeClass} ${isFree ? 'break' : ''}"><span class="subject"><i data-lucide="${item.icon}" width="18" class="subject-icon"></i>${subjectLabel}</span>${teacherDisplay}${progressBar}</div></div>`;
             });
             container.innerHTML = html;
             lucide.createIcons();
