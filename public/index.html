@@ -3,13 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BCA 4th Sem Hub</title>
+    <title>BCA 5th Sem Hub</title>
     
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
     
     <!-- Import Inter Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,9 +24,6 @@
 
             /* --- ENHANCED LIQUID MIDNIGHT THEME --- */
             --bg-color: #000000;
-            --gradient-1: #1a1a2e;
-            --gradient-2: #16213e;
-            --gradient-3: #0f0f23;
             
             --text-primary: #FFFFFF;
             --text-secondary: rgba(235, 235, 245, 0.65);
@@ -41,26 +34,22 @@
             --material-glass-hover: rgba(40, 40, 55, 0.65);
             --border-glass: rgba(255, 255, 255, 0.12);
             --border-glass-hover: rgba(255, 255, 255, 0.25);
-            --glass-highlight: rgba(255, 255, 255, 0.08);
             
             /* Interactive */
             --btn-bg: #FFFFFF;
             --btn-text: #000000;
-            --accent-glow: rgba(120, 120, 255, 0.3);
-            --success-glow: rgba(100, 255, 150, 0.25);
             
             /* Toast */
             --toast-bg: rgba(30, 30, 40, 0.9);
             --toast-border: rgba(255, 255, 255, 0.15);
         }
 
-       * {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
-
 
         html {
             scroll-behavior: smooth;
@@ -86,7 +75,7 @@
             overflow-x: hidden;
         }
 
-        /* --- ANIMATED BINARY RAIN BACKGROUND --- */
+        /* --- FIXED ANIMATED BINARY RAIN BACKGROUND --- */
         .binary-container {
             position: fixed;
             top: 0;
@@ -98,57 +87,42 @@
             z-index: 0;
         }
 
-        .binary-digit {
+        .binary-column {
             position: absolute;
+            top: -120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
             font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-            font-weight: 300;
-            color: rgba(100, 200, 150, 0.15);
-            font-size: 14px;
+            font-size: 13px;
             animation: binaryFall linear infinite;
-            text-shadow: 0 0 10px rgba(100, 200, 150, 0.3);
+        }
+
+        .binary-digit {
+            color: rgba(100, 200, 150, 0.3);
+            text-shadow: 0 0 8px rgba(100, 200, 150, 0.5);
             user-select: none;
         }
 
         .binary-digit.alt {
-            color: rgba(150, 180, 255, 0.12);
-            text-shadow: 0 0 10px rgba(150, 180, 255, 0.25);
+            color: rgba(150, 180, 255, 0.25);
+            text-shadow: 0 0 8px rgba(150, 180, 255, 0.4);
         }
 
         .binary-digit.glow {
-            color: rgba(100, 255, 150, 0.25);
-            text-shadow: 0 0 15px rgba(100, 255, 150, 0.5);
-            font-weight: 500;
+            color: rgba(100, 255, 150, 0.7);
+            text-shadow: 0 0 12px rgba(100, 255, 150, 0.9);
+            font-weight: 600;
         }
 
         @keyframes binaryFall {
-            0% { 
+            0% {
                 transform: translateY(-100px);
-                opacity: 0;
             }
-            5% {
-                opacity: 1;
+            100% {
+                transform: translateY(calc(100vh + 150px));
             }
-            95% {
-                opacity: 1;
-            }
-            100% { 
-                transform: translateY(calc(100vh + 100px));
-                opacity: 0;
-            }
-        }
-
-        .binary-column {
-            position: absolute;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            animation: columnFade 15s ease-in-out infinite;
-        }
-
-        @keyframes columnFade {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.8; }
         }
 
         /* --- ENHANCED GLASS STYLES --- */
@@ -316,7 +290,7 @@
             position: absolute;
             height: calc(100% - 8px);
             top: 4px;
-            left: 0; /* Changed to 0 for simpler translateX logic */
+            left: 0;
             background: var(--btn-bg);
             border-radius: 100px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
@@ -605,7 +579,6 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
-        /* Style for free/library slots in weekly view */
         .free-slot {
             color: var(--text-tertiary);
             font-style: italic;
@@ -637,7 +610,6 @@
             gap: 6px;
         }
 
-        /* Progress bar for current class */
         .class-progress {
             position: absolute;
             bottom: 0;
@@ -702,12 +674,6 @@
             box-shadow: 0 0 10px #4ade80;
         }
         
-        .day-summary {
-            font-size: 13px;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
         .expand-icon {
             transition: transform 0.4s var(--ease-spring);
             color: var(--text-secondary);
@@ -860,108 +826,7 @@
             margin: 0; 
         }
 
-        .books-section { 
-            margin-top: 28px; 
-            background: rgba(0,0,0,0.25); 
-            padding: 22px; 
-            border-radius: 18px; 
-            border: 1px solid rgba(255,255,255,0.06);
-            transition: all 0.3s;
-        }
-
-        .books-section:hover {
-            background: rgba(0,0,0,0.35);
-            border-color: rgba(255,255,255,0.1);
-        }
-        
-        .section-label { 
-            font-size: 11px; 
-            text-transform: uppercase; 
-            color: var(--text-tertiary); 
-            font-weight: 700; 
-            display: flex; 
-            align-items: center; 
-            gap: 8px;
-            margin-bottom: 14px; 
-            letter-spacing: 1px;
-        }
-        
-        .books-section p { 
-            font-size: 14px; 
-            color: var(--text-secondary); 
-            margin: 8px 0; 
-            line-height: 1.5;
-        }
-
-        .syllabus-actions {
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-        }
-
-        .syllabus-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            border-radius: 12px;
-            background: var(--btn-bg);
-            color: var(--btn-text);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-            transition: transform 0.2s var(--ease-apple), box-shadow 0.2s var(--ease-apple), background 0.2s var(--ease-apple);
-        }
-
-        .syllabus-button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
-            background: #f5f5f5;
-        }
-
-        .syllabus-button:active {
-            transform: translateY(0);
-        }
-
-        /* --- TOAST --- */
-        .toast {
-            position: fixed;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: var(--toast-bg);
-            backdrop-filter: blur(25px) saturate(180%);
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
-            border: 1px solid var(--toast-border);
-            color: white;
-            padding: 16px 32px;
-            border-radius: 100px;
-            font-size: 14px;
-            font-weight: 500;
-            box-shadow: 
-                0 20px 50px -10px rgba(0,0,0,0.4),
-                0 0 0 1px rgba(255,255,255,0.05) inset;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            z-index: 999;
-            opacity: 0;
-            transition: all 0.5s var(--ease-spring);
-        }
-
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
-        
-        .toast.hidden {
-            transform: translateX(-50%) translateY(100px);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* --- CALENDAR BUTTON --- */
+        /* --- CALENDAR BUTTON & MODAL --- */
         .calendar-btn {
             position: fixed;
             top: 20px;
@@ -983,12 +848,9 @@
 
         .calendar-btn:hover {
             background: var(--material-glass-hover);
-            border-color: var(--border-glass-hover);
             transform: scale(1.1);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
         }
 
-        /* --- CALENDAR MODAL --- */
         .calendar-modal {
             position: fixed;
             top: 0;
@@ -1019,13 +881,6 @@
             width: 90%;
             max-width: 420px;
             box-shadow: 0 24px 60px rgba(0,0,0,0.4);
-            transform: scale(0.9) translateY(20px);
-            transition: all 0.4s var(--ease-spring);
-            position: relative;
-        }
-
-        .calendar-modal.active .calendar-container {
-            transform: scale(1) translateY(0);
         }
 
         .calendar-header {
@@ -1052,7 +907,7 @@
             gap: 4px;
         }
 
-        .calendar-nav-btn {
+        .calendar-nav-btn, .calendar-close {
             width: 36px;
             height: 36px;
             border-radius: 50%;
@@ -1063,32 +918,6 @@
             justify-content: center;
             cursor: pointer;
             color: var(--text-primary);
-            transition: all 0.2s;
-        }
-
-        .calendar-nav-btn:hover {
-            background: rgba(255,255,255,0.1);
-            transform: scale(1.1);
-        }
-
-        .calendar-close {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid var(--border-glass);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: var(--text-primary);
-            transition: all 0.2s;
-        }
-
-        .calendar-close:hover {
-            background: rgba(255, 100, 100, 0.2);
-            border-color: rgba(255, 100, 100, 0.4);
-            color: #ff6b6b;
         }
 
         .calendar-grid {
@@ -1109,7 +938,6 @@
         .calendar-day {
             aspect-ratio: 1;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             border-radius: 12px;
@@ -1117,196 +945,25 @@
             font-weight: 500;
             color: var(--text-primary);
             cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
             background: transparent;
             border: none;
-        }
-
-        .calendar-day:hover {
-            background: rgba(255,255,255,0.08);
-        }
-
-        .calendar-day.other-month {
-            color: var(--text-tertiary);
-            opacity: 0.5;
         }
 
         .calendar-day.today {
             background: var(--btn-bg);
             color: var(--btn-text);
-            font-weight: 600;
         }
 
-        .calendar-day.weekend {
-            color: #ff6b6b;
-        }
-
-        .calendar-day.holiday {
-            background: linear-gradient(135deg, rgba(255,100,100,0.2), rgba(255,150,100,0.15));
-            border: 1px solid rgba(255,100,100,0.3);
-        }
-
-        .calendar-day.holiday::after {
-            content: '';
-            position: absolute;
-            bottom: 4px;
-            width: 4px;
-            height: 4px;
-            background: #ff6b6b;
-            border-radius: 50%;
-        }
-
-        .calendar-legend {
-            display: flex;
-            gap: 16px;
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 1px solid var(--border-glass);
-            justify-content: center;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-
-        .legend-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-        }
-
-        .legend-dot.today { background: var(--btn-bg); }
-        .legend-dot.weekend { background: #ff6b6b; }
-        .legend-dot.holiday { background: #ff6b6b; }
-
-        .holiday-popup {
-            position: fixed;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            background: var(--toast-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--toast-border);
-            padding: 16px 24px;
-            border-radius: 16px;
-            font-size: 14px;
-            color: var(--text-primary);
-            z-index: 1001;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s var(--ease-spring);
-            text-align: center;
-            max-width: 300px;
-        }
-
-        .holiday-popup.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .holiday-popup .holiday-date {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-bottom: 4px;
-        }
-
-        .holiday-popup .holiday-name {
-            font-weight: 600;
-        }
-
-        /* --- ANIMATIONS --- */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* --- SCROLLBAR STYLING --- */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.02);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.15);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255,255,255,0.25);
-        }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 640px) {
-            h1 {
-                font-size: 36px;
-            }
-
-            .digital-clock {
-                font-size: 48px;
-            }
-
-            .segment {
-                padding: 8px 20px;
-                font-size: 13px;
-            }
-
-            .card {
-                padding: 24px;
-            }
-
-            .timeline-row {
-                gap: 12px;
-            }
-
-            .time-col {
-                width: 45px;
-                font-size: 12px;
-            }
-
-            .event-col {
-                padding: 16px 18px;
-            }
-
-            .subject {
-                font-size: 15px;
-            }
-        }
-
-        /* --- LOADING SKELETON --- */
-        .skeleton {
-            background: linear-gradient(90deg, 
-                rgba(255,255,255,0.03) 25%, 
-                rgba(255,255,255,0.08) 50%, 
-                rgba(255,255,255,0.03) 75%);
-            background-size: 200% 100%;
-            animation: shimmer-skeleton 1.5s infinite;
-            border-radius: 8px;
-        }
-
-        @keyframes shimmer-skeleton {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 <base target="_blank">
 </head>
 <body>
 
-    <!-- Animated Binary Rain Background -->
+    <!-- Binary Rain Background -->
     <div class="binary-container" id="binary-rain"></div>
 
     <!-- Calendar Button -->
@@ -1321,42 +978,14 @@
                 <span class="calendar-month-year" id="calendar-month-year">January 2026</span>
                 <div class="calendar-header-actions">
                     <div class="calendar-nav">
-                        <button class="calendar-nav-btn" onclick="changeMonth(-1)">
-                            <i data-lucide="chevron-left" width="18"></i>
-                        </button>
-                        <button class="calendar-nav-btn" onclick="changeMonth(1)">
-                            <i data-lucide="chevron-right" width="18"></i>
-                        </button>
+                        <button class="calendar-nav-btn" onclick="changeMonth(-1)"><i data-lucide="chevron-left" width="18"></i></button>
+                        <button class="calendar-nav-btn" onclick="changeMonth(1)"><i data-lucide="chevron-right" width="18"></i></button>
                     </div>
-                    <button class="calendar-close" onclick="closeCalendar()">
-                        <i data-lucide="x" width="18"></i>
-                    </button>
+                    <button class="calendar-close" onclick="closeCalendar()"><i data-lucide="x" width="18"></i></button>
                 </div>
             </div>
-            <div class="calendar-grid" id="calendar-grid">
-                <!-- Calendar will be generated here -->
-            </div>
-            <div class="calendar-legend">
-                <div class="legend-item">
-                    <div class="legend-dot today"></div>
-                    <span>Today</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-dot weekend"></div>
-                    <span>Weekend</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-dot holiday"></div>
-                    <span>Holiday</span>
-                </div>
-            </div>
+            <div class="calendar-grid" id="calendar-grid"></div>
         </div>
-    </div>
-
-    <!-- Holiday Popup -->
-    <div class="holiday-popup" id="holiday-popup">
-        <div class="holiday-date" id="holiday-date"></div>
-        <div class="holiday-name" id="holiday-name"></div>
     </div>
 
     <div class="viewport">
@@ -1364,7 +993,7 @@
         <!-- HEADER -->
         <header id="header">
             <span class="header-eyebrow">Academic Hub</span>
-            <h1>BCA 4<sup>th</sup> Sem</h1>
+            <h1>BCA 5<sup>th</sup> Sem</h1>
         </header>
 
         <!-- MAIN NAVIGATION -->
@@ -1394,7 +1023,7 @@
             <div id="routine-today" class="sub-view active">
                 <div class="clock-container glass-panel card">
                     <div class="digital-clock" id="clock">00:00:00</div>
-                    <div class="date-display" id="date">MONDAY, OCT 24</div>
+                    <div class="date-display" id="date">MONDAY, AUG 10</div>
                     <div class="next-class-indicator" id="next-class">
                         <i data-lucide="clock" width="14"></i>
                         <span>Next: <span class="highlight" id="next-class-name">Loading...</span></span>
@@ -1404,7 +1033,6 @@
                 <!-- Dynamic Timeline Container -->
                 <div class="timeline" id="today-timeline">
                     <div style="text-align: center; padding: 40px; color: var(--text-secondary);">
-                        <div class="skeleton" style="height: 60px; width: 100%; margin-bottom: 12px;"></div>
                         <div class="skeleton" style="height: 60px; width: 100%; margin-bottom: 12px;"></div>
                         <div class="skeleton" style="height: 60px; width: 100%;"></div>
                     </div>
@@ -1422,17 +1050,15 @@
                                 <span class="day-badge"></span>
                                 Monday
                             </span>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <i data-lucide="chevron-down" class="expand-icon" width="18"></i>
-                            </div>
+                            <i data-lucide="chevron-down" class="expand-icon" width="18"></i>
                         </div>
                         <div class="day-details">
-                            08:45 - Comp. Architecture (Mr. Arindom Ain)<br>
-                            09:45 - Mathematics (Dr. Ankur Jyoti Kashyap)<br>
-                            10:45 - Mobile App Dev (Mr. Rajarshi Paul)<br>
-                            12:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
-                            13:45 - Adv Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)<br>
-                            14:45 - Lab: Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)
+                            08:45 - Laboratory-V (Cyber Security / NLP) (Dr. Upasana Sarma / Mr. Rajarshi Paul)<br>
+                            09:45 - Laboratory-V (Cyber Security / NLP) (Dr. Upasana Sarma / Mr. Rajarshi Paul)<br>
+                            10:45 - Minor Project (All Faculty)<br>
+                            11:45 - Cyber Security / NLP (Dr. Upasana Sarma / Mr. Rajarshi Paul)<br>
+                            01:45 - Legal Awareness (VAC-III)<br>
+                            02:45 - Minor Project (All Faculty)
                         </div>
                     </div>
 
@@ -1443,15 +1069,13 @@
                                 <span class="day-badge"></span>
                                 Tuesday
                             </span>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <i data-lucide="chevron-down" class="expand-icon" width="18"></i>
-                            </div>
+                            <i data-lucide="chevron-down" class="expand-icon" width="18"></i>
                         </div>
                         <div class="day-details">
-                            08:45 - Comp. Architecture (Mr. Arindom Ain)<br>
-                            09:45 - Lab: OS (Mr. Arindom Ain)<br>
-                            10:45 - Lab: OS (Mr. Arindom Ain)<br>
-                            12:45 - Mathematics (Dr. Ankur Jyoti Kashyap)
+                            08:45 - Basics of Electronics (Dr. Anindita Borah)<br>
+                            09:45 - Design and Analysis of Algorithms (Mr. Pranjal Das)<br>
+                            10:45 - Computer Network (Mr. Jeetumoni Barman)<br>
+                            11:45 - Legal Awareness (VAC-III)
                         </div>
                     </div>
 
@@ -1462,17 +1086,14 @@
                                 <span class="day-badge"></span>
                                 Wednesday
                             </span>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <i data-lucide="chevron-down" class="expand-icon" width="18"></i>
-                            </div>
+                            <i data-lucide="chevron-down" class="expand-icon" width="18"></i>
                         </div>
                         <div class="day-details">
-                            08:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
-                            09:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
-                            <span class="free-slot">10:45 - ☕ Free Period (Self-study / Break)</span><br>
-                            12:45 - Comp. Architecture (Mr. Arindom Ain)<br>
-                            13:45 - Adv Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)<br>
-                            14:45 - Lab: Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)
+                            08:45 - Laboratory-V (Cyber Security / NLP) (Dr. Upasana Sarma / Mr. Rajarshi Paul)<br>
+                            09:45 - Laboratory-V (Cyber Security / NLP) (Dr. Upasana Sarma / Mr. Rajarshi Paul)<br>
+                            10:45 - Computer Network (Mr. Jeetumoni Barman)<br>
+                            <span class="free-slot">11:45 - ☕ Free Period / Self-Study</span><br>
+                            01:45 - Cyber Security / NLP (Dr. Upasana Sarma / Mr. Rajarshi Paul)
                         </div>
                     </div>
 
@@ -1483,17 +1104,14 @@
                                 <span class="day-badge"></span>
                                 Thursday
                             </span>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <i data-lucide="chevron-down" class="expand-icon" width="18"></i>
-                            </div>
+                            <i data-lucide="chevron-down" class="expand-icon" width="18"></i>
                         </div>
                         <div class="day-details">
-                            <span class="free-slot">08:45 - ☕ Free Period (Self-study / Break)</span><br>
-                            09:45 - Lab: OS (Mr. Arindom Ain)<br>
-                            10:45 - Lab: OS (Mr. Arindom Ain)<br>
-                            12:45 - Mobile App Dev (Mr. Rajarshi Paul)<br>
-                            13:45 - Mobile App Dev (Mr. Rajarshi Paul)<br>
-                            <span class="free-slot">14:45 - 📚 Library (Self-study)</span>
+                            08:45 - Basics of Electronics (Dr. Anindita Borah)<br>
+                            09:45 - Cyber Security / NLP (Dr. Upasana Sarma / Mr. Rajarshi Paul)<br>
+                            10:45 - Laboratory-V (Cyber Security / NLP) (Dr. Upasana Sarma / Mr. Rajarshi Paul)<br>
+                            11:45 - Laboratory-V (Cyber Security / NLP) (Dr. Upasana Sarma / Mr. Rajarshi Paul)<br>
+                            01:45 - Design and Analysis of Algorithms (Mr. Pranjal Das)
                         </div>
                     </div>
 
@@ -1504,17 +1122,14 @@
                                 <span class="day-badge"></span>
                                 Friday
                             </span>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <i data-lucide="chevron-down" class="expand-icon" width="18"></i>
-                            </div>
+                            <i data-lucide="chevron-down" class="expand-icon" width="18"></i>
                         </div>
                         <div class="day-details">
-                            08:45 - Mobile App Dev (Mr. Rajarshi Paul)<br>
-                            09:45 - Mathematics (Dr. Ankur Jyoti Kashyap)<br>
-                            <span class="free-slot">10:45 - 📚 Library (Self-study)</span><br>
-                            12:45 - Artificial Intelligence (Mr. Pranjal Das)<br>
-                            13:45 - Adv Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)<br>
-                            14:45 - Lab: Web / ML (Mr. Jeetumani Barman / Mr. Rajarshi Paul)
+                            08:45 - Basics of Electronics (Dr. Anindita Borah)<br>
+                            09:45 - Cyber Security / NLP (Dr. Upasana Sarma / Mr. Rajarshi Paul)<br>
+                            10:45 - Design and Analysis of Algorithms (Mr. Pranjal Das)<br>
+                            11:45 - Computer Network (Mr. Jeetumoni Barman)<br>
+                            01:45 - Legal Awareness (VAC-III)
                         </div>
                     </div>
                     
@@ -1525,12 +1140,10 @@
                                 <span class="day-badge"></span>
                                 Saturday
                             </span>
-                            <div style="display: flex; align-items: center; gap: 12px;">
-                                <i data-lucide="chevron-down" class="expand-icon" width="18"></i>
-                            </div>
+                            <i data-lucide="chevron-down" class="expand-icon" width="18"></i>
                         </div>
                         <div class="day-details">
-                            Full Day Activity
+                            Test / Remedial Sessions
                         </div>
                     </div>
 
@@ -1543,262 +1156,126 @@
         <div id="view-syllabus" class="view-section">
             <div class="syllabus-list" id="syllabus-list">
                 
-                <!-- SUBJECT 1: AI -->
+                <!-- SUBJECT 1: COMPUTER NETWORK -->
                 <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
                     <div class="syllabus-header">
                         <div class="subject-info">
-                            <span class="subject-code">BCA23205T</span>
-                            <span class="subject-title">Artificial Intelligence</span>
+                            <span class="subject-code">BCA23301T</span>
+                            <span class="subject-title">Computer Network</span>
                         </div>
                         <i data-lucide="chevron-down" class="expand-icon" width="20"></i>
                     </div>
                     <div class="syllabus-content">
                         <div class="module-list">
                             <div class="module-item">
-                                <span class="unit-badge">Module 1</span>
-                                <p>Introduction to AI, Scope, History, Intelligent Agent & Environment, Structure of Agent, Problem solving Agent.</p>
+                                <span class="unit-badge">Syllabus</span>
+                                <p>Detailed module units for Computer Network will be updated soon.</p>
                             </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Module 2</span>
-                                <p>Problem Solving: Formulating Problem, 8 Puzzle, Missionaries and Cannibal, Searching (Informed/Uninformed).</p>
-                            </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Module 3</span>
-                                <p>Knowledge Representation: Propositional Logic, First Order Logic, Syntax, Semantics, Inference Rules.</p>
-                            </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Module 4</span>
-                                <p>Expert Systems: Definition, Characteristics, Components, and Applications.</p>
-                            </div>
-                        </div>
-                        <div class="books-section">
-                            <span class="section-label"><i data-lucide="book" width="14"></i> Text Book</span>
-                            <p>"Artificial Intelligence: A Modern Approach" by Russell & Norvig</p>
-                        </div>
-                        <div class="syllabus-actions">
-                            <a class="syllabus-button" href="https://drive.google.com/file/d/1V0OJSr1ZsJoIeIGh8_FPKWOqgLc0jO-Y/view?usp=drive_link" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
-                                <i data-lucide="external-link" width="16"></i>
-                                Detailed Syllabus
-                            </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- SUBJECT 2: COMPUTER ARCHITECTURE -->
+                <!-- SUBJECT 2: DESIGN AND ANALYSIS OF ALGORITHMS -->
                 <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
                     <div class="syllabus-header">
                         <div class="subject-info">
-                            <span class="subject-code">BCA23206T</span>
-                            <span class="subject-title">Computer Architecture</span>
+                            <span class="subject-code">BCA23302T</span>
+                            <span class="subject-title">Design and Analysis of Algorithms</span>
                         </div>
                         <i data-lucide="chevron-down" class="expand-icon" width="20"></i>
                     </div>
                     <div class="syllabus-content">
                         <div class="module-list">
                             <div class="module-item">
-                                <span class="unit-badge">Unit 1</span>
-                                <p>Computer Org: Instruction codes, registers, bus, instruction cycle, control.</p>
+                                <span class="unit-badge">Syllabus</span>
+                                <p>Detailed module units for DAA will be updated soon.</p>
                             </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Unit 2</span>
-                                <p>CPU Org: Stack organization, RISC/CISC, Addressing modes, Pipelining, Flynn's classification.</p>
-                            </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Unit 3</span>
-                                <p>I/O Org: Peripheral devices, Interfaces, Asynchronous data transfer, DMA, Priority interrupt.</p>
-                            </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Unit 4</span>
-                                <p>Memory Org: Hierarchy, Associative memory, Cache memory, Virtual memory.</p>
-                            </div>
-                             <div class="module-item">
-                                <span class="unit-badge">Unit 5</span>
-                                <p>Microprocessor: 8085 Architecture, Pin diagram, Addressing modes, Microcontrollers.</p>
-                            </div>
-                        </div>
-                        <div class="books-section">
-                            <span class="section-label"><i data-lucide="book" width="14"></i> Text Book</span>
-                            <p>"Computer System Architecture" by M. Morris Mano</p>
-                        </div>
-                        <div class="syllabus-actions">
-                            <a class="syllabus-button" href="https://drive.google.com/file/d/1yGtXqYKu7Sy6iLdKUnu1jLUF7kA4BJWx/view?usp=drive_link" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
-                                <i data-lucide="external-link" width="16"></i>
-                                Detailed Syllabus
-                            </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- SUBJECT 3: ADVANCED WEB TECH -->
+                <!-- SUBJECT 3: CYBER SECURITY / NLP -->
                 <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
                     <div class="syllabus-header">
                         <div class="subject-info">
-                            <span class="subject-code">BCA23207T</span>
-                            <span class="subject-title">Advanced Web Tech</span>
+                            <span class="subject-code">BCA23303T / BCA23304T</span>
+                            <span class="subject-title">Cyber Security / Natural Language Processing</span>
                         </div>
                         <i data-lucide="chevron-down" class="expand-icon" width="20"></i>
                     </div>
                     <div class="syllabus-content">
                         <div class="module-list">
                             <div class="module-item">
-                                <span class="unit-badge">Module I</span>
-                                <p>Intro to JS: Client/Server side, Lexical structure, Variables, Operators, Control flow.</p>
+                                <span class="unit-badge">Syllabus</span>
+                                <p>Detailed module units for Cyber Security / NLP will be updated soon.</p>
                             </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Module II</span>
-                                <p>Objects & Inheritance: Creating objects, Accessors, Prototypes, Classes, Constructors.</p>
-                            </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Module III</span>
-                                <p>Arrays: Declaring, Accessing, Built-in methods, Iterators, Nesting.</p>
-                            </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Module IV</span>
-                                <p>DOM: BOM vs DOM, DOM Tree, Node properties, Event Handling.</p>
-                            </div>
-                             <div class="module-item">
-                                <span class="unit-badge">Module V</span>
-                                <p>Built-in Objects: String, Math, Date, RegExp, Maps, Sets, JSON, Error Handling.</p>
-                            </div>
-                        </div>
-                        <div class="books-section">
-                            <span class="section-label"><i data-lucide="book" width="14"></i> Text Book</span>
-                            <p>"JAVASCRIPT Syntax and Practices" by Dangi S.</p>
-                        </div>
-                        <div class="syllabus-actions">
-                            <a class="syllabus-button" href="https://drive.google.com/file/d/1Ly_GLz3B9RwSb6tmLTu6XTnCKHrerciq/view?usp=drive_link" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
-                                <i data-lucide="external-link" width="16"></i>
-                                Detailed Syllabus
-                            </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- SUBJECT 4: MACHINE LEARNING -->
+                <!-- SUBJECT 4: BASICS OF ELECTRONICS -->
                 <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
                     <div class="syllabus-header">
                         <div class="subject-info">
-                            <span class="subject-code">BCA23208T</span>
-                            <span class="subject-title">Machine Learning</span>
+                            <span class="subject-code">AECC-IV</span>
+                            <span class="subject-title">Basics of Electronics</span>
                         </div>
                         <i data-lucide="chevron-down" class="expand-icon" width="20"></i>
                     </div>
                     <div class="syllabus-content">
                         <div class="module-list">
                             <div class="module-item">
-                                <span class="unit-badge">Module I</span>
-                                <p>Intro: Types of ML (Supervised, Unsupervised, Reinforcement), Data Preprocessing, EDA.</p>
+                                <span class="unit-badge">Syllabus</span>
+                                <p>Detailed module units for Basics of Electronics will be updated soon.</p>
                             </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Module II</span>
-                                <p>Supervised Learning: Regression, KNN, SVM, Naïve Bayes, Decision Tree.</p>
-                            </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Module III</span>
-                                <p>Unsupervised Learning: K-means, Hierarchical Clustering, PCA.</p>
-                            </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Module IV</span>
-                                <p>Model Performance: Evaluation metrics (Accuracy, Precision, Recall), Cross-validation.</p>
-                            </div>
-                        </div>
-                        <div class="books-section">
-                            <span class="section-label"><i data-lucide="book" width="14"></i> Text Book</span>
-                            <p>"Machine Learning" by Tom M. Mitchell</p>
-                        </div>
-                        <div class="syllabus-actions">
-                            <a class="syllabus-button" href="https://drive.google.com/file/d/1N1ZyXR1tfZsj_npDWVaNQ7CggTxCc4s1/view?usp=drive_link" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
-                                <i data-lucide="external-link" width="16"></i>
-                                Detailed Syllabus
-                            </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- SUBJECT 5: MATHEMATICS -->
+                <!-- SUBJECT 5: LEGAL AWARENESS -->
                 <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
                     <div class="syllabus-header">
                         <div class="subject-info">
-                            <span class="subject-code">BCA23209T</span>
-                            <span class="subject-title">Mathematics</span>
+                            <span class="subject-code">VAC-III</span>
+                            <span class="subject-title">Legal Awareness</span>
                         </div>
                         <i data-lucide="chevron-down" class="expand-icon" width="20"></i>
                     </div>
                     <div class="syllabus-content">
                         <div class="module-list">
                             <div class="module-item">
-                                <span class="unit-badge">Module I</span>
-                                <p>Sets, Relations & Functions: Venn diagrams, Equivalence relations, One-to-one/Onto functions.</p>
+                                <span class="unit-badge">Syllabus</span>
+                                <p>Detailed module units for Legal Awareness will be updated soon.</p>
                             </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Module II</span>
-                                <p>Determinants & Matrices: Rank, Eigenvalues, Eigenvectors, Cayley-Hamilton theorem.</p>
-                            </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Module III</span>
-                                <p>Combinatorics: Permutations, Combinations, Recurrence relations.</p>
-                            </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Module IV</span>
-                                <p>Sequence & Series: AP, GP, Convergence, Divergence, Infinite series.</p>
-                            </div>
-                        </div>
-                        <div class="syllabus-actions">
-                            <a class="syllabus-button" href="https://drive.google.com/file/d/1XAJ6OWNyb2rkSr-gj1bGWUKqfM9qJB7T/view?usp=drive_link" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
-                                <i data-lucide="external-link" width="16"></i>
-                                Detailed Syllabus
-                            </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- SUBJECT 6: MOBILE APP DEV -->
+                <!-- SUBJECT 6: MINOR PROJECT -->
                 <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
                     <div class="syllabus-header">
                         <div class="subject-info">
-                            <span class="subject-code">BCA23210T</span>
-                            <span class="subject-title">Mobile App Dev</span>
+                            <span class="subject-code">BCA23301P</span>
+                            <span class="subject-title">Minor Project</span>
                         </div>
                         <i data-lucide="chevron-down" class="expand-icon" width="20"></i>
                     </div>
                     <div class="syllabus-content">
                         <div class="module-list">
                             <div class="module-item">
-                                <span class="unit-badge">Module I</span>
-                                <p>Intro to Android: SDK, Android Studio, Manifest file, App Anatomy.</p>
+                                <span class="unit-badge">Guidelines</span>
+                                <p>Project guidelines and milestones will be updated soon.</p>
                             </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Module II</span>
-                                <p>App Setup: Activities, Services, Intents, Permissions.</p>
-                            </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Module III</span>
-                                <p>UI Design: Layouts, Screen elements, Animation.</p>
-                            </div>
-                            <div class="module-item">
-                                <span class="unit-badge">Module V</span>
-                                <p>Storage & APIs: SQLite, Content Providers, Networking APIs.</p>
-                            </div>
-                        </div>
-                        <div class="books-section">
-                            <span class="section-label"><i data-lucide="book" width="14"></i> Text Book</span>
-                            <p>"Android Wireless Application Development" by Lauren Darcey</p>
-                        </div>
-                        <div class="syllabus-actions">
-                            <a class="syllabus-button" href="https://drive.google.com/file/d/1rH_y1f9Cy-hB2P9V-3plZ0m7Y3FdUWlZ/view?usp=drive_link" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
-                                <i data-lucide="external-link" width="16"></i>
-                                Detailed Syllabus
-                            </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- SUBJECT 7: OPERATING SYSTEMS LABORATORY -->
+                <!-- SUBJECT 7: LABORATORY-V -->
                 <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
                     <div class="syllabus-header">
                         <div class="subject-info">
-                            <span class="subject-code">BCA23205P</span>
-                            <span class="subject-title">Operating Systems Laboratory</span>
+                            <span class="subject-code">BCA23303P / BCA23304P</span>
+                            <span class="subject-title">Laboratory-V (Cyber Security / NLP)</span>
                         </div>
                         <i data-lucide="chevron-down" class="expand-icon" width="20"></i>
                     </div>
@@ -1806,64 +1283,8 @@
                         <div class="module-list">
                             <div class="module-item">
                                 <span class="unit-badge">Lab Work</span>
-                                <p>Shell scripting, process and thread experiments, CPU scheduling simulations, memory management and file system exercises.</p>
+                                <p>Laboratory assignments will be updated soon.</p>
                             </div>
-                        </div>
-                        <div class="syllabus-actions">
-                            <a class="syllabus-button" href="https://drive.google.com/file/d/171EPEuTQU2630iZYhUNSqinHK6gN8_rg/view?usp=drive_link" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
-                                <i data-lucide="external-link" width="16"></i>
-                                Detailed Syllabus
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SUBJECT 8: MACHINE LEARNING LABORATORY -->
-                <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
-                    <div class="syllabus-header">
-                        <div class="subject-info">
-                            <span class="subject-code">BCA23208P</span>
-                            <span class="subject-title">Machine Learning Laboratory</span>
-                        </div>
-                        <i data-lucide="chevron-down" class="expand-icon" width="20"></i>
-                    </div>
-                    <div class="syllabus-content">
-                        <div class="module-list">
-                            <div class="module-item">
-                                <span class="unit-badge">Lab Work</span>
-                                <p>Data preprocessing, model training with regression/classification, evaluation metrics, and experiment tracking using ML toolkits.</p>
-                            </div>
-                        </div>
-                        <div class="syllabus-actions">
-                            <a class="syllabus-button" href="https://drive.google.com/file/d/1NnRVZVjDqAEp0FrCTaZ1z54o8DbFIfYC/view?usp=drive_link" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
-                                <i data-lucide="external-link" width="16"></i>
-                                Detailed Syllabus
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SUBJECT 9: ADVANCED WEB TECHNOLOGY LABORATORY -->
-                <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
-                    <div class="syllabus-header">
-                        <div class="subject-info">
-                            <span class="subject-code">BCA23207P</span>
-                            <span class="subject-title">Advanced Web Technology Laboratory</span>
-                        </div>
-                        <i data-lucide="chevron-down" class="expand-icon" width="20"></i>
-                    </div>
-                    <div class="syllabus-content">
-                        <div class="module-list">
-                            <div class="module-item">
-                                <span class="unit-badge">Lab Work</span>
-                                <p>Interactive web projects with modern JS/DOM APIs, REST/JSON integration, client-side storage, and deployment-ready builds.</p>
-                            </div>
-                        </div>
-                        <div class="syllabus-actions">
-                            <a class="syllabus-button" href="https://drive.google.com/file/d/1J0c-1C8Tny3NZuEuosdnupM2pNoci6-8/view?usp=drive_link" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
-                                <i data-lucide="external-link" width="16"></i>
-                                Detailed Syllabus
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -1873,14 +1294,7 @@
 
     </div>
 
-    <!-- TOAST ELEMENT -->
-    <div id="toast" class="toast hidden">
-        <i data-lucide="bell" width="16"></i>
-        <span>You will be notified when live.</span>
-    </div>
-
     <script>
-        // --- INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
             createBinaryRain();
@@ -1889,13 +1303,9 @@
             renderTodaySchedule();
             highlightWeeklyDay();
             setupScrollAnimations();
-            observeCards();
-            
-            // Initial slider sync
             setTimeout(syncAllSliders, 100);
         });
 
-        // Window resize listener to keep gliders in place
         window.addEventListener('resize', syncAllSliders);
 
         function syncAllSliders() {
@@ -1909,28 +1319,23 @@
         function updateSliderPosition(sliderId, activeElement) {
             const slider = document.getElementById(sliderId);
             if (!slider || !activeElement) return;
-
-            // Get the padding of the parent segmented control
-            const padding = (sliderId === 'main-nav-slider') ? 4 : 3;
-            
             slider.style.width = activeElement.offsetWidth + 'px';
-            // OffsetLeft is relative to the positioned parent (.segmented-control)
             slider.style.transform = `translateX(${activeElement.offsetLeft}px)`;
         }
 
-        // --- BINARY RAIN ---
         function createBinaryRain() {
             const container = document.getElementById('binary-rain');
+            container.innerHTML = '';
             const columnCount = 15;
 
             for (let i = 0; i < columnCount; i++) {
                 const column = document.createElement('div');
                 column.className = 'binary-column';
                 column.style.left = (Math.random() * 95 + 2.5) + '%';
-                column.style.animationDelay = Math.random() * 15 + 's';
+                column.style.animationDelay = (Math.random() * 12) + 's';
                 column.style.animationDuration = (10 + Math.random() * 10) + 's';
                 
-                const digitCount = Math.floor(Math.random() * 8) + 5;
+                const digitCount = Math.floor(Math.random() * 8) + 6;
                 for (let j = 0; j < digitCount; j++) {
                     const digit = document.createElement('span');
                     digit.className = 'binary-digit';
@@ -1938,31 +1343,12 @@
                     if (rand > 0.85) digit.classList.add('glow');
                     else if (rand > 0.6) digit.classList.add('alt');
                     digit.textContent = Math.random() > 0.5 ? '1' : '0';
-                    digit.style.animationDuration = (12 + Math.random() * 15) + 's';
-                    digit.style.animationDelay = '-' + (Math.random() * 20) + 's';
-                    digit.style.fontSize = (12 + Math.random() * 6) + 'px';
                     column.appendChild(digit);
                 }
                 container.appendChild(column);
             }
-
-            const individualCount = 20;
-            for (let i = 0; i < individualCount; i++) {
-                const digit = document.createElement('span');
-                digit.className = 'binary-digit';
-                const rand = Math.random();
-                if (rand > 0.8) digit.classList.add('glow');
-                else if (rand > 0.5) digit.classList.add('alt');
-                digit.textContent = Math.random() > 0.5 ? '1' : '0';
-                digit.style.left = Math.random() * 100 + '%';
-                digit.style.animationDuration = (15 + Math.random() * 20) + 's';
-                digit.style.animationDelay = '-' + (Math.random() * 25) + 's';
-                digit.style.fontSize = (10 + Math.random() * 8) + 'px';
-                container.appendChild(digit);
-            }
         }
 
-        // --- SCROLL ANIMATIONS ---
         function setupScrollAnimations() {
             const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
             const observer = new IntersectionObserver((entries) => {
@@ -1974,24 +1360,12 @@
             document.querySelectorAll('.card, .day-panel, .syllabus-panel').forEach(el => observer.observe(el));
         }
 
-        function observeCards() {
-            setTimeout(() => {
-                document.querySelectorAll('.card').forEach((card, index) => {
-                    setTimeout(() => card.classList.add('visible'), index * 50);
-                });
-            }, 300);
-        }
-
-        // --- MAIN TAB SWITCHING ---
         function switchTab(tabId) {
             const nav = document.getElementById('nav');
             const segments = nav.querySelectorAll('.segment');
             segments.forEach(el => el.classList.remove('active'));
             
-            let activeSegment;
-            if(tabId === 'routine') activeSegment = segments[0];
-            if(tabId === 'syllabus') activeSegment = segments[1];
-            
+            let activeSegment = (tabId === 'routine') ? segments[0] : segments[1];
             activeSegment.classList.add('active');
             updateSliderPosition('main-nav-slider', activeSegment);
 
@@ -2006,7 +1380,6 @@
             setTimeout(setupScrollAnimations, 100);
         }
 
-        // --- ROUTINE SUB-TAB SWITCHING ---
         function switchRoutineView(viewName, element) {
             document.querySelectorAll('.sub-segment').forEach(el => el.classList.remove('active'));
             element.classList.add('active');
@@ -2019,65 +1392,47 @@
         function toggleDay(element) { element.classList.toggle('expanded'); }
         function toggleSyllabus(element) { element.classList.toggle('expanded'); }
 
-        // --- DYNAMIC SCHEDULE LOGIC ---
         function renderTodaySchedule() {
             const dayIndex = new Date().getDay();
             const container = document.getElementById('today-timeline');
             const now = new Date();
             const currentMins = now.getHours() * 60 + now.getMinutes();
             
-            const holidayName = checkHoliday();
-            if (holidayName) {
-                container.innerHTML = `
-                    <div style="text-align:center; padding:50px 40px; color:var(--text-secondary);">
-                        <i data-lucide="party-popper" width="56" style="margin-bottom:20px; opacity:0.8; color: #fbbf24;"></i><br>
-                        <span style="font-size:20px; font-weight:700; color:var(--text-primary); display:block; margin-bottom:8px;">It's a Holiday!</span>
-                        <span style="font-size:16px; font-weight:500; color:#fbbf24;">${holidayName}</span><br>
-                        <span style="font-size:14px; opacity:0.7; margin-top:16px; display:block;">No classes today. Enjoy your well-deserved break!</span>
-                    </div>`;
-                const nextClassEl = document.getElementById('next-class-name');
-                if(nextClassEl) nextClassEl.textContent = holidayName + ' - Holiday!';
-                lucide.createIcons();
-                return;
-            }
-            
             const schedules = {
                 1: [
-                    { time: '08:45', sub: 'Comp. Architecture', teach: 'Mr. Arindom Ain', icon: 'cpu' },
-                    { time: '09:45', sub: 'Mathematics', teach: 'Dr. Ankur Jyoti Kashyap', icon: 'calculator' },
-                    { time: '10:45', sub: 'Mobile App Dev', teach: 'Mr. Rajarshi Paul', icon: 'smartphone' },
-                    { time: '12:45', sub: 'Artificial Intelligence', teach: 'Mr. Pranjal Das', icon: 'brain' },
-                    { time: '13:45', sub: 'Adv Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul', icon: 'code' },
-                    { time: '14:45', sub: 'Lab: Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul', icon: 'laptop' }
+                    { time: '08:45', sub: 'Laboratory-V', teach: 'Dr. Upasana Sarma / Mr. Rajarshi Paul', icon: 'laptop' },
+                    { time: '09:45', sub: 'Laboratory-V', teach: 'Dr. Upasana Sarma / Mr. Rajarshi Paul', icon: 'laptop' },
+                    { time: '10:45', sub: 'Minor Project', teach: 'All Faculty', icon: 'folder-git-2' },
+                    { time: '11:45', sub: 'Cyber Security / NLP', teach: 'Dr. Upasana Sarma / Mr. Rajarshi Paul', icon: 'shield' },
+                    { time: '13:45', sub: 'Legal Awareness', teach: 'VAC-III Faculty', icon: 'scale' },
+                    { time: '14:45', sub: 'Minor Project', teach: 'All Faculty', icon: 'folder-git-2' }
                 ],
                 2: [
-                    { time: '08:45', sub: 'Comp. Architecture', teach: 'Mr. Arindom Ain', icon: 'cpu' },
-                    { time: '09:45', sub: 'Lab: OS', teach: 'Mr. Arindom Ain', icon: 'terminal' },
-                    { time: '10:45', sub: 'Lab: OS', teach: 'Mr. Arindom Ain', icon: 'terminal' },
-                    { time: '12:45', sub: 'Mathematics', teach: 'Dr. Ankur Jyoti Kashyap', icon: 'calculator' }
+                    { time: '08:45', sub: 'Basics of Electronics', teach: 'Dr. Anindita Borah', icon: 'cpu' },
+                    { time: '09:45', sub: 'DAA', teach: 'Mr. Pranjal Das', icon: 'git-merge' },
+                    { time: '10:45', sub: 'Computer Network', teach: 'Mr. Jeetumoni Barman', icon: 'network' },
+                    { time: '11:45', sub: 'Legal Awareness', teach: 'VAC-III Faculty', icon: 'scale' }
                 ],
                 3: [
-                    { time: '08:45', sub: 'Artificial Intelligence', teach: 'Mr. Pranjal Das', icon: 'brain' },
-                    { time: '09:45', sub: 'Artificial Intelligence', teach: 'Mr. Pranjal Das', icon: 'brain' },
-                    { time: '10:45', sub: 'Free', teach: '-', icon: 'coffee' },
-                    { time: '12:45', sub: 'Comp. Architecture', teach: 'Mr. Arindom Ain', icon: 'cpu' },
-                    { time: '13:45', sub: 'Adv Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul', icon: 'code' },
-                    { time: '14:45', sub: 'Lab: Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul', icon: 'laptop' }
+                    { time: '08:45', sub: 'Laboratory-V', teach: 'Dr. Upasana Sarma / Mr. Rajarshi Paul', icon: 'laptop' },
+                    { time: '09:45', sub: 'Laboratory-V', teach: 'Dr. Upasana Sarma / Mr. Rajarshi Paul', icon: 'laptop' },
+                    { time: '10:45', sub: 'Computer Network', teach: 'Mr. Jeetumoni Barman', icon: 'network' },
+                    { time: '11:45', sub: 'Free Period', teach: 'Self-Study', icon: 'coffee' },
+                    { time: '13:45', sub: 'Cyber Security / NLP', teach: 'Dr. Upasana Sarma / Mr. Rajarshi Paul', icon: 'shield' }
                 ],
                 4: [
-                    { time: '09:45', sub: 'Lab: OS', teach: 'Mr. Arindom Ain', icon: 'terminal' },
-                    { time: '10:45', sub: 'Lab: OS', teach: 'Mr. Arindom Ain', icon: 'terminal' },
-                    { time: '12:45', sub: 'Mobile App Dev', teach: 'Mr. Rajarshi Paul', icon: 'smartphone' },
-                    { time: '13:45', sub: 'Mobile App Dev', teach: 'Mr. Rajarshi Paul', icon: 'smartphone' },
-                    { time: '14:45', sub: 'Library', teach: '-', icon: 'book' }
+                    { time: '08:45', sub: 'Basics of Electronics', teach: 'Dr. Anindita Borah', icon: 'cpu' },
+                    { time: '09:45', sub: 'Cyber Security / NLP', teach: 'Dr. Upasana Sarma / Mr. Rajarshi Paul', icon: 'shield' },
+                    { time: '10:45', sub: 'Laboratory-V', teach: 'Dr. Upasana Sarma / Mr. Rajarshi Paul', icon: 'laptop' },
+                    { time: '11:45', sub: 'Laboratory-V', teach: 'Dr. Upasana Sarma / Mr. Rajarshi Paul', icon: 'laptop' },
+                    { time: '13:45', sub: 'DAA', teach: 'Mr. Pranjal Das', icon: 'git-merge' }
                 ],
                 5: [
-                    { time: '08:45', sub: 'Mobile App Dev', teach: 'Mr. Rajarshi Paul', icon: 'smartphone' },
-                    { time: '09:45', sub: 'Mathematics', teach: 'Dr. Ankur Jyoti Kashyap', icon: 'calculator' },
-                    { time: '10:45', sub: 'Library', teach: '-', icon: 'book' },
-                    { time: '12:45', sub: 'Artificial Intelligence', teach: 'Mr. Pranjal Das', icon: 'brain' },
-                    { time: '13:45', sub: 'Adv Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul', icon: 'code' },
-                    { time: '14:45', sub: 'Lab: Web / ML', teach: 'Mr. Jeetumani Barman / Mr. Rajarshi Paul', icon: 'laptop' }
+                    { time: '08:45', sub: 'Basics of Electronics', teach: 'Dr. Anindita Borah', icon: 'cpu' },
+                    { time: '09:45', sub: 'Cyber Security / NLP', teach: 'Dr. Upasana Sarma / Mr. Rajarshi Paul', icon: 'shield' },
+                    { time: '10:45', sub: 'DAA', teach: 'Mr. Pranjal Das', icon: 'git-merge' },
+                    { time: '11:45', sub: 'Computer Network', teach: 'Mr. Jeetumoni Barman', icon: 'network' },
+                    { time: '13:45', sub: 'Legal Awareness', teach: 'VAC-III Faculty', icon: 'scale' }
                 ]
             };
 
@@ -2107,7 +1462,7 @@
             }
 
             let html = '';
-            todaysClasses.forEach((item, index) => {
+            todaysClasses.forEach((item) => {
                 const [h, m] = item.time.split(':').map(Number);
                 const startMins = h * 60 + m;
                 const endMins = startMins + 60;
@@ -2117,14 +1472,9 @@
                     activeClass = 'glass-active current-class';
                     progressBar = `<div class="class-progress" style="width: ${((currentMins - startMins) / 60) * 100}%"></div>`;
                 }
-                const isFree = item.sub === 'Free' || item.sub === 'Library';
+                const isFree = item.sub === 'Free Period' || item.sub === 'Break';
                 
-                // Display friendly label for Free/Library slots
-                const subjectLabel = item.sub === 'Free' ? 'Free Period' : (item.sub === 'Library' ? 'Library' : item.sub);
-                const freeLabel = item.sub === 'Free' ? 'Self-study / Break' : 'Self-study';
-                const teacherDisplay = isFree ? `<span class="teacher" style="font-style:italic;">${freeLabel}</span>` : `<span class="teacher">${item.teach}</span>`;
-                
-                html += `<div class="timeline-row"><div class="time-col">${item.time}<span class="duration">60m</span></div><div class="event-col glass-panel ${activeClass} ${isFree ? 'break' : ''}"><span class="subject"><i data-lucide="${item.icon}" width="18" class="subject-icon"></i>${subjectLabel}</span>${teacherDisplay}${progressBar}</div></div>`;
+                html += `<div class="timeline-row"><div class="time-col">${item.time}<span class="duration">60m</span></div><div class="event-col glass-panel ${activeClass} ${isFree ? 'break' : ''}"><span class="subject"><i data-lucide="${item.icon}" width="18" class="subject-icon"></i>${item.sub}</span><span class="teacher">${item.teach}</span>${progressBar}</div></div>`;
             });
             container.innerHTML = html;
             lucide.createIcons();
@@ -2142,14 +1492,7 @@
             const now = new Date();
             document.getElementById('clock').textContent = now.toLocaleTimeString('en-US', { hour12: false });
             document.getElementById('date').textContent = now.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' }).toUpperCase();
-            if (now.getSeconds() === 0) { renderTodaySchedule(); }
         }
-
-        const holidays = {
-            "2026-01-14": "Magh Bihu", "2026-01-15": "Magh Bihu", "2026-01-16": "Magh Bihu", "2026-01-26": "Republic Day",
-            "2026-03-04": "Dol Jatra / Holi", "2026-03-21": "Id-Ul-Fitr", "2026-04-03": "Good Friday", "2026-04-14": "Bohag Bihu",
-            "2026-04-15": "Bohag Bihu", "2026-04-16": "Bohag Bihu", "2026-05-01": "May Day", "2026-05-28": "Id-Ud-Zuha", "2026-06-21": "International Yoga Day"
-        };
 
         let currentCalendarDate = new Date();
         function openCalendar() { document.getElementById('calendar-modal').classList.add('active'); renderCalendar(); lucide.createIcons(); }
@@ -2167,36 +1510,15 @@
             ['S', 'M', 'T', 'W', 'T', 'F', 'S'].forEach(day => { const l = document.createElement('div'); l.className='calendar-day-label'; l.textContent=day; grid.appendChild(l); });
             const firstDay = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const daysInPrevMonth = new Date(year, month, 0).getDate();
             const today = new Date();
-            for (let i = firstDay - 1; i >= 0; i--) grid.appendChild(createDayButton(daysInPrevMonth - i, true, false, false, year, month - 1));
+            for (let i = 0; i < firstDay; i++) grid.appendChild(document.createElement('div'));
             for (let day = 1; day <= daysInMonth; day++) {
-                const ds = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                grid.appendChild(createDayButton(day, false, today.getFullYear()===year && today.getMonth()===month && today.getDate()===day, new Date(year, month, day).getDay()%6===0, year, month, holidays[ds]!==undefined));
+                const b = document.createElement('button'); b.className = 'calendar-day';
+                if(today.getFullYear()===year && today.getMonth()===month && today.getDate()===day) b.classList.add('today');
+                b.textContent = day;
+                grid.appendChild(b);
             }
-            const rem = 42 - (firstDay + daysInMonth);
-            for (let day = 1; day <= rem; day++) grid.appendChild(createDayButton(day, true, false, false, year, month + 1));
         }
-
-        function createDayButton(day, om, td, we, yr, mo, hol=false) {
-            const b = document.createElement('button'); b.className = 'calendar-day';
-            if(om) b.classList.add('other-month'); if(td) b.classList.add('today'); if(we && !om) b.classList.add('weekend'); if(hol) b.classList.add('holiday');
-            b.textContent = day;
-            if(hol){ const ds = `${yr}-${String(mo+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`; b.onclick = () => showHolidayPopup(ds, holidays[ds]); }
-            return b;
-        }
-
-        let holidayPopupTimeout;
-        function showHolidayPopup(ds, hn) {
-            const p = document.getElementById('holiday-popup');
-            document.getElementById('holiday-date').textContent = new Date(ds).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
-            document.getElementById('holiday-name').textContent = hn;
-            p.classList.add('show');
-            if (holidayPopupTimeout) clearTimeout(holidayPopupTimeout);
-            holidayPopupTimeout = setTimeout(() => p.classList.remove('show'), 3000);
-        }
-
-        function checkHoliday() { const t = new Date(); return holidays[`${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`]; }
     </script>
 </body>
 </html>
