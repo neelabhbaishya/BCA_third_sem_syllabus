@@ -75,7 +75,7 @@
             overflow-x: hidden;
         }
 
-        /* --- FIXED ANIMATED BINARY RAIN BACKGROUND --- */
+        /* --- ANIMATED BINARY RAIN BACKGROUND --- */
         .binary-container {
             position: fixed;
             top: 0;
@@ -87,42 +87,59 @@
             z-index: 0;
         }
 
-        .binary-column {
-            position: absolute;
-            top: -120px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-            font-size: 13px;
-            animation: binaryFall linear infinite;
-        }
-
         .binary-digit {
-            color: rgba(100, 200, 150, 0.3);
-            text-shadow: 0 0 8px rgba(100, 200, 150, 0.5);
+            position: absolute;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            font-weight: 300;
+            color: rgba(100, 200, 150, 0.15);
+            font-size: 14px;
+            animation: binaryFall linear infinite;
+            text-shadow: 0 0 10px rgba(100, 200, 150, 0.3);
             user-select: none;
+            /* Hardware acceleration for mobile smoothness */
+            will-change: transform, opacity; 
         }
 
         .binary-digit.alt {
-            color: rgba(150, 180, 255, 0.25);
-            text-shadow: 0 0 8px rgba(150, 180, 255, 0.4);
+            color: rgba(150, 180, 255, 0.12);
+            text-shadow: 0 0 10px rgba(150, 180, 255, 0.25);
         }
 
         .binary-digit.glow {
-            color: rgba(100, 255, 150, 0.7);
-            text-shadow: 0 0 12px rgba(100, 255, 150, 0.9);
-            font-weight: 600;
+            color: rgba(100, 255, 150, 0.25);
+            text-shadow: 0 0 15px rgba(100, 255, 150, 0.5);
+            font-weight: 500;
         }
 
         @keyframes binaryFall {
-            0% {
+            0% { 
                 transform: translateY(-100px);
+                opacity: 0;
             }
-            100% {
-                transform: translateY(calc(100vh + 150px));
+            5% {
+                opacity: 1;
             }
+            95% {
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(calc(100vh + 100px));
+                opacity: 0;
+            }
+        }
+
+        .binary-column {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            animation: columnFade 15s ease-in-out infinite;
+        }
+
+        @keyframes columnFade {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
         }
 
         /* --- ENHANCED GLASS STYLES --- */
@@ -826,6 +843,60 @@
             margin: 0; 
         }
 
+        .books-section { 
+            margin-top: 28px; 
+            background: rgba(0,0,0,0.25); 
+            padding: 22px; 
+            border-radius: 18px; 
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .section-label { 
+            font-size: 11px; 
+            text-transform: uppercase; 
+            color: var(--text-tertiary); 
+            font-weight: 700; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px;
+            margin-bottom: 10px; 
+            letter-spacing: 1px;
+        }
+
+        .books-section p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .syllabus-actions {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .syllabus-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 12px;
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+            transition: transform 0.2s var(--ease-apple), box-shadow 0.2s var(--ease-apple), background 0.2s var(--ease-apple);
+        }
+
+        .syllabus-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+            background: #f5f5f5;
+        }
+
         /* --- CALENDAR BUTTON & MODAL --- */
         .calendar-btn {
             position: fixed;
@@ -1053,12 +1124,12 @@
                             <i data-lucide="chevron-down" class="expand-icon" width="18"></i>
                         </div>
                         <div class="day-details">
-                            08:45 - Laboratory-V (Cyber Security / NLP) (Dr. Upasana Sarma / Mr. Rajarshi Paul)<br>
-                            09:45 - Laboratory-V (Cyber Security / NLP) (Dr. Upasana Sarma / Mr. Rajarshi Paul)<br>
-                            10:45 - Minor Project (All Faculty)<br>
-                            11:45 - Cyber Security / NLP (Dr. Upasana Sarma / Mr. Rajarshi Paul)<br>
-                            01:45 - Legal Awareness (VAC-III)<br>
-                            02:45 - Minor Project (All Faculty)
+                            08:45 - Laboratory-V (US/RP)<br>
+                            09:45 - Laboratory-V (US/RP)<br>
+                            10:45 - Project (All Faculty)<br>
+                            11:45 - Cyber Security / NLP (US/RP)<br>
+                            01:45 - Legal Awareness<br>
+                            02:45 - Project (All Faculty)
                         </div>
                     </div>
 
@@ -1075,7 +1146,7 @@
                             08:45 - Basics of Electronics (Dr. Anindita Borah)<br>
                             09:45 - Design and Analysis of Algorithms (Mr. Pranjal Das)<br>
                             10:45 - Computer Network (Mr. Jeetumoni Barman)<br>
-                            11:45 - Legal Awareness (VAC-III)
+                            11:45 - Legal Awareness
                         </div>
                     </div>
 
@@ -1089,11 +1160,11 @@
                             <i data-lucide="chevron-down" class="expand-icon" width="18"></i>
                         </div>
                         <div class="day-details">
-                            08:45 - Laboratory-V (Cyber Security / NLP) (Dr. Upasana Sarma / Mr. Rajarshi Paul)<br>
-                            09:45 - Laboratory-V (Cyber Security / NLP) (Dr. Upasana Sarma / Mr. Rajarshi Paul)<br>
+                            08:45 - Laboratory-V (US/RP)<br>
+                            09:45 - Laboratory-V (US/RP)<br>
                             10:45 - Computer Network (Mr. Jeetumoni Barman)<br>
                             <span class="free-slot">11:45 - ☕ Free Period / Self-Study</span><br>
-                            01:45 - Cyber Security / NLP (Dr. Upasana Sarma / Mr. Rajarshi Paul)
+                            01:45 - Cyber Security / NLP (US/RP)
                         </div>
                     </div>
 
@@ -1108,9 +1179,9 @@
                         </div>
                         <div class="day-details">
                             08:45 - Basics of Electronics (Dr. Anindita Borah)<br>
-                            09:45 - Cyber Security / NLP (Dr. Upasana Sarma / Mr. Rajarshi Paul)<br>
-                            10:45 - Laboratory-V (Cyber Security / NLP) (Dr. Upasana Sarma / Mr. Rajarshi Paul)<br>
-                            11:45 - Laboratory-V (Cyber Security / NLP) (Dr. Upasana Sarma / Mr. Rajarshi Paul)<br>
+                            09:45 - Cyber Security / NLP (US/RP)<br>
+                            10:45 - Laboratory-V (US/RP)<br>
+                            11:45 - Laboratory-V (US/RP)<br>
                             01:45 - Design and Analysis of Algorithms (Mr. Pranjal Das)
                         </div>
                     </div>
@@ -1126,10 +1197,10 @@
                         </div>
                         <div class="day-details">
                             08:45 - Basics of Electronics (Dr. Anindita Borah)<br>
-                            09:45 - Cyber Security / NLP (Dr. Upasana Sarma / Mr. Rajarshi Paul)<br>
+                            09:45 - Cyber Security / NLP (US/RP)<br>
                             10:45 - Design and Analysis of Algorithms (Mr. Pranjal Das)<br>
                             11:45 - Computer Network (Mr. Jeetumoni Barman)<br>
-                            01:45 - Legal Awareness (VAC-III)
+                            01:45 - Legal Awareness
                         </div>
                     </div>
                     
@@ -1172,6 +1243,12 @@
                                 <p>Detailed module units for Computer Network will be updated soon.</p>
                             </div>
                         </div>
+                        <div class="syllabus-actions">
+                            <a class="syllabus-button" href="enter link here" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
+                                <i data-lucide="external-link" width="16"></i>
+                                Detailed Syllabus
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -1191,15 +1268,21 @@
                                 <p>Detailed module units for DAA will be updated soon.</p>
                             </div>
                         </div>
+                        <div class="syllabus-actions">
+                            <a class="syllabus-button" href="enter link here" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
+                                <i data-lucide="external-link" width="16"></i>
+                                Detailed Syllabus
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <!-- SUBJECT 3: CYBER SECURITY / NLP -->
+                <!-- SUBJECT: CYBER SECURITY (THEORY) -->
                 <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
                     <div class="syllabus-header">
                         <div class="subject-info">
-                            <span class="subject-code">BCA23303T / BCA23304T</span>
-                            <span class="subject-title">Cyber Security / Natural Language Processing</span>
+                            <span class="subject-code">BCA23303T</span>
+                            <span class="subject-title">Cyber Security</span>
                         </div>
                         <i data-lucide="chevron-down" class="expand-icon" width="20"></i>
                     </div>
@@ -1207,8 +1290,59 @@
                         <div class="module-list">
                             <div class="module-item">
                                 <span class="unit-badge">Syllabus</span>
-                                <p>Detailed module units for Cyber Security / NLP will be updated soon.</p>
+                                <p>Detailed module units for Cyber Security will be updated soon.</p>
                             </div>
+                        </div>
+                        <div class="syllabus-actions">
+                            <a class="syllabus-button" href="enter link here" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
+                                <i data-lucide="external-link" width="16"></i>
+                                Detailed Syllabus
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBJECT 3: NATURAL LANGUAGE PROCESSING (THEORY) -->
+                <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
+                    <div class="syllabus-header">
+                        <div class="subject-info">
+                            <span class="subject-code">BCA23304T</span>
+                            <span class="subject-title">Natural Language Processing</span>
+                        </div>
+                        <i data-lucide="chevron-down" class="expand-icon" width="20"></i>
+                    </div>
+                    <div class="syllabus-content">
+                        <div class="module-list">
+                            <div class="module-item">
+                                <span class="unit-badge">Module 1</span>
+                                <p>Introduction to NLP, Applications (chatbots, search engines, sentiment analysis), tokenization, stop-word removal, stemming, and lemmatization.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Module 2</span>
+                                <p>Basic Language Modeling & N-Grams: Unigrams, Bigrams, Trigrams, probability models, text prediction, and smoothing techniques.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Module 3</span>
+                                <p>Syntax & Semantics: POS tagging, shallow parsing, dependency parsing, WordNet, lexical databases, and semantic similarity.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Module 4</span>
+                                <p>Machine Learning for NLP: Naive Bayes text classification, TF, TF-IDF, Bag of Words vector representations, and sentiment analysis.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Module 5</span>
+                                <p>Deep Learning in NLP: Word embeddings (Word2Vec, GloVe), Recurrent Neural Networks (RNNs), chatbots, and NLP ethics/bias.</p>
+                            </div>
+                        </div>
+                        <div class="books-section">
+                            <span class="section-label"><i data-lucide="book" width="14"></i> Text Book</span>
+                            <p>"Speech and Language Processing" by Daniel Jurafsky & James H. Martin</p>
+                        </div>
+                        <div class="syllabus-actions">
+                            <a class="syllabus-button" href="https://drive.google.com/file/d/1G8vI92LL2JlI259Y-Q9CQZ0U0n3WXZVP/view?usp=drive_link" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
+                                <i data-lucide="external-link" width="16"></i>
+                                Detailed Syllabus
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1229,6 +1363,12 @@
                                 <p>Detailed module units for Basics of Electronics will be updated soon.</p>
                             </div>
                         </div>
+                        <div class="syllabus-actions">
+                            <a class="syllabus-button" href="enter link here" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
+                                <i data-lucide="external-link" width="16"></i>
+                                Detailed Syllabus
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -1236,7 +1376,7 @@
                 <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
                     <div class="syllabus-header">
                         <div class="subject-info">
-                            <span class="subject-code">VAC-III</span>
+                            <span class="subject-code">BLW24170T (VAC-III)</span>
                             <span class="subject-title">Legal Awareness</span>
                         </div>
                         <i data-lucide="chevron-down" class="expand-icon" width="20"></i>
@@ -1244,9 +1384,27 @@
                     <div class="syllabus-content">
                         <div class="module-list">
                             <div class="module-item">
-                                <span class="unit-badge">Syllabus</span>
-                                <p>Detailed module units for Legal Awareness will be updated soon.</p>
+                                <span class="unit-badge">Unit 1</span>
+                                <p>Outline of Indian Legal System: Nature, scope, sources, and importance of law, basics of Indian Constitution, Free Legal Aid, RTI, Right to Privacy, PIL, and Writs.</p>
                             </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 2</span>
+                                <p>Vulnerable and the Law: Laws relating to Women, Children, and Aged parents.</p>
+                            </div>
+                            <div class="module-item">
+                                <span class="unit-badge">Unit 3</span>
+                                <p>Criminal Law in India: Introduction to new Criminal Laws in India and main changes brought by the new legislation.</p>
+                            </div>
+                        </div>
+                        <div class="books-section">
+                            <span class="section-label"><i data-lucide="book" width="14"></i> Reference Books</span>
+                            <p>Indu Prakash Singh - Women, Law and Social Change in India; Paras Dewan - Dowry and Protection to Married Women.</p>
+                        </div>
+                        <div class="syllabus-actions">
+                            <a class="syllabus-button" href="https://drive.google.com/file/d/1O-t6-CEE_-gqwW9xXc2QgcXL_yRvgY7k/view?usp=drive_link" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
+                                <i data-lucide="external-link" width="16"></i>
+                                Detailed Syllabus
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1267,15 +1425,21 @@
                                 <p>Project guidelines and milestones will be updated soon.</p>
                             </div>
                         </div>
+                        <div class="syllabus-actions">
+                            <a class="syllabus-button" href="enter link here" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
+                                <i data-lucide="external-link" width="16"></i>
+                                Detailed Syllabus
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <!-- SUBJECT 7: LABORATORY-V -->
+                <!-- SUBJECT: LABORATORY-V (CYBER SECURITY) -->
                 <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
                     <div class="syllabus-header">
                         <div class="subject-info">
-                            <span class="subject-code">BCA23303P / BCA23304P</span>
-                            <span class="subject-title">Laboratory-V (Cyber Security / NLP)</span>
+                            <span class="subject-code">BCA23303P</span>
+                            <span class="subject-title">Laboratory-V (Cyber Security)</span>
                         </div>
                         <i data-lucide="chevron-down" class="expand-icon" width="20"></i>
                     </div>
@@ -1283,8 +1447,39 @@
                         <div class="module-list">
                             <div class="module-item">
                                 <span class="unit-badge">Lab Work</span>
-                                <p>Laboratory assignments will be updated soon.</p>
+                                <p>Detailed lab experiments and guidelines for Cyber Security will be updated soon.</p>
                             </div>
+                        </div>
+                        <div class="syllabus-actions">
+                            <a class="syllabus-button" href="enter link here" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
+                                <i data-lucide="external-link" width="16"></i>
+                                Detailed Syllabus
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUBJECT 7: LABORATORY-V (NATURAL LANGUAGE PROCESSING) -->
+                <div class="glass-panel syllabus-panel" onclick="toggleSyllabus(this)">
+                    <div class="syllabus-header">
+                        <div class="subject-info">
+                            <span class="subject-code">BCA23304P</span>
+                            <span class="subject-title">Laboratory-V (Natural Language Processing)</span>
+                        </div>
+                        <i data-lucide="chevron-down" class="expand-icon" width="20"></i>
+                    </div>
+                    <div class="syllabus-content">
+                        <div class="module-list">
+                            <div class="module-item">
+                                <span class="unit-badge">Lab Work</span>
+                                <p>Hands-on NLP experiments including text preprocessing (NLTK/spaCy), corpus exploration, N-Gram language models, POS tagging, semantic similarity (WordNet), Naive Bayes text classification, TF-IDF feature extraction, feed-forward neural networks for sentiment analysis, word embedding visualization, and chatbot implementation.</p>
+                            </div>
+                        </div>
+                        <div class="syllabus-actions">
+                            <a class="syllabus-button" href="https://drive.google.com/file/d/18UPdijUEgjg3OJAxDouc1QEUEx57iJVE/view?usp=drive_link" target="_blank" rel="noreferrer noopener" onclick="event.stopPropagation();">
+                                <i data-lucide="external-link" width="16"></i>
+                                Detailed Syllabus
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1325,17 +1520,21 @@
 
         function createBinaryRain() {
             const container = document.getElementById('binary-rain');
+            if (!container) return;
             container.innerHTML = '';
+            
+            // Reverted to your original scattered, multi-layered rain
             const columnCount = 15;
 
             for (let i = 0; i < columnCount; i++) {
                 const column = document.createElement('div');
                 column.className = 'binary-column';
                 column.style.left = (Math.random() * 95 + 2.5) + '%';
-                column.style.animationDelay = (Math.random() * 12) + 's';
+                column.style.animationDelay = (Math.random() * 15) + 's';
                 column.style.animationDuration = (10 + Math.random() * 10) + 's';
                 
-                const digitCount = Math.floor(Math.random() * 8) + 6;
+                const digitCount = Math.floor(Math.random() * 8) + 5;
+                
                 for (let j = 0; j < digitCount; j++) {
                     const digit = document.createElement('span');
                     digit.className = 'binary-digit';
@@ -1343,9 +1542,32 @@
                     if (rand > 0.85) digit.classList.add('glow');
                     else if (rand > 0.6) digit.classList.add('alt');
                     digit.textContent = Math.random() > 0.5 ? '1' : '0';
+                    
+                    digit.style.animationDuration = (12 + Math.random() * 15) + 's';
+                    digit.style.animationDelay = '-' + (Math.random() * 20) + 's';
+                    digit.style.fontSize = (12 + Math.random() * 6) + 'px';
+                    
                     column.appendChild(digit);
                 }
                 container.appendChild(column);
+            }
+
+            // Individual scattered drops
+            const individualCount = 20;
+            for (let i = 0; i < individualCount; i++) {
+                const digit = document.createElement('span');
+                digit.className = 'binary-digit';
+                const rand = Math.random();
+                if (rand > 0.8) digit.classList.add('glow');
+                else if (rand > 0.5) digit.classList.add('alt');
+                digit.textContent = Math.random() > 0.5 ? '1' : '0';
+                
+                digit.style.left = (Math.random() * 100) + '%';
+                digit.style.animationDuration = (15 + Math.random() * 20) + 's';
+                digit.style.animationDelay = '-' + (Math.random() * 25) + 's';
+                digit.style.fontSize = (10 + Math.random() * 8) + 'px';
+                
+                container.appendChild(digit);
             }
         }
 
